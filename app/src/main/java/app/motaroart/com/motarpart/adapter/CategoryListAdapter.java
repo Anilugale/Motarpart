@@ -57,8 +57,7 @@ public class CategoryListAdapter extends BaseAdapter {
         TextView cat_qty=(TextView)vi.findViewById(R.id.cat_qty);
 
 
-       /* cat_name.setText(listData.get(i).getName());
-        cat_qty.setText(listData.get(i).getQty()+"");*/
+
 
         return vi;
     }

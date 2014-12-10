@@ -62,7 +62,7 @@ public class ModelActivity extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
 
-                Intent intent =new Intent(ModelActivity.this,ModelActivity.class);
+                Intent intent =new Intent(ModelActivity.this,CategoryActivity.class);
 
                 startActivity(intent);
 
