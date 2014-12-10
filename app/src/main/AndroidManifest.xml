@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="app.motaroart.com.motarpart" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/cart"
+        android:label="Demo"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MakeActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Secound"
+            android:label="@string/title_activity_secound" >
+        </activity>
+        <activity
+            android:name=".Login"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name=".Registration" >
+        </activity>
+        <activity android:name=".ForgetPassword" >
+        </activity>
+        <activity android:name=".Order" >
+        </activity>
+        <activity
+            android:name=".Category"
+            android:label="@string/title_activity_category" >
+        </activity>
+        <activity
+            android:name=".Detail"
+            android:label="@string/title_activity_detail" >
+        </activity>
+        <activity
+            android:name=".Cart"
+            android:label="@string/title_activity_cart" >
+        </activity>
+        <activity
+            android:name=".OrderDetailed"
+            android:label="@string/title_activity_order_detailed" >
+        </activity>
+        <activity
+            android:name=".ModelActivity"
+            android:label="@string/title_activity_model" >
+        </activity>
+    </application>
+
+</manifest>

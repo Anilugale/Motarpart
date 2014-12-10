@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="app.motaroart.com.motarpart.Cart">
+
+    <TextView
+        android:id="@+id/cart_cnt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="My Cart (3)"
+        android:drawableLeft="@drawable/white_cart"
+        android:background="#1B62A2"/>
+    <ListView
+        android:layout_below="@+id/cart_cnt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mycart_list" />
+
+    <LinearLayout
+        android:background="#D6E4EF"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_height="100dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <TextView
+                android:text="Total"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:padding="5dp"
+                android:textColor="#E68502"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:paddingTop="5dp"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center"
+                    android:text="RS. 4200"
+                    android:textSize="20sp"
+                    android:textColor="#BA1E1F"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textSize="10sp"
+                    android:gravity="center"
+                    android:text="Inclusive all charges "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <Button
+            android:text="CHECKOUT AND CONTINUE"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            android:background="@drawable/btn_back"
+            android:layout_width="match_parent"
+            android:textColor="#fff"
+            android:layout_height="0dp"
+            android:layout_weight=".8"/>
+    </LinearLayout>
+
+</RelativeLayout>
