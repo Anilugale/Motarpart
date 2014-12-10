@@ -1,15 +1,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="#D7E5F0"
     tools:context="app.motaroart.com.motarpart.Login"
     android:orientation="vertical"
     android:weightSum="1">
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#ff032ebd"/>
 
+    <TextView
+        android:id="@+id/cart_cnt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Login"
+        android:drawableLeft="@drawable/check_list"
+        android:background="#1B62A2"
+        android:layout_marginBottom="10dp"/>
     <LinearLayout
         android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -17,12 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView android:text="@string/hello_world"
-            android:layout_width="match_parent"
-            android:textSize="35sp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:layout_height="wrap_content" />
+
 
         <EditText
             android:layout_width="match_parent"
