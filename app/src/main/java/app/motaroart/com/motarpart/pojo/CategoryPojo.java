@@ -3,28 +3,33 @@ package app.motaroart.com.motarpart.pojo;
 /**
  * Created by Sneha on 11/11/2014.
  */
-public class CategoryPojo {
+public class CategoryPojo{
 
-    String name;
-    int qty;
+    int CategoryId;
+    String Category;
+    String Description;
 
-    public String getName() {
-        return name;
+    public int getCategoryId() {
+        return CategoryId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCategoryId(int categoryId) {
+        CategoryId = categoryId;
     }
 
-    public int getQty() {
-        return qty;
+    public String getCategory() {
+        return Category;
     }
 
-    public void setQty(int qty) {
-        this.qty = qty;
+    public void setCategory(String category) {
+        Category = category;
     }
 
+    public String getDescription() {
+        return Description;
+    }
 
-
-
+    public void setDescription(String description) {
+        Description = description;
+    }
 }

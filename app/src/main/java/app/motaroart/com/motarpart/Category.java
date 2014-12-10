@@ -10,17 +10,12 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
-
 
 import java.util.ArrayList;
 import java.util.List;
 
-import app.motaroart.com.motarpart.adapter.CategoryListAdapter;
 import app.motaroart.com.motarpart.pojo.CategoryPojo;
 
 
@@ -57,7 +52,7 @@ public class Category extends Activity  implements NavigationDrawerFragment.Navi
 
         final List<CategoryPojo> listData=new ArrayList<CategoryPojo>();
 
-        CategoryPojo t1=new CategoryPojo();
+       /* CategoryPojo t1=new CategoryPojo();
         t1.setName("ENGINE");
         t1.setQty(120);
         listData.add(t1);
@@ -109,7 +104,7 @@ public class Category extends Activity  implements NavigationDrawerFragment.Navi
                 intent.putExtra("category",listData.get(i).getName());
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
     @Override

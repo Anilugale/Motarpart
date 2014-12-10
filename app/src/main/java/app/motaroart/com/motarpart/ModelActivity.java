@@ -21,7 +21,7 @@ import app.motaroart.com.motarpart.adapter.ModelAdapter;
 
 public class ModelActivity extends Activity {
     List listData;
-    List listData1;
+
 
     String JsonStr="[{\"ModelId\":4,\"MakeName\":\"HYUNDAI\",\"MakeID\":2,\"ModelName\":\"X 50\",\"ModelDesc\":\"1234\",\"PhotoUrl\":\"electricity bill.pdf\",\"IsActive\":true,\"ModelId1\":4},{\"ModelId\":5,\"MakeName\":\"MITSUBISHI\",\"MakeID\":4,\"ModelName\":\"X 50 555555508\",\"ModelDesc\":\"123455555555\",\"PhotoUrl\":\"\",\"IsActive\":false,\"ModelId1\":5}]";
     @Override
