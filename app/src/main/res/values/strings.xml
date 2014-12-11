@@ -23,5 +23,6 @@
     <string name="title_activity_order_detailed">OrderDetailed</string>
     <string name="paid_by"><u>Paid By</u></string>
     <string name="title_activity_model">ModelActivity</string>
+    <string name="title_activity_product">ProductActivity</string>
 
 </resources>
