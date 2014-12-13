@@ -1,161 +1,188 @@
 package app.motaroart.com.motarpart.pojo;
 
+import java.io.Serializable;
+
 /**
  * Created by Aanil1989 on 12/11/2014.
  */
-public class Product {
+public class Product implements Serializable {
+    private String IsAvailable;
 
-    String MakeName;
-    String ModelName;
-    String Category;
-    int ProductId;
-    long ProductNumber;
-    int ProductCode;
-    long OME;
-    String ProductName;
-    int MakeId;
-    int ModelId;
-    int CategoryId;
-    boolean IsAvailable;
-    String ProductImageUrl;
-    String ProductDesc;
-    double ProductPrice;
-    double RetailerPrice;
-    double WholesalerPrice;
+    private String ModelId;
+
+    private String ProductCode;
+
+    private String RetailerPrice;
+
+    private String ProductNumber;
+
+    private String ProductPrice;
+
+    private String ProductId;
+
+    private String MakeName;
+
+    private String Category;
+
+    private String OME;
+
+    private String CategoryId;
+
+    private String ModelName;
+
+    private String IsActive;
+
+    private String ProductDesc;
+
+    private String ProductImageUrl;
+
+    private String ProductName;
+
+    private String MakeId;
+
+    private String WholesalerPrice;
+
+    public String getIsAvailable() {
+        return IsAvailable;
+    }
+
+    public void setIsAvailable(String IsAvailable) {
+        this.IsAvailable = IsAvailable;
+    }
+
+    public String getModelId() {
+        return ModelId;
+    }
+
+    public void setModelId(String ModelId) {
+        this.ModelId = ModelId;
+    }
+
+    public String getProductCode() {
+        return ProductCode;
+    }
+
+    public void setProductCode(String ProductCode) {
+        this.ProductCode = ProductCode;
+    }
+
+    public String getRetailerPrice() {
+        return RetailerPrice;
+    }
+
+    public void setRetailerPrice(String RetailerPrice) {
+        this.RetailerPrice = RetailerPrice;
+    }
+
+    public String getProductNumber() {
+        return ProductNumber;
+    }
+
+    public void setProductNumber(String ProductNumber) {
+        this.ProductNumber = ProductNumber;
+    }
+
+    public String getProductPrice() {
+        return ProductPrice;
+    }
+
+    public void setProductPrice(String ProductPrice) {
+        this.ProductPrice = ProductPrice;
+    }
+
+    public String getProductId() {
+        return ProductId;
+    }
+
+    public void setProductId(String ProductId) {
+        this.ProductId = ProductId;
+    }
 
     public String getMakeName() {
         return MakeName;
     }
 
-    public void setMakeName(String makeName) {
-        MakeName = makeName;
-    }
-
-    public String getModelName() {
-        return ModelName;
-    }
-
-    public void setModelName(String modelName) {
-        ModelName = modelName;
+    public void setMakeName(String MakeName) {
+        this.MakeName = MakeName;
     }
 
     public String getCategory() {
         return Category;
     }
 
-    public void setCategory(String category) {
-        Category = category;
+    public void setCategory(String Category) {
+        this.Category = Category;
     }
 
-    public int getProductId() {
-        return ProductId;
-    }
-
-    public void setProductId(int productId) {
-        ProductId = productId;
-    }
-
-    public long getProductNumber() {
-        return ProductNumber;
-    }
-
-    public void setProductNumber(long productNumber) {
-        ProductNumber = productNumber;
-    }
-
-    public int getProductCode() {
-        return ProductCode;
-    }
-
-    public void setProductCode(int productCode) {
-        ProductCode = productCode;
-    }
-
-    public long getOME() {
+    public String getOME() {
         return OME;
     }
 
-    public void setOME(long OME) {
+    public void setOME(String OME) {
         this.OME = OME;
     }
 
-    public String getProductName() {
-        return ProductName;
-    }
-
-    public void setProductName(String productName) {
-        ProductName = productName;
-    }
-
-    public int getMakeId() {
-        return MakeId;
-    }
-
-    public void setMakeId(int makeId) {
-        MakeId = makeId;
-    }
-
-    public int getModelId() {
-        return ModelId;
-    }
-
-    public void setModelId(int modelId) {
-        ModelId = modelId;
-    }
-
-    public int getCategoryId() {
+    public String getCategoryId() {
         return CategoryId;
     }
 
-    public void setCategoryId(int categoryId) {
-        CategoryId = categoryId;
+    public void setCategoryId(String CategoryId) {
+        this.CategoryId = CategoryId;
     }
 
-    public boolean isAvailable() {
-        return IsAvailable;
+    public String getModelName() {
+        return ModelName;
     }
 
-    public void setAvailable(boolean isAvailable) {
-        IsAvailable = isAvailable;
+    public void setModelName(String ModelName) {
+        this.ModelName = ModelName;
     }
 
-    public String getProductImageUrl() {
-        return ProductImageUrl;
+    public String getIsActive() {
+        return IsActive;
     }
 
-    public void setProductImageUrl(String productImageUrl) {
-        ProductImageUrl = productImageUrl;
+    public void setIsActive(String IsActive) {
+        this.IsActive = IsActive;
     }
 
     public String getProductDesc() {
         return ProductDesc;
     }
 
-    public void setProductDesc(String productDesc) {
-        ProductDesc = productDesc;
+    public void setProductDesc(String ProductDesc) {
+        this.ProductDesc = ProductDesc;
     }
 
-    public double getProductPrice() {
-        return ProductPrice;
+    public String getProductImageUrl() {
+        return ProductImageUrl;
     }
 
-    public void setProductPrice(double productPrice) {
-        ProductPrice = productPrice;
+    public void setProductImageUrl(String ProductImageUrl) {
+        this.ProductImageUrl = ProductImageUrl;
     }
 
-    public double getRetailerPrice() {
-        return RetailerPrice;
+    public String getProductName() {
+        return ProductName;
     }
 
-    public void setRetailerPrice(double retailerPrice) {
-        RetailerPrice = retailerPrice;
+    public void setProductName(String ProductName) {
+        this.ProductName = ProductName;
     }
 
-    public double getWholesalerPrice() {
+    public String getMakeId() {
+        return MakeId;
+    }
+
+    public void setMakeId(String MakeId) {
+        this.MakeId = MakeId;
+    }
+
+    public String getWholesalerPrice() {
         return WholesalerPrice;
     }
 
-    public void setWholesalerPrice(double wholesalerPrice) {
-        WholesalerPrice = wholesalerPrice;
+    public void setWholesalerPrice(String WholesalerPrice) {
+        this.WholesalerPrice = WholesalerPrice;
     }
 }

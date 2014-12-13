@@ -3,78 +3,87 @@ package app.motaroart.com.motarpart.pojo;
 /**
  * Created by Aanil1989 on 12/9/2014.
  */
+
+
 public class Model {
+    private String MakeName;
 
-    int ModelId;
-    String MakeName;
-    int  MakeID;
-    String ModelName;
-    String ModelDesc;
-    String PhotoUrl;
-    int IsActive;
-    int ModelId1;
+    private String ModelId;
 
-    public int getModelId() {
-        return ModelId;
-    }
+    private String IsActive;
 
-    public void setModelId(int modelId) {
-        ModelId = modelId;
-    }
+    private String ModelName;
+
+    private String ModelId1;
+
+    private String PhotoUrl;
+
+    private String MakeID;
+
+    private String ModelDesc;
 
     public String getMakeName() {
         return MakeName;
     }
 
-    public void setMakeName(String makeName) {
-        MakeName = makeName;
+    public void setMakeName(String MakeName) {
+        this.MakeName = MakeName;
     }
 
-    public int getMakeID() {
-        return MakeID;
+    public String getModelId() {
+        return ModelId;
     }
 
-    public void setMakeID(int makeID) {
-        MakeID = makeID;
+    public void setModelId(String ModelId) {
+        this.ModelId = ModelId;
+    }
+
+    public String getIsActive() {
+        return IsActive;
+    }
+
+    public void setIsActive(String IsActive) {
+        this.IsActive = IsActive;
     }
 
     public String getModelName() {
         return ModelName;
     }
 
-    public void setModelName(String modelName) {
-        ModelName = modelName;
+    public void setModelName(String ModelName) {
+        this.ModelName = ModelName;
     }
 
-    public String getModelDesc() {
-        return ModelDesc;
+    public String getModelId1() {
+        return ModelId1;
     }
 
-    public void setModelDesc(String modelDesc) {
-        ModelDesc = modelDesc;
+    public void setModelId1(String ModelId1) {
+        this.ModelId1 = ModelId1;
     }
 
     public String getPhotoUrl() {
         return PhotoUrl;
     }
 
-    public void setPhotoUrl(String photoUrl) {
-        PhotoUrl = photoUrl;
+    public void setPhotoUrl(String PhotoUrl) {
+        this.PhotoUrl = PhotoUrl;
     }
 
-    public int getIsActive() {
-        return IsActive;
+    public String getMakeID() {
+        return MakeID;
     }
 
-    public void setIsActive(int isActive) {
-        IsActive = isActive;
+    public void setMakeID(String MakeID) {
+        this.MakeID = MakeID;
     }
 
-    public int getModelId1() {
-        return ModelId1;
+    public String getModelDesc() {
+        return ModelDesc;
     }
 
-    public void setModelId1(int modelId1) {
-        ModelId1 = modelId1;
+    public void setModelDesc(String ModelDesc) {
+        this.ModelDesc = ModelDesc;
     }
 }
+

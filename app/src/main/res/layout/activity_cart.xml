@@ -1,6 +1,7 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="app.motaroart.com.motarpart.Cart">
 
     <TextView
@@ -18,16 +19,19 @@
     <ListView
         android:layout_below="@+id/cart_cnt"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:layout_height="0dp"
         android:id="@+id/mycart_list" />
 
     <LinearLayout
         android:background="#D6E4EF"
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:orientation="vertical"
-        android:layout_height="100dp">
-        <LinearLayout
+        android:layout_weight="1"
+        android:layout_height="0dp">
+
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -78,4 +82,4 @@
             android:layout_weight=".8"/>
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

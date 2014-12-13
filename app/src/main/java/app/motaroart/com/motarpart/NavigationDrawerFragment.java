@@ -1,30 +1,27 @@
 package app.motaroart.com.motarpart;
 
 
-import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +31,7 @@ import java.util.List;
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawerFragment extends Fragment implements View.OnClickListener{
+public class NavigationDrawerFragment extends Fragment implements View.OnClickListener {
 
     /**
      * Remember the position of the selected item.
@@ -91,23 +88,24 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
     }
-    Spinner sMake,sModel,sSubModel;
+
+    Spinner sMake, sModel, sSubModel;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_drawer, container, false);
 
-        sMake=(Spinner)rootView.findViewById(R.id.s_make);
-        sModel=(Spinner)rootView.findViewById(R.id.s_model);
-        sSubModel=(Spinner)rootView.findViewById(R.id.s_sub);
+        sMake = (Spinner) rootView.findViewById(R.id.s_make);
+        sModel = (Spinner) rootView.findViewById(R.id.s_model);
+        sSubModel = (Spinner) rootView.findViewById(R.id.s_sub);
 
-        Button b= (Button)rootView.findViewById(R.id.main_seach_drawer);
+        Button b = (Button) rootView.findViewById(R.id.main_seach_drawer);
         b.setOnClickListener(this);
 
 
-        List<String> list=new ArrayList<String>();
+        List<String> list = new ArrayList<String>();
         list.add("Make");
-
 
 
         list.add("TOYOTA");
@@ -122,10 +120,10 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         list.add("HINO");
         list.add("ACURA MDX");
         list.add("DAIHATSU");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item,list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, list);
         sMake.setAdapter(adapter);
 
-        List<String> list2=new ArrayList<String>();
+        List<String> list2 = new ArrayList<String>();
         list2.add("Model");
         list2.add("COROLLA KE30 1976-1979");
         list2.add("COROLLA KE30 1976-1979");
@@ -138,18 +136,18 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         list2.add("COROLLA KE70");
 
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item,list2);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, list2);
         sModel.setAdapter(adapter2);
 
 
-        List<String> list3=new ArrayList<String>();
+        List<String> list3 = new ArrayList<String>();
         list3.add("Category");
         list3.add("AUTO LAMPS");
         list3.add("BODY PARTS ");
         list3.add("AUTO GLASS");
 
 
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item,list3);
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, list3);
         sSubModel.setAdapter(adapter3);
         return rootView;
     }
@@ -291,10 +289,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             return true;
         }
 
-        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -317,10 +311,8 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     @Override
     public void onClick(View view) {
 
-        Intent i=new Intent(getActivity(),Secound.class);
+        Intent i = new Intent(getActivity(), Secound.class);
         startActivity(i);
-
-
 
 
     }

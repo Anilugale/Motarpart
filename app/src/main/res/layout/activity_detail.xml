@@ -6,7 +6,7 @@
     android:background="#D6E4EF"
     android:layout_height="wrap_content">
     <TextView
-
+        android:id="@+id/product_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#fff"
@@ -44,7 +44,7 @@
 
                 <TextView
                     android:layout_gravity="right"
-                    android:id="@+id/part_make"
+                    android:id="@+id/product_make"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -55,21 +55,21 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/part_model"
+                android:id="@+id/product_model"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Model: Mahindra and Mahindra"
                 android:textColor="#000"
                 android:textSize="20sp"/>
             <TextView
-                android:id="@+id/part_number"
+                android:id="@+id/product_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Number: LX00210"
                 android:textColor="#000"
                 android:textSize="20sp"/>
             <TextView
-                android:id="@+id/part_oem_no"
+                android:id="@+id/product_oem_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="OEM No:0022656"
@@ -90,7 +90,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="Code:CN200012"
-        android:id="@+id/item_code" />
+        android:id="@+id/product_code" />
 
 
     <LinearLayout
@@ -124,7 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="As a connecting rod is rigid, it may transmit either a push or a pull and so the rod may rotate the crank through both halves of a revolution, i.e. piston pushing and piston pulling. Earlier mechanisms, such as chains, could only pull. In a few two-stroke engines, the connecting rod is only required to push."
-        android:id="@+id/part_desc" />
+        android:id="@+id/product_desc" />
 
 
 </LinearLayout>

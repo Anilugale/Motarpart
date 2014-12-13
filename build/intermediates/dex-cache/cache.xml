@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" >
+<items version="2">
 
     <item
-        jar="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\libs\internal_impl-21.0.0.jar"
-        jumboMode="false"
-        revision="21.1.0"
-        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0">
-        <dex dex="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-56db0d088568e92b185bc8290b67fe332aa807fa.jar" />
+        jar="D:\Android\Android\adt-bundle-windows-x86-20140702\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.0\support-annotations-21.0.0.jar"
+        jumboMode="false" revision="21.1.0" sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e">
+        <dex
+            dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-df0c8d311da9d91187f3d59af66334d0f3ff3f5f.jar" />
+    </item>
+    <item jar="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\libs\jackson-mapper-asl-1.9.13.jar"
+        jumboMode="false" revision="21.1.0" sha1="1ee2f2bed0e5dd29d1cb155a166e6f8d50bbddb7">
+        <dex
+            dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\jackson-mapper-asl-1.9.13-c6d40e591392c06450f3cee554ecbb4fcd75b025.jar" />
     </item>
     <item
-        jar="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\classes.jar"
-        jumboMode="false"
-        revision="21.1.0"
-        sha1="686344a780033e4ba22b926cd225f8d4941247e6">
-        <dex dex="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\pre-dexed\debug\classes-5c088799aefc0734f1fee26f60d5b283bfc5e437.jar" />
+        jar="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\classes.jar"
+        jumboMode="false" revision="21.1.0" sha1="686344a780033e4ba22b926cd225f8d4941247e6">
+        <dex
+            dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\classes-db84cc47ab5e94ebfe625cdf773ee1166e5e70d0.jar" />
     </item>
     <item
-        jar="F:\Android\adt-bundle-windows-x86_64-20140702\adt-bundle-windows-x86_64-20140702\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.0\support-annotations-21.0.0.jar"
-        jumboMode="false"
-        revision="21.1.0"
-        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e">
-        <dex dex="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-b8a63df20d7b3341ceb784c4e11466355e4ed139.jar" />
+        jar="C:\Users\AnilU\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3.1\ecb6e1f8e4b0e84c4b886c2f14a1500caf309757\gson-2.3.1.jar"
+        jumboMode="false" revision="21.1.0" sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex
+            dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\gson-2.3.1-66c19ecc98f10348d64886b3e19e1fe1361b112f.jar" />
     </item>
     <item
-        jar="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.0\classes.jar"
-        jumboMode="false"
-        revision="21.1.0"
-        sha1="95fd37732ec852e99f07eeb516a3650172f1d136">
-        <dex dex="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\pre-dexed\debug\classes-d0199689ed959b093e338f505ea6cead956318d4.jar" />
+        jar="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\libs\internal_impl-21.0.0.jar"
+        jumboMode="false" revision="21.1.0" sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0">
+        <dex
+            dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-930e73a77f91744552768228bbcc60c6028c8acb.jar" />
+    </item>
+    <item
+        jar="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.0\classes.jar"
+        jumboMode="false" revision="21.1.0" sha1="95fd37732ec852e99f07eeb516a3650172f1d136">
+        <dex
+            dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\classes-aa73f7a27b4c2b6e233b7501dbf45b4b38cd7993.jar" />
+    </item>
+    <item jar="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\libs\jackson-core-asl-1.9.7.jar"
+        jumboMode="false" revision="21.1.0" sha1="2dd41e7570f5c73e63a6a1311671a60c817e1989">
+        <dex
+            dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\jackson-core-asl-1.9.7-39d569469c467c6f992dac13ca67814deb8d5091.jar" />
     </item>
 
 </items>

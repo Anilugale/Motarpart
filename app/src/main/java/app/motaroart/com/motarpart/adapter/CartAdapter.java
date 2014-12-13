@@ -4,11 +4,14 @@ package app.motaroart.com.motarpart.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ import app.motaroart.com.motarpart.pojo.Product;
  * Created by Anil Ugale on 11/11/2014.
  */
 
-public class ProductAdapter extends BaseAdapter {
+public class CartAdapter extends BaseAdapter {
 
     List<Product> listData;
     List<Product> listMain;
@@ -31,7 +34,7 @@ public class ProductAdapter extends BaseAdapter {
     LayoutInflater inflater;
     ImageLoader imageLoader;
 
-    public ProductAdapter(Activity activity, List<Product> listData) {
+    public CartAdapter(Activity activity, List<Product> listData) {
 
         listMain = new ArrayList<Product>();
         this.listMain = listData;
@@ -65,21 +68,45 @@ public class ProductAdapter extends BaseAdapter {
         if (view == null) {
             final Product product = listMain.get(i);
             ;
-            View vi = inflater.inflate(R.layout.listview_product, null);
+            View vi = inflater.inflate(R.layout.list_cart, null);
             TextView product_name = (TextView) vi.findViewById(R.id.product_name);
-            TextView product_make = (TextView) vi.findViewById(R.id.product_make);
-            TextView product_model = (TextView) vi.findViewById(R.id.product_model);
+            final EditText product_qty = (EditText) vi.findViewById(R.id.product_qty);
             TextView product_mrp = (TextView) vi.findViewById(R.id.product_mrp);
+            final TextView product_qty_total = (TextView) vi.findViewById(R.id.product_qty_total);
             TextView product_code = (TextView) vi.findViewById(R.id.product_code);
-            TextView product_number = (TextView) vi.findViewById(R.id.product_number);
-            TextView product_oem_no = (TextView) vi.findViewById(R.id.product_oem_no);
+
             product_name.setText(product.getProductName());
-            product_make.setText(product.getMakeName());
-            product_model.setText(product.getModelName());
-            product_mrp.setText("Rs." + product.getRetailerPrice());
-            product_code.setText(product.getProductCode() + "");
-            product_number.setText("Code." + product.getProductNumber());
-            product_oem_no.setText(product.getOME() + "");
+            product_mrp.setText("Rs." + product.getProductPrice());
+            product_qty_total.setText("Rs." + product.getProductPrice());
+            product_code.setText(product.getProductNumber() + "");
+            product_qty.setText("1");
+            product_qty.addTextChangedListener(new TextWatcher() {
+
+                public void onTextChanged(CharSequence s, int start, int before,
+                                          int count) {
+
+
+                }
+
+                public void beforeTextChanged(CharSequence s, int start, int count,
+                                              int after) {
+
+                }
+
+                public void afterTextChanged(Editable s) {
+                    int price_count = 0;
+
+                    if (s.length() != 0) {
+
+                        price_count = Integer.valueOf(s.toString());
+                    }
+
+                    double price = Double.valueOf(product.getProductPrice()) * (price_count);
+                    product_qty_total.setText("Rs." + price);
+
+                }
+            });
+
 
             Button details = (Button) vi.findViewById(R.id.deatail);
 
@@ -87,7 +114,7 @@ public class ProductAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(activity, Detail.class);
-                    intent.putExtra("Product", (java.io.Serializable) product);
+                    intent.putExtra("Product", product);
                     activity.startActivity(intent);
                 }
             });
