@@ -1,9 +1,14 @@
 package app.motaroart.com.motarpart.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * Created by Aanil1989 on 12/11/2014.
  */
-public class Product {
+public class Product implements Serializable {
 
     String MakeName;
     String ModelName;
@@ -158,4 +163,6 @@ public class Product {
     public void setWholesalerPrice(double wholesalerPrice) {
         WholesalerPrice = wholesalerPrice;
     }
+
+
 }

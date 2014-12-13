@@ -136,6 +136,10 @@ public class MakeActivity extends Activity
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_user) {
+            startActivity(new Intent(this,Login.class));
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

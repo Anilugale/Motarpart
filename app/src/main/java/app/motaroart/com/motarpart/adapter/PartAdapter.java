@@ -18,7 +18,6 @@ import java.util.List;
 import app.motaroart.com.motarpart.Detail;
 import app.motaroart.com.motarpart.R;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
-import app.motaroart.com.motarpart.pojo.CategoryPojo;
 import app.motaroart.com.motarpart.pojo.Part;
 
 /**
@@ -59,7 +58,7 @@ public class PartAdapter extends BaseAdapter {
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
 
-        View vi = inflater.inflate(R.layout.listview_row, null);
+        View vi = inflater.inflate(R.layout.listview_product, null);
         TextView name= (TextView) vi.findViewById(R.id.part_name);
         TextView make= (TextView) vi.findViewById(R.id.part_make);
         TextView model= (TextView) vi.findViewById(R.id.part_model);

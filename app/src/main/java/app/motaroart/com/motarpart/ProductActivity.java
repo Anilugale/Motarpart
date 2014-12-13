@@ -1,5 +1,6 @@
 package app.motaroart.com.motarpart;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -23,7 +25,7 @@ import app.motaroart.com.motarpart.pojo.Model;
 import app.motaroart.com.motarpart.pojo.Product;
 
 
-public class ProductActivity extends ActionBarActivity {
+public class ProductActivity extends Activity {
 
 
     List listData;
@@ -56,12 +58,13 @@ public class ProductActivity extends ActionBarActivity {
                 product.setMakeId(productJson.getInt("MakeId"));
                 product.setModelId(productJson.getInt("ModelId"));
                 product.setCategoryId(productJson.getInt("CategoryId"));
-                product.setAvailable(productJson.getBoolean("MakeId"));
+                product.setAvailable(productJson.getBoolean("IsAvailable"));
                 product.setProductImageUrl(productJson.getString("ProductImageUrl"));
                 product.setProductDesc(productJson.getString("ProductDesc"));
                 product.setProductPrice(productJson.getDouble("ProductPrice"));
                 product.setRetailerPrice(productJson.getDouble("RetailerPrice"));
                 product.setWholesalerPrice(productJson.getDouble("WholesalerPrice"));
+
                 listData.add(product);
             }
 
@@ -72,7 +75,7 @@ public class ProductActivity extends ActionBarActivity {
 
         ProductAdapter adapter=new ProductAdapter(this,listData);
 
-        ListView main_page=(ListView)findViewById(R.id.cat_list);
+        ListView main_page=(ListView)findViewById(R.id.product_list);
         main_page.setAdapter(adapter);
 
         main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {

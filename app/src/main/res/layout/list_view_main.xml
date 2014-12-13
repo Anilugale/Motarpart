@@ -6,10 +6,10 @@ android:layout_width="match_parent" android:layout_height="match_parent">
 
 <TextView
     android:text="Anil"
-    android:textSize="30sp"
+    android:textSize="25sp"
     android:padding="10dp"
     android:textColor="#fff"
-    android:gravity="center"
+    android:gravity="left|center_vertical"
     android:background="@drawable/gredient_style"
     android:textStyle="bold"
     android:layout_width="match_parent"
