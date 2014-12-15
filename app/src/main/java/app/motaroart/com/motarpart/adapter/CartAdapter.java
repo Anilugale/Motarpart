@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.motaroart.com.motarpart.Cart;
 import app.motaroart.com.motarpart.Detail;
 import app.motaroart.com.motarpart.R;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
@@ -103,6 +104,7 @@ public class CartAdapter extends BaseAdapter {
 
                     double price = Double.valueOf(product.getProductPrice()) * (price_count);
                     product_qty_total.setText("Rs." + price);
+                    ((Cart)activity).updateGradPrice();
 
                 }
             });
