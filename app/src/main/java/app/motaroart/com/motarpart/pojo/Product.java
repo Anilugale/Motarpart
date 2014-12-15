@@ -1,9 +1,11 @@
 package app.motaroart.com.motarpart.pojo;
 
+import java.io.Serializable;
+
 /**
  * Created by Aanil1989 on 12/11/2014.
  */
-public class Product {
+public class Product implements Serializable{
 
     String MakeName;
     String ModelName;

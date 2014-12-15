@@ -1,9 +1,10 @@
 package app.motaroart.com.motarpart;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.TextView;
+
+import app.motaroart.com.motarpart.pojo.Product;
 
 
 public class Detail extends Activity {
@@ -13,20 +14,7 @@ public class Detail extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         Product product = (Product) getIntent().getSerializableExtra("Product");
-        System.out.println(product.getProductName()
 
-        );
-
-
-    }
-        Product product = (Product) getIntent().getSerializableExtra("Product");
-
-
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_detail, menu);
-        return true;
         TextView product_name = (TextView) findViewById(R.id.product_name);
         TextView product_make = (TextView) findViewById(R.id.product_make);
         TextView product_model = (TextView) findViewById(R.id.product_model);
@@ -35,6 +23,7 @@ public class Detail extends Activity {
         TextView product_number = (TextView) findViewById(R.id.product_number);
         TextView product_oem_no = (TextView) findViewById(R.id.product_oem_no);
         TextView product_desc = (TextView) findViewById(R.id.product_desc);
+
         product_name.setText(product.getProductName());
         product_make.setText(product.getMakeName());
         product_model.setText(product.getModelName());
@@ -43,6 +32,18 @@ public class Detail extends Activity {
         product_number.setText("Code." + product.getProductNumber());
         product_oem_no.setText(product.getOME() + "");
         product_desc.setText(product.getProductDesc() + "");
+
+
+    }
+
+
+
+   /* @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
+        return true;
+
     }
 
     @Override

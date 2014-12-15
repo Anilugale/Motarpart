@@ -1,20 +1,19 @@
 package app.motaroart.com.motarpart;
 
-import android.app.Activity;
-
 import android.app.ActionBar;
-import android.app.FragmentManager;
-import android.app.SearchManager;
-import android.app.SearchableInfo;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -27,9 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.motaroart.com.motarpart.adapter.MakeAdapter;
-import app.motaroart.com.motarpart.adapter.PartAdapter;
 import app.motaroart.com.motarpart.pojo.Make;
-import app.motaroart.com.motarpart.pojo.Part;
 
 
 public class MakeActivity extends Activity
@@ -113,6 +110,7 @@ public class MakeActivity extends Activity
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
+    TextView count;
 
 
     @Override
@@ -124,7 +122,30 @@ public class MakeActivity extends Activity
         MenuItem searchItem = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) searchItem.getActionView();
         setupSearchView(searchItem);
+        count = new TextView(this);
+        count.setText(11 + "  ");
+        count.setTextColor(Color.BLUE);
 
+        count.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(MakeActivity.this,Cart.class));
+             /*   int count1=Integer.valueOf(count.getText().toString().trim());
+                count1++;
+                count.setText(count1+"");*/
+
+            }
+        });
+        LinearLayout.LayoutParams imgvwDimens =
+                new LinearLayout.LayoutParams(100, 100);
+        count.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
+        count.setLayoutParams(imgvwDimens);
+        count.setBackgroundResource(R.drawable.cart);
+        count.setPadding(5, 5, 5,5);
+        count.setTypeface(null, Typeface.BOLD);
+        count.setTextSize(25);
+        menu.add(0, 0, 1,"count").setActionView(count).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
     }
     @Override
