@@ -25,7 +25,7 @@ public class Cart extends Activity {
             "[{\"MakeName\":\"HYUNDAI\",\"ModelName\":\"X 50\",\"Category\":\"Auto Lamp\",\"ProductId\":1,\"ProductNumber\":\"1000001\",\"ProductCode\":\"1001\",\"OME\":\"10021445\",\"ProductName\":\"abcd\",\"MakeId\":2,\"ModelId\":4,\"CategoryId\":1,\"IsAvailable\":true,\"IsActive\":true,\"ProductImageUrl\":null,\"ProductDesc\":null,\"ProductPrice\":5000.00,\"RetailerPrice\":3000.00,\"WholesalerPrice\":2000.00},{\"MakeName\":\"HYUNDAI\",\"ModelName\":\"X 50\",\"Category\":\"Auto Lamp\",\"ProductId\":2,\"ProductNumber\":\"1000001\",\"ProductCode\":\"1002\",\"OME\":\"10021445\",\"ProductName\":\"abcd\",\"MakeId\":2,\"ModelId\":4,\"CategoryId\":1,\"IsAvailable\":true,\"IsActive\":true,\"ProductImageUrl\":null,\"ProductDesc\":null,\"ProductPrice\":5000.00,\"RetailerPrice\":3000.00,\"WholesalerPrice\":2000.00},{\"MakeName\":\"HYUNDAI\",\"ModelName\":\"X 50\",\"Category\":\"Auto Lamp\",\"ProductId\":3,\"ProductNumber\":\"1000001\",\"ProductCode\":\"1003\",\"OME\":\"10021445\",\"ProductName\":\"abcd\",\"MakeId\":2,\"ModelId\":4,\"CategoryId\":1,\"IsAvailable\":true,\"IsActive\":true,\"ProductImageUrl\":null,\"ProductDesc\":null,\"ProductPrice\":5000.00,\"RetailerPrice\":3000.00,\"WholesalerPrice\":2000.00},{\"MakeName\":\"HYUNDAI\",\"ModelName\":\"X 50\",\"Category\":\"Auto Lamp\",\"ProductId\":4,\"ProductNumber\":\"1000001\",\"ProductCode\":\"1004\",\"OME\":\"10021445\",\"ProductName\":\"abcd\",\"MakeId\":2,\"ModelId\":4,\"CategoryId\":1,\"IsAvailable\":true,\"IsActive\":true,\"ProductImageUrl\":null,\"ProductDesc\":null,\"ProductPrice\":5000.00,\"RetailerPrice\":3000.00,\"WholesalerPrice\":2000.00},{\"MakeName\":\"HYUNDAI\",\"ModelName\":\"X 50\",\"Category\":\"Auto Lamp\",\"ProductId\":5,\"ProductNumber\":\"1000001\",\"ProductCode\":\"1005\",\"OME\":\"10021445\",\"ProductName\":\"abcd\",\"MakeId\":2,\"ModelId\":4,\"CategoryId\":1,\"IsAvailable\":true,\"IsActive\":true,\"ProductImageUrl\":null,\"ProductDesc\":null,\"ProductPrice\":5000.00,\"RetailerPrice\":3000.00,\"WholesalerPrice\":2000.00}]\n";
 
     CartAdapter adapter;
-
+    TextView product_grand_price;
     ListView main_page;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +37,25 @@ public class Cart extends Activity {
 
     private void init() {
 
+        product_grand_price=(TextView)findViewById(R.id.product_grand_price);
+
 
         Type listOfTestObject = new TypeToken<List<Product>>() {
         }.getType();
         Gson gson = new Gson();
         listData = gson.fromJson(JsonStr, listOfTestObject);
 
+        double grand=0.0;
+        for (Product product:listData)
+        {
+            grand+=Double.valueOf(product.getProductPrice().trim());
+        }
+        product_grand_price.setText("Rs."+grand);
         TextView cart_cnt = (TextView) findViewById(R.id.cart_cnt);
         cart_cnt.setText("My Cart (" + listData.size() + ")");
 
         adapter = new CartAdapter(this, listData);
-         main_page = (ListView) findViewById(R.id.mycart_list);
+        main_page = (ListView) findViewById(R.id.mycart_list);
         main_page.setAdapter(adapter);
         main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -58,18 +66,12 @@ public class Cart extends Activity {
         });
     }
 
-  public  void updateGradPrice()
+    public void updateGrandPrice(double oldPrice,double newPrice)
     {
-        double grand_price;
 
-        for (int i=0;i<main_page.getCount();i++)
-        {
-            View vi=  main_page.getChildAt(i);
-
-            EditText qty= (EditText) vi.findViewById(R.id.product_qty);
-            System.out.println(qty.getText());
-
-        }
+        String old=product_grand_price.getText().toString().substring(3,product_grand_price.getText().length());
+        double newPriceGrand=(Double.valueOf(old)-oldPrice)+newPrice;
+        product_grand_price.setText("Rs."+newPriceGrand);
     }
 }
 

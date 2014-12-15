@@ -5,159 +5,221 @@ import java.io.Serializable;
 /**
  * Created by Aanil1989 on 12/11/2014.
  */
-public class Product implements Serializable{
+public class Product implements Serializable
+{
+    private String IsAvailable;
 
-    String MakeName;
-    String ModelName;
-    String Category;
-    int ProductId;
-    long ProductNumber;
-    int ProductCode;
-    long OME;
-    String ProductName;
-    int MakeId;
-    int ModelId;
-    int CategoryId;
-    boolean IsAvailable;
-    String ProductImageUrl;
-    String ProductDesc;
-    double ProductPrice;
-    double RetailerPrice;
-    double WholesalerPrice;
+    private String ModelId;
 
-    public String getMakeName() {
-        return MakeName;
-    }
+    private String ProductCode;
 
-    public void setMakeName(String makeName) {
-        MakeName = makeName;
-    }
+    private String RetailerPrice;
 
-    public String getModelName() {
-        return ModelName;
-    }
+    private String ProductNumber;
 
-    public void setModelName(String modelName) {
-        ModelName = modelName;
-    }
+    private String ProductPrice;
 
-    public String getCategory() {
-        return Category;
-    }
+    private String ProductId;
 
-    public void setCategory(String category) {
-        Category = category;
-    }
+    private String MakeName;
 
-    public int getProductId() {
-        return ProductId;
-    }
+    private String Category;
 
-    public void setProductId(int productId) {
-        ProductId = productId;
-    }
+    private String OME;
 
-    public long getProductNumber() {
-        return ProductNumber;
-    }
+    private String CategoryId;
 
-    public void setProductNumber(long productNumber) {
-        ProductNumber = productNumber;
-    }
+    private String ModelName;
 
-    public int getProductCode() {
-        return ProductCode;
-    }
+    private String IsActive;
 
-    public void setProductCode(int productCode) {
-        ProductCode = productCode;
-    }
+    private String ProductDesc;
 
-    public long getOME() {
-        return OME;
-    }
+    private String ProductImageUrl;
 
-    public void setOME(long OME) {
-        this.OME = OME;
-    }
+    private String ProductName;
 
-    public String getProductName() {
-        return ProductName;
-    }
+    private String MakeId;
 
-    public void setProductName(String productName) {
-        ProductName = productName;
-    }
+    private String WholesalerPrice;
 
-    public int getMakeId() {
-        return MakeId;
-    }
-
-    public void setMakeId(int makeId) {
-        MakeId = makeId;
-    }
-
-    public int getModelId() {
-        return ModelId;
-    }
-
-    public void setModelId(int modelId) {
-        ModelId = modelId;
-    }
-
-    public int getCategoryId() {
-        return CategoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        CategoryId = categoryId;
-    }
-
-    public boolean isAvailable() {
+    public String getIsAvailable ()
+    {
         return IsAvailable;
     }
 
-    public void setAvailable(boolean isAvailable) {
-        IsAvailable = isAvailable;
+    public void setIsAvailable (String IsAvailable)
+    {
+        this.IsAvailable = IsAvailable;
     }
 
-    public String getProductImageUrl() {
-        return ProductImageUrl;
+    public String getModelId ()
+    {
+        return ModelId;
     }
 
-    public void setProductImageUrl(String productImageUrl) {
-        ProductImageUrl = productImageUrl;
+    public void setModelId (String ModelId)
+    {
+        this.ModelId = ModelId;
     }
 
-    public String getProductDesc() {
-        return ProductDesc;
+    public String getProductCode ()
+    {
+        return ProductCode;
     }
 
-    public void setProductDesc(String productDesc) {
-        ProductDesc = productDesc;
+    public void setProductCode (String ProductCode)
+    {
+        this.ProductCode = ProductCode;
     }
 
-    public double getProductPrice() {
-        return ProductPrice;
-    }
-
-    public void setProductPrice(double productPrice) {
-        ProductPrice = productPrice;
-    }
-
-    public double getRetailerPrice() {
+    public String getRetailerPrice ()
+    {
         return RetailerPrice;
     }
 
-    public void setRetailerPrice(double retailerPrice) {
-        RetailerPrice = retailerPrice;
+    public void setRetailerPrice (String RetailerPrice)
+    {
+        this.RetailerPrice = RetailerPrice;
     }
 
-    public double getWholesalerPrice() {
+    public String getProductNumber ()
+    {
+        return ProductNumber;
+    }
+
+    public void setProductNumber (String ProductNumber)
+    {
+        this.ProductNumber = ProductNumber;
+    }
+
+    public String getProductPrice ()
+    {
+        return ProductPrice;
+    }
+
+    public void setProductPrice (String ProductPrice)
+    {
+        this.ProductPrice = ProductPrice;
+    }
+
+    public String getProductId ()
+    {
+        return ProductId;
+    }
+
+    public void setProductId (String ProductId)
+    {
+        this.ProductId = ProductId;
+    }
+
+    public String getMakeName ()
+    {
+        return MakeName;
+    }
+
+    public void setMakeName (String MakeName)
+    {
+        this.MakeName = MakeName;
+    }
+
+    public String getCategory ()
+    {
+        return Category;
+    }
+
+    public void setCategory (String Category)
+    {
+        this.Category = Category;
+    }
+
+    public String getOME ()
+    {
+        return OME;
+    }
+
+    public void setOME (String OME)
+    {
+        this.OME = OME;
+    }
+
+    public String getCategoryId ()
+    {
+        return CategoryId;
+    }
+
+    public void setCategoryId (String CategoryId)
+    {
+        this.CategoryId = CategoryId;
+    }
+
+    public String getModelName ()
+    {
+        return ModelName;
+    }
+
+    public void setModelName (String ModelName)
+    {
+        this.ModelName = ModelName;
+    }
+
+    public String getIsActive ()
+    {
+        return IsActive;
+    }
+
+    public void setIsActive (String IsActive)
+    {
+        this.IsActive = IsActive;
+    }
+
+    public String getProductDesc ()
+{
+    return ProductDesc;
+}
+
+    public void setProductDesc (String ProductDesc)
+    {
+        this.ProductDesc = ProductDesc;
+    }
+
+    public String getProductImageUrl ()
+{
+    return ProductImageUrl;
+}
+
+    public void setProductImageUrl (String ProductImageUrl)
+    {
+        this.ProductImageUrl = ProductImageUrl;
+    }
+
+    public String getProductName ()
+    {
+        return ProductName;
+    }
+
+    public void setProductName (String ProductName)
+    {
+        this.ProductName = ProductName;
+    }
+
+    public String getMakeId ()
+    {
+        return MakeId;
+    }
+
+    public void setMakeId (String MakeId)
+    {
+        this.MakeId = MakeId;
+    }
+
+    public String getWholesalerPrice ()
+    {
         return WholesalerPrice;
     }
 
-    public void setWholesalerPrice(double wholesalerPrice) {
-        WholesalerPrice = wholesalerPrice;
+    public void setWholesalerPrice (String WholesalerPrice)
+    {
+        this.WholesalerPrice = WholesalerPrice;
     }
 }

@@ -52,13 +52,13 @@
                         android:textStyle="bold"
                         android:text="Assembly Connecting Rod" />
 
-                    <ToggleButton
+                    <ImageButton
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:textOff=""
                         android:textOn=""
-                        android:background="@drawable/toggle_selector"
-                        android:id="@+id/wish_btn" />
+                        android:src="@drawable/remove"
+                        android:id="@+id/remove_btn" />
 
                 </LinearLayout>
 

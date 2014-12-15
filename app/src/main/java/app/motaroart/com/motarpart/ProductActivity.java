@@ -11,14 +11,19 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import app.motaroart.com.motarpart.adapter.CategoryAdapter;
+import app.motaroart.com.motarpart.adapter.ModelAdapter;
 import app.motaroart.com.motarpart.adapter.ProductAdapter;
 import app.motaroart.com.motarpart.pojo.CategoryPojo;
 import app.motaroart.com.motarpart.pojo.Model;
@@ -38,43 +43,16 @@ public class ProductActivity extends Activity {
         setContentView(R.layout.activity_product);
 
 
+        Type listOfTestObject = new TypeToken<List<Product>>() {
+        }.getType();
+        Gson gson = new Gson();
+        listData = gson.fromJson(JsonStr, listOfTestObject);
 
-        listData=new ArrayList<Product>();
-        try {
-            JSONArray ProductArray = new JSONArray(JsonStr);
-            for(int i=0;i<ProductArray.length();i++) {
-
-                JSONObject productJson = ProductArray.getJSONObject(i);
-                Product product=new Product();
-
-                product.setMakeName(productJson.getString("MakeName"));
-                product.setModelName(productJson.getString("ModelName"));
-                product.setCategory(productJson.getString("Category"));
-                product.setProductId(productJson.getInt("ProductId"));
-                product.setProductNumber(productJson.getLong("ProductNumber"));
-                product.setProductCode(productJson.getInt("ProductCode"));
-                product.setOME(productJson.getLong("OME"));
-                product.setProductName(productJson.getString("ProductName"));
-                product.setMakeId(productJson.getInt("MakeId"));
-                product.setModelId(productJson.getInt("ModelId"));
-                product.setCategoryId(productJson.getInt("CategoryId"));
-                product.setAvailable(productJson.getBoolean("MakeId"));
-                product.setProductImageUrl(productJson.getString("ProductImageUrl"));
-                product.setProductDesc(productJson.getString("ProductDesc"));
-                product.setProductPrice(productJson.getDouble("ProductPrice"));
-                product.setRetailerPrice(productJson.getDouble("RetailerPrice"));
-                product.setWholesalerPrice(productJson.getDouble("WholesalerPrice"));
-                listData.add(product);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
 
         ProductAdapter adapter=new ProductAdapter(this,listData);
 
-        ListView main_page=(ListView)findViewById(R.id.cat_list);
+        ListView main_page=(ListView)findViewById(R.id.product_list);
         main_page.setAdapter(adapter);
 
         main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -75,7 +76,16 @@ public class CartAdapter extends BaseAdapter {
             TextView product_mrp = (TextView) vi.findViewById(R.id.product_mrp);
             final TextView product_qty_total = (TextView) vi.findViewById(R.id.product_qty_total);
             TextView product_code = (TextView) vi.findViewById(R.id.product_code);
-
+            ImageButton remove_btn=(ImageButton)vi.findViewById(R.id.remove_btn);
+            remove_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String old =product_qty_total.getText().toString().substring(3,product_qty_total.getText().toString().length());
+                    ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),0.0);
+                    listMain.remove(product);
+                    chnageLsit();
+                }
+            });
             product_name.setText(product.getProductName());
             product_mrp.setText("Rs." + product.getProductPrice());
             product_qty_total.setText("Rs." + product.getProductPrice());
@@ -85,7 +95,6 @@ public class CartAdapter extends BaseAdapter {
 
                 public void onTextChanged(CharSequence s, int start, int before,
                                           int count) {
-
 
                 }
 
@@ -101,10 +110,14 @@ public class CartAdapter extends BaseAdapter {
 
                         price_count = Integer.valueOf(s.toString());
                     }
+                    String old =product_qty_total.getText().toString().substring(3,product_qty_total.getText().toString().length());
 
                     double price = Double.valueOf(product.getProductPrice()) * (price_count);
                     product_qty_total.setText("Rs." + price);
-                    ((Cart)activity).updateGradPrice();
+
+
+                    ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),Double.valueOf(price));
+
 
                 }
             });
@@ -125,5 +138,9 @@ public class CartAdapter extends BaseAdapter {
             return view;
     }
 
+    void chnageLsit()
+    {
+        notifyDataSetChanged();
+    }
 
 }
