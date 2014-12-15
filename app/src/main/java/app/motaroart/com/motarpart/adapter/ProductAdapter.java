@@ -1,6 +1,7 @@
 package app.motaroart.com.motarpart.adapter;
 
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import java.util.List;
 import app.motaroart.com.motarpart.Detail;
 import app.motaroart.com.motarpart.R;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
+import app.motaroart.com.motarpart.pojo.CategoryPojo;
 import app.motaroart.com.motarpart.pojo.Product;
 
 /**
@@ -30,14 +32,13 @@ public class ProductAdapter extends BaseAdapter {
     Activity activity;
     LayoutInflater inflater;
     ImageLoader imageLoader;
-
     public ProductAdapter(Activity activity, List<Product> listData) {
 
-        listMain = new ArrayList<Product>();
-        this.listMain = listData;
-        this.listData = listData;
-        this.activity = activity;
-        inflater = (LayoutInflater) activity.
+        listMain=new ArrayList<Product>();
+        this.listMain=listData;
+        this.listData=listData;
+        this.activity=activity;
+        inflater = (LayoutInflater)activity.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         imageLoader = new ImageLoader(activity.getApplicationContext());
     }
@@ -62,9 +63,8 @@ public class ProductAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
 
 
-        if (view == null) {
-            final Product product = listMain.get(i);
-            ;
+        if(view==null) {
+           final Product product= listMain.get(i);;
             View vi = inflater.inflate(R.layout.listview_product, null);
             TextView product_name = (TextView) vi.findViewById(R.id.product_name);
             TextView product_make = (TextView) vi.findViewById(R.id.product_make);
@@ -76,25 +76,28 @@ public class ProductAdapter extends BaseAdapter {
             product_name.setText(product.getProductName());
             product_make.setText(product.getMakeName());
             product_model.setText(product.getModelName());
-            product_mrp.setText("Rs." + product.getRetailerPrice());
-            product_code.setText(product.getProductCode() + "");
-            product_number.setText("Code." + product.getProductNumber());
-            product_oem_no.setText(product.getOME() + "");
+            product_mrp.setText("Rs."+product.getRetailerPrice());
+            product_code.setText(product.getProductCode()+"");
+            product_number.setText("Code."+product.getProductNumber());
+            product_oem_no.setText(product.getOME()+"");
 
-            Button details = (Button) vi.findViewById(R.id.deatail);
+            Button details= (Button) vi.findViewById(R.id.deatail);
 
             details.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(activity, Detail.class);
-                    intent.putExtra("Product", (java.io.Serializable) product);
+                    Intent intent =new Intent(activity, Detail.class);
+                    intent.putExtra("Product", product)   ;
                     activity.startActivity(intent);
                 }
             });
             return vi;
-        } else
+        }
+        else
             return view;
     }
+
+
 
 
 }
