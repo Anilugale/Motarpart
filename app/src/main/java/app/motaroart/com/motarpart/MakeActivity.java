@@ -69,60 +69,41 @@ public class MakeActivity extends Activity
         try {
             JSONArray makeArray = new JSONArray(JsonStr);
             for(int i=0;i<makeArray.length();i++) {
-
                 JSONObject makeJson = makeArray.getJSONObject(i);
                 Make make=new Make();
                 make.setMakeId(makeJson.getInt("MakeId"));
                 make.setMakeName(makeJson.getString("MakeName"));
                 make.setDescription(makeJson.getString("Description"));
-
                 listData.add(make);
-
-
-
-
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-        adapter=new MakeAdapter(this,listData);
-
+      adapter=new MakeAdapter(this,listData);
         ListView main_page=(ListView)findViewById(R.id.main_page_list);
         main_page.setAdapter(adapter);
-
         main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-
                 Intent intent =new Intent(MakeActivity.this,ModelActivity.class);
                 intent.putExtra("MakeID",listData.get(i).getMakeId());
                 startActivity(intent);
-
             }
         });
     }
-
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
 
     }
-
-
-
     public void restoreActionBar() {
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
+
     TextView count;
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -190,10 +171,7 @@ public class MakeActivity extends Activity
 
     public boolean onQueryTextChange(String newText) {
 
-      /*  adapter.filterState(newText);
-        System.out.println(newText);*/
-
-        return false;
+       return false;
     }
 
     public boolean onQueryTextSubmit(String query) {
