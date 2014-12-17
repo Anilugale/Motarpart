@@ -16,6 +16,5 @@
         android:title="User"
         android:icon="@drawable/user"
         android:showAsAction="always"
-
         tools:ignore="AppCompatResource" />
 </menu>

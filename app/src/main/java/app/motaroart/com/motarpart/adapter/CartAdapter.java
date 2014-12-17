@@ -64,12 +64,11 @@ public class CartAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
 
 
         if (view == null) {
             final Product product = listMain.get(i);
-            ;
             View vi = inflater.inflate(R.layout.list_cart, null);
             TextView product_name = (TextView) vi.findViewById(R.id.product_name);
             final EditText product_qty = (EditText) vi.findViewById(R.id.product_qty);
@@ -81,8 +80,9 @@ public class CartAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     String old =product_qty_total.getText().toString().substring(3,product_qty_total.getText().toString().length());
-                    ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),0.0);
-                    listMain.remove(product);
+                     listMain.remove(i);
+                    ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),0.0,listData.size()+"");
+
                     chnageLsit();
                 }
             });
@@ -116,7 +116,7 @@ public class CartAdapter extends BaseAdapter {
                     product_qty_total.setText("Rs." + price);
 
 
-                    ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),Double.valueOf(price));
+                    ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),Double.valueOf(price),listData.size()+"");
 
 
                 }
