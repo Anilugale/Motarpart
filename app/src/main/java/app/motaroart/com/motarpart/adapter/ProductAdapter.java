@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.motaroart.com.motarpart.Detail;
+import app.motaroart.com.motarpart.ProductActivity;
 import app.motaroart.com.motarpart.R;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
 import app.motaroart.com.motarpart.pojo.Product;
@@ -121,8 +122,8 @@ public class ProductAdapter extends BaseAdapter {
                     {
                         list.add(product);
                         String json=gson.toJson(list,listOfTestObject);
-                        System.out.println(json);
                         mPrefs.edit().putString("cart",json).commit();
+                        ((ProductActivity)activity).updateCart(list.size());
 
                     }
                     else

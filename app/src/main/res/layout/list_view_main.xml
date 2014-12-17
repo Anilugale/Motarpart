@@ -5,16 +5,18 @@ android:layout_width="match_parent" android:layout_height="match_parent">
 
 
 <TextView
-    android:text="Anil"
+    android:text="  Anil"
     android:textSize="25sp"
-    android:padding="10dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
     android:textColor="#fff"
     android:gravity="left|center_vertical"
     android:background="@drawable/gredient_style"
     android:textStyle="bold"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:drawableLeft="@drawable/white_cart"
+    android:drawableLeft="@drawable/car"
     android:drawableRight="@drawable/right_arrow"
     android:id="@+id/model_name" />
 </LinearLayout>

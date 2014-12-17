@@ -4,6 +4,7 @@ package app.motaroart.com.motarpart.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -15,6 +16,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +72,7 @@ public class CartAdapter extends BaseAdapter {
     public View getView(final int i, View view, ViewGroup viewGroup) {
 
 
-        if (view == null) {
+
             final Product product = listMain.get(i);
             View vi = inflater.inflate(R.layout.list_cart, null);
             TextView product_name = (TextView) vi.findViewById(R.id.product_name);
@@ -80,10 +85,15 @@ public class CartAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     String old =product_qty_total.getText().toString().substring(3,product_qty_total.getText().toString().length());
-                     listMain.remove(i);
+                    listMain.remove(i);
+                    SharedPreferences mPrefs = activity.getSharedPreferences(activity.getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+                    Gson gson = new Gson();
+                    Type listOfTestObject = new TypeToken<List<Product>>() {
+                    }.getType();
+                    String json=gson.toJson(listMain,listOfTestObject);
+                    mPrefs.edit().putString("cart",json).commit();
                     ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),0.0,listData.size()+"");
 
-                    chnageLsit();
                 }
             });
             product_name.setText(product.getProductName());
@@ -134,9 +144,9 @@ public class CartAdapter extends BaseAdapter {
                 }
             });
             return vi;
-        } else
-            return view;
+
     }
+
 
     void chnageLsit()
     {

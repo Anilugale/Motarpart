@@ -63,7 +63,7 @@ public class ModelAdapter extends BaseAdapter {
 
         View vi = inflater.inflate(R.layout.list_view_main, null);
         TextView cat_name=(TextView)vi.findViewById(R.id.model_name);
-        cat_name.setText(listData.get(i).getModelName()); return vi;
+        cat_name.setText("  "+listData.get(i).getModelName()); return vi;
     }
 
 

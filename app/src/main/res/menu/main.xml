@@ -2,15 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
+
+
+
+
     <item
-        android:id="@+id/action_search"
-        android:title="Search"
-        android:icon="@android:drawable/ic_menu_search"
+        android:id="@+id/action_wish"
+        android:title="User"
+        android:icon="@drawable/wish"
         android:showAsAction="always"
-        android:actionViewClass="android.widget.SearchView"
         tools:ignore="AppCompatResource" />
-
-
     <item
         android:id="@+id/action_user"
         android:title="User"
