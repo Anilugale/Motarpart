@@ -97,5 +97,12 @@ public class Cart extends Activity {
 
 
     }
+    public void updateGrandPriceMinuse(double oldPrice,int productID)
+    {
+        String old=product_grand_price.getText().toString().substring(3,product_grand_price.getText().length());
+        double newPriceGrand = (Double.valueOf(old) - oldPrice) ;
+        product_grand_price.setText("Rs." + newPriceGrand);
+        cart_cnt.setText("My Cart (" + productID + ")");
+    }
 }
 

@@ -99,7 +99,12 @@ public class ProductActivity extends Activity {
         Type listOfTestObject = new TypeToken<List<Product>>() {
         }.getType();
         List<Product> list = gson.fromJson(JsonStr, listOfTestObject);
-        count.setText(list.size() + "  ");
+        if (list!=null) {
+            count.setText(list.size() + "  ");
+        } else {
+            count.setText(0 + "  ");
+        }
+
         count.setTextSize(15);
         menu.add(0, 0, 1, "count").setActionView(count).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
@@ -114,7 +119,7 @@ public class ProductActivity extends Activity {
         Type listOfTestObject = new TypeToken<List<Product>>() {
         }.getType();
         List<Product> list = gson.fromJson(JsonStr, listOfTestObject);
-        if (count != null)
+        if (count != null&&list!=null)
             count.setText(list.size() + "  ");
     }
 

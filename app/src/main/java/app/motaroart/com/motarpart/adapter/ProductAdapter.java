@@ -70,7 +70,7 @@ public class ProductAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
 
 
-        if(view==null) {
+
            final Product product= listMain.get(i);;
             View vi = inflater.inflate(R.layout.listview_product, null);
             TextView product_name = (TextView) vi.findViewById(R.id.product_name);
@@ -110,15 +110,21 @@ public class ProductAdapter extends BaseAdapter {
                     }.getType();
                     List<Product>list = gson.fromJson(JsonStr, listOfTestObject);
                     boolean flag=false;
-                    for (Product pro:list)
-                    {
-                        if(pro.getProductId()==product.getProductId())
+                    if (list!=null) {
+                        for (Product pro:list)
                         {
-                            flag=true;
-                            break;
+                            if(pro.getProductId().equals(product.getProductId()))
+                            {
+                                flag=true;
+                                break;
+                            }
                         }
                     }
-                    if(!flag)
+                    else
+                    {
+                        list=new ArrayList<Product>();
+                    }
+                    if(flag!=true)
                     {
                         list.add(product);
                         String json=gson.toJson(list,listOfTestObject);
@@ -144,9 +150,7 @@ public class ProductAdapter extends BaseAdapter {
             });
 
             return vi;
-        }
-        else
-            return view;
+
     }
 
 

@@ -1,6 +1,5 @@
 package app.motaroart.com.motarpart;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +16,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -131,7 +129,12 @@ public class MakeActivity extends Activity
         Type listOfTestObject = new TypeToken<List<Product>>() {
         }.getType();
         List<Product> list = gson.fromJson(JsonStr, listOfTestObject);
-        count.setText(list.size() + "  ");
+        if (list!=null) {
+            count.setText(list.size() + "  ");
+        } else {
+            count.setText(0 + "  ");
+        }
+
         count.setTextSize(15);
         menu.add(0, 0, 1, "count").setActionView(count).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
@@ -146,7 +149,7 @@ public class MakeActivity extends Activity
         Type listOfTestObject = new TypeToken<List<Product>>() {
         }.getType();
         List<Product> list = gson.fromJson(JsonStr, listOfTestObject);
-        if (count != null)
+        if (count != null&&list!=null)
             count.setText(list.size() + "  ");
     }
 

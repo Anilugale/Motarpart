@@ -20,8 +20,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import app.motaroart.com.motarpart.Cart;
 import app.motaroart.com.motarpart.Detail;
@@ -36,15 +37,14 @@ import app.motaroart.com.motarpart.pojo.Product;
 public class CartAdapter extends BaseAdapter {
 
     List<Product> listData;
-    List<Product> listMain;
+    Map<String,String> listMain;
     Activity activity;
     LayoutInflater inflater;
     ImageLoader imageLoader;
 
     public CartAdapter(Activity activity, List<Product> listData) {
 
-        listMain = new ArrayList<Product>();
-        this.listMain = listData;
+        listMain = new HashMap<String,String>();
         this.listData = listData;
         this.activity = activity;
         inflater = (LayoutInflater) activity.
@@ -73,7 +73,7 @@ public class CartAdapter extends BaseAdapter {
 
 
 
-            final Product product = listMain.get(i);
+            final Product product = listData.get(i);
             View vi = inflater.inflate(R.layout.list_cart, null);
             TextView product_name = (TextView) vi.findViewById(R.id.product_name);
             final EditText product_qty = (EditText) vi.findViewById(R.id.product_qty);
@@ -85,14 +85,15 @@ public class CartAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     String old =product_qty_total.getText().toString().substring(3,product_qty_total.getText().toString().length());
-                    listMain.remove(i);
+                    listData.remove(i);
                     SharedPreferences mPrefs = activity.getSharedPreferences(activity.getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
                     Gson gson = new Gson();
                     Type listOfTestObject = new TypeToken<List<Product>>() {
                     }.getType();
-                    String json=gson.toJson(listMain,listOfTestObject);
+                    String json=gson.toJson(listData,listOfTestObject);
                     mPrefs.edit().putString("cart",json).commit();
-                    ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),0.0,listData.size()+"");
+                    ((Cart)activity).updateGrandPriceMinuse(Double.valueOf(old.trim()),listData.size());
+                    CartAdapter.this.notifyDataSetChanged();
 
                 }
             });
@@ -100,7 +101,26 @@ public class CartAdapter extends BaseAdapter {
             product_mrp.setText("Rs." + product.getProductPrice());
             product_qty_total.setText("Rs." + product.getProductPrice());
             product_code.setText(product.getProductNumber() + "");
-            product_qty.setText("1");
+            if(listMain.get(product.getProductId())!=null) {
+                product_qty.setText(listMain.get(product.getProductId()));
+                int price_count = 0;
+
+                listMain.put(product.getProductId(),listMain.get(product.getProductId().toString()));
+
+                if (listMain.get(product.getProductId()).length() != 0) {
+
+                    price_count = Integer.valueOf(listMain.get(product.getProductId()).toString());
+                }
+                String old =product_qty_total.getText().toString().substring(3,product_qty_total.getText().toString().length());
+
+                double price = Double.valueOf(product.getProductPrice()) * (price_count);
+                product_qty_total.setText("Rs." + price);
+
+
+                ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),Double.valueOf(price),listData.size()+"");
+            }
+            else
+                product_qty.setText("1");
             product_qty.addTextChangedListener(new TextWatcher() {
 
                 public void onTextChanged(CharSequence s, int start, int before,
@@ -115,6 +135,8 @@ public class CartAdapter extends BaseAdapter {
 
                 public void afterTextChanged(Editable s) {
                     int price_count = 0;
+
+                    listMain.put(product.getProductId(),s.toString());
 
                     if (s.length() != 0) {
 
