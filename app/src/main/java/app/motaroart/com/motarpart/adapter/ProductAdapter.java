@@ -168,7 +168,7 @@ public class ProductAdapter extends BaseAdapter {
         {
             if(wish.getProductId().equals(product.getProductId()))
             {
-                wish_btn.setEnabled(true);
+                wish_btn.setChecked(true);
                 break;
             }
         }
