@@ -4,7 +4,6 @@ package app.motaroart.com.motarpart.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.test.UiThreadTest;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import app.motaroart.com.motarpart.R;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
-import app.motaroart.com.motarpart.pojo.CategoryPojo;
-import app.motaroart.com.motarpart.pojo.Make;
 import app.motaroart.com.motarpart.pojo.Model;
 
 /**
@@ -34,7 +32,7 @@ public class ModelAdapter extends BaseAdapter {
     public ModelAdapter(Activity activity, List<Model> listData) {
 
         listMain=new ArrayList<Model>();
-        this.listMain=listData;
+        this.listMain.addAll(listData);
         this.listData=listData;
         this.activity=activity;
         inflater = (LayoutInflater)activity.
@@ -66,7 +64,25 @@ public class ModelAdapter extends BaseAdapter {
         cat_name.setText("  "+listData.get(i).getModelName()); return vi;
     }
 
-
+    // Filter Class
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        listData.clear();
+        if (charText.length() == 0) {
+            listData.addAll(listMain);
+        }
+        else
+        {
+            for (Model wp : listMain)
+            {
+                if (wp.getModelName().toLowerCase(Locale.getDefault()).contains(charText))
+                {
+                    listData.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
 
 
 }

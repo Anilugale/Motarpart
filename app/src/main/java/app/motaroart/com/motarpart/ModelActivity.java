@@ -7,12 +7,15 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,6 +25,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Locale;
 
 import app.motaroart.com.motarpart.adapter.ModelAdapter;
 import app.motaroart.com.motarpart.pojo.Model;
@@ -29,8 +33,8 @@ import app.motaroart.com.motarpart.pojo.Product;
 
 public class ModelActivity extends Activity {
     List listData;
-
-
+    EditText key_word;
+    ModelAdapter adapter;
     String JsonStr = "[{\"ModelId\":4,\"MakeName\":\"HYUNDAI\",\"MakeID\":2,\"ModelName\":\"X 50\",\"ModelDesc\":\"1234\",\"PhotoUrl\":\"electricity bill.pdf\",\"IsActive\":true,\"ModelId1\":4},{\"ModelId\":5,\"MakeName\":\"MITSUBISHI\",\"MakeID\":4,\"ModelName\":\"X 50 555555508\",\"ModelDesc\":\"123455555555\",\"PhotoUrl\":\"\",\"IsActive\":false,\"ModelId1\":5}]";
 
     @Override
@@ -47,7 +51,7 @@ public class ModelActivity extends Activity {
         }.getType();
         Gson gson = new Gson();
         listData = gson.fromJson(JsonStr, listOfTestObject);
-        ModelAdapter adapter = new ModelAdapter(this, listData);
+        adapter = new ModelAdapter(this, listData);
         ListView main_page = (ListView) findViewById(R.id.modle_list);
         main_page.setAdapter(adapter);
         main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -55,6 +59,30 @@ public class ModelActivity extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(ModelActivity.this, CategoryActivity.class);
                 startActivity(intent);
+            }
+        });
+
+
+        key_word=(EditText)findViewById(R.id.key_word);
+        key_word.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+                String text = key_word.getText().toString().toLowerCase(Locale.getDefault());
+                adapter.filter(text);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1,
+                                          int arg2, int arg3) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+                                      int arg3) {
+                // TODO Auto-generated method stub
             }
         });
     }

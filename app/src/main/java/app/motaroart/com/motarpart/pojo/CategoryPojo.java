@@ -1,35 +1,69 @@
 package app.motaroart.com.motarpart.pojo;
 
+import java.io.Serializable;
+
 /**
  * Created by Sneha on 11/11/2014.
  */
-public class CategoryPojo{
+public class CategoryPojo implements Serializable
+{
+    private String Description;
 
-    int CategoryId;
-    String Category;
-    String Description;
+    private String Category;
 
-    public int getCategoryId() {
-        return CategoryId;
-    }
+    private String CategoryId;
 
-    public void setCategoryId(int categoryId) {
-        CategoryId = categoryId;
-    }
+    private String IsActive;
 
-    public String getCategory() {
-        return Category;
-    }
+    private String CreatedOn;
 
-    public void setCategory(String category) {
-        Category = category;
-    }
-
-    public String getDescription() {
+    public String getDescription ()
+    {
         return Description;
     }
 
-    public void setDescription(String description) {
-        Description = description;
+    public void setDescription (String Description)
+    {
+        this.Description = Description;
+    }
+
+    public String getCategory ()
+    {
+        return Category;
+    }
+
+    public void setCategory (String Category)
+    {
+        this.Category = Category;
+    }
+
+    public String getCategoryId ()
+    {
+        return CategoryId;
+    }
+
+    public void setCategoryId (String CategoryId)
+    {
+        this.CategoryId = CategoryId;
+    }
+
+    public String getIsActive ()
+    {
+        return IsActive;
+    }
+
+    public void setIsActive (String IsActive)
+    {
+        this.IsActive = IsActive;
+    }
+
+    public String getCreatedOn ()
+    {
+        return CreatedOn;
+    }
+
+    public void setCreatedOn (String CreatedOn)
+    {
+        this.CreatedOn = CreatedOn;
     }
 }

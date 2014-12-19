@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import app.motaroart.com.motarpart.R;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
@@ -24,14 +25,14 @@ import app.motaroart.com.motarpart.pojo.CategoryPojo;
 public class CategoryAdapter extends BaseAdapter {
 
     List<CategoryPojo> listData;
-    List<CategoryPojo> listMain;
+    ArrayList<CategoryPojo> listMain;
     Activity activity;
     LayoutInflater inflater;
     ImageLoader imageLoader;
     public CategoryAdapter(Activity activity, List<CategoryPojo> listData) {
 
         listMain=new ArrayList<CategoryPojo>();
-        this.listMain=listData;
+        this.listMain.addAll(listData);
         this.listData=listData;
         this.activity=activity;
         inflater = (LayoutInflater)activity.
@@ -63,7 +64,25 @@ public class CategoryAdapter extends BaseAdapter {
         cat_name.setText("  "+listData.get(i).getCategory()); return vi;
     }
 
-
+    // Filter Class
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        listData.clear();
+        if (charText.length() == 0) {
+            listData.addAll(listMain);
+        }
+        else
+        {
+            for (CategoryPojo wp : listMain)
+            {
+                if (wp.getCategory().toLowerCase(Locale.getDefault()).contains(charText))
+                {
+                    listData.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
 
 
 }

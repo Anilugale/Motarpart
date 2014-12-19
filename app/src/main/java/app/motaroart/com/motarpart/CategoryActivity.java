@@ -7,12 +7,15 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,68 +23,66 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import app.motaroart.com.motarpart.adapter.CategoryAdapter;
 import app.motaroart.com.motarpart.pojo.CategoryPojo;
-import app.motaroart.com.motarpart.pojo.Model;
 import app.motaroart.com.motarpart.pojo.Product;
 
 
 public class CategoryActivity extends Activity {
-
+    EditText key_word;
     List listData;
+    CategoryAdapter adapter;
     String JsonStr="[{\"CategoryId\":2,\"Category\":\"Auto Glass\",\"Description\":\"\",\"IsActive\":true,\"CreatedOn\":\"2014-12-01T11:28:40.867\"},{\"CategoryId\":1,\"Category\":\"Auto Lamp\",\"Description\":\"Auto Lamp\",\"IsActive\":true,\"CreatedOn\":\"2014-12-01T11:28:22.86\"},{\"CategoryId\":4,\"Category\":\"Auto Service\",\"Description\":\"\",\"IsActive\":false,\"CreatedOn\":\"2014-12-01T11:30:28.623\"},{\"CategoryId\":3,\"Category\":\"Body Part\",\"Description\":\"\",\"IsActive\":true,\"CreatedOn\":\"2014-12-01T11:29:08.22\"}]";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category2);
 
-        listData=new ArrayList<Model>();
-        try {
-            JSONArray ModelArray = new JSONArray(JsonStr);
-            for(int i=0;i<ModelArray.length();i++) {
-
-                JSONObject categoryJson = ModelArray.getJSONObject(i);
-                CategoryPojo make=new CategoryPojo();
-                make.setCategoryId(categoryJson.getInt("CategoryId"));
-                make.setCategory(categoryJson.getString("Category"));
-                make.setDescription(categoryJson.getString("Description"));
-
-                listData.add(make);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        CategoryAdapter adapter=new CategoryAdapter(this,listData);
-
+        Gson gson = new Gson();
+        Type listOfTestObject = new TypeToken<List<CategoryPojo>>() {
+        }.getType();
+        listData = gson.fromJson(JsonStr, listOfTestObject);
+        adapter=new CategoryAdapter(this,listData);
         ListView main_page=(ListView)findViewById(R.id.cat_list);
         main_page.setAdapter(adapter);
-
         main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-
                 Intent intent =new Intent(CategoryActivity.this,ProductActivity.class);
+               startActivity(intent);
+            }
+        });
+        // search
+        key_word=(EditText)findViewById(R.id.key_word);
+        key_word.addTextChangedListener(new TextWatcher() {
 
-                startActivity(intent);
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+                String text = key_word.getText().toString().toLowerCase(Locale.getDefault());
+                adapter.filter(text);
+            }
 
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1,
+                                          int arg2, int arg3) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+                                      int arg3) {
+                // TODO Auto-generated method stub
             }
         });
     }
 
-    TextView count;
 
+    TextView count;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);

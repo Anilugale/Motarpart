@@ -2,9 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+       android:background="#0C5A9A"
     tools:context="app.motaroart.com.motarpart.ModelActivity">
 
-
+    <EditText
+        android:id="@+id/key_word"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="#fff"
+        android:hint="  Search..."/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

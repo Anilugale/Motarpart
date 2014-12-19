@@ -1,39 +1,70 @@
 package app.motaroart.com.motarpart.pojo;
 
+import java.io.Serializable;
+
 /**
  * Created by Anil Ugale on 20-11-2014.
  */
-public class Make {
 
+public class Make implements Serializable
+{
+    private String MakeName;
 
-    public int getMakeId() {
-        return MakeId;
-    }
+    private String Description;
 
-    public void setMakeId(int makeId) {
-        MakeId = makeId;
-    }
+    private String IsActive;
 
-    public String getMakeName() {
+    private String CreatedOn;
+
+    private String MakeId;
+
+    public String getMakeName ()
+    {
         return MakeName;
     }
 
-    public void setMakeName(String makeName) {
-        MakeName = makeName;
+    public void setMakeName (String MakeName)
+    {
+        this.MakeName = MakeName;
     }
 
-    public String getDescription() {
+    public String getDescription ()
+    {
         return Description;
     }
 
-    public void setDescription(String description) {
-        Description = description;
+    public void setDescription (String Description)
+    {
+        this.Description = Description;
     }
 
-    int MakeId;
- String MakeName;
-  String Description;
+    public String getIsActive ()
+    {
+        return IsActive;
+    }
 
+    public void setIsActive (String IsActive)
+    {
+        this.IsActive = IsActive;
+    }
 
+    public String getCreatedOn ()
+    {
+        return CreatedOn;
+    }
 
+    public void setCreatedOn (String CreatedOn)
+    {
+        this.CreatedOn = CreatedOn;
+    }
+
+    public String getMakeId ()
+    {
+        return MakeId;
+    }
+
+    public void setMakeId (String MakeId)
+    {
+        this.MakeId = MakeId;
+    }
 }
