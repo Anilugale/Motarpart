@@ -155,15 +155,15 @@ public class ProductAdapter extends BaseAdapter {
         // wish btn
 
 
-        ToggleButton wish_btn=(ToggleButton)vi.findViewById(R.id.wish_btn);
-        SharedPreferences mPrefs = activity.getSharedPreferences(activity.getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+        final ToggleButton wish_btn=(ToggleButton)vi.findViewById(R.id.wish_btn);
+        final SharedPreferences mPrefs = activity.getSharedPreferences(activity.getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         String withJson=mPrefs.getString("wish","");
 
 
-        Type listOfTestObject = new TypeToken<List<Wish>>() {
+        final Type listOfTestObject = new TypeToken<List<Wish>>() {
         }.getType();
-        Gson gson = new Gson();
-        List<Wish>listWish = gson.fromJson(withJson, listOfTestObject);
+        final Gson gson = new Gson();
+        final List<Wish>listWish = gson.fromJson(withJson, listOfTestObject);
         for (Wish wish:listWish)
         {
             if(wish.getProductId().equals(product.getProductId()))
@@ -173,7 +173,33 @@ public class ProductAdapter extends BaseAdapter {
             }
         }
 
-            return vi;
+        wish_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(wish_btn.isChecked())
+                {
+                    Wish wish=new Wish();
+                    wish.setAccountId(mPrefs.getString("accountid","1"));
+                    wish.setProductId(product.getProductId());
+                    listWish.add(wish);
+                    mPrefs.edit().putString("wish",gson.toJson(listWish,listOfTestObject)).commit();
+                }
+                else
+                {
+                    for (int i=0;i<listWish.size();i++)
+                    {
+                        if(listWish.get(i).getProductId().equals(product.getProductId()))
+                        {
+                            listWish.remove(i);
+                            mPrefs.edit().putString("wish",gson.toJson(listWish,listOfTestObject)).commit();
+
+                        }
+                    }
+                }
+            }
+        });
+
+         return vi;
 
     }
 
