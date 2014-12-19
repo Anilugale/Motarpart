@@ -28,31 +28,29 @@
         <activity android:name=".Registration" />
         <activity android:name=".ForgetPassword" />
         <activity android:name=".Order" />
-        <activity
-            android:name=".Category"
-            android:label="@string/title_activity_category" />
+
         <activity
             android:name=".Detail"
-            android:label="@string/title_activity_detail" />
+         />
         <activity
             android:name=".Cart"
-            android:label="@string/title_activity_cart"
+
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".OrderDetailed"
-            android:label="@string/title_activity_order_detailed" />
+             />
         <activity
             android:name=".ModelActivity"
-            android:label="@string/title_activity_model" />
+            />
         <activity
             android:name=".CategoryActivity"
-            android:label="@string/title_activity_category" />
+            />
         <activity
             android:name=".ProductActivity"
-            android:label="@string/title_activity_product" />
+             />
         <activity
             android:name=".WishActivity"
-            android:label="@string/title_activity_wish" >
+            >
         </activity>
     </application>
 

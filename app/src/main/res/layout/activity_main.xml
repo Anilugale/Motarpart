@@ -7,7 +7,7 @@
     <!-- As the main content view, the view below consumes the entire
          space available using match_parent in both dimensions. -->
     <FrameLayout android:id="@+id/container" android:layout_width="match_parent"
-        android:background="#ffbab8b5"
+        android:background="#0C5A9A"
         android:layout_height="match_parent" >
 
 
@@ -16,6 +16,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="#fff"
+                android:hint="  Search..."/>
 
             <ListView
                 android:layout_width="match_parent"

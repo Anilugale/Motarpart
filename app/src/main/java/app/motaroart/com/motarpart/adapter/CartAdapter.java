@@ -135,19 +135,13 @@ public class CartAdapter extends BaseAdapter {
 
                 public void afterTextChanged(Editable s) {
                     int price_count = 0;
-
                     listMain.put(product.getProductId(),s.toString());
-
                     if (s.length() != 0) {
-
                         price_count = Integer.valueOf(s.toString());
                     }
                     String old =product_qty_total.getText().toString().substring(3,product_qty_total.getText().toString().length());
-
-                    double price = Double.valueOf(product.getProductPrice()) * (price_count);
+                   double price = Double.valueOf(product.getProductPrice()) * (price_count);
                     product_qty_total.setText("Rs." + price);
-
-
                     ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),Double.valueOf(price),listData.size()+"");
 
 
