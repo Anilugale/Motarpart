@@ -35,7 +35,7 @@ import app.motaroart.com.motarpart.pojo.Product;
 
 public class MakeActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
+    String jsonWith="[{\"RecordId\":1,\"ProductId\":2,\"AccountId\":1,\"CreatedOn\":\"2014-12-08T16:40:09.063\"},{\"RecordId\":3,\"ProductId\":4,\"AccountId\":1,\"CreatedOn\":\"2014-12-08T16:40:15.137\"}]\n";
     String JsonStr = "[{\"MakeId\":1,\"MakeName\":\"AUDI\",\"Description\":\"\",\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:20:45.353\"},{\"MakeId\":7,\"MakeName\":\"HONDA\",\"Description\":null,\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:21:23.07\"},{\"MakeId\":2,\"MakeName\":\"HYUNDAI\",\"Description\":null,\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:20:47.713\"},{\"MakeId\":3,\"MakeName\":\"KIA\",\"Description\":null,\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:20:55.903\"},{\"MakeId\":10,\"MakeName\":\"MAZDA\",\"Description\":null,\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:21:32.173\"},{\"MakeId\":4,\"MakeName\":\"MITSUBISHI\",\"Description\":null,\"IsActive\":false,\"CreatedOn\":\"2014-11-23T16:21:00.257\"},{\"MakeId\":11,\"MakeName\":\"New Make\",\"Description\":\"1\",\"IsActive\":true,\"CreatedOn\":\"2014-12-01T16:27:38.233\"},{\"MakeId\":8,\"MakeName\":\"NISSAN\",\"Description\":null,\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:21:27.847\"},{\"MakeId\":6,\"MakeName\":\"SUBARU\",\"Description\":null,\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:21:14.32\"},{\"MakeId\":9,\"MakeName\":\"SUZUKI\",\"Description\":null,\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:21:31.647\"},{\"MakeId\":5,\"MakeName\":\"TOYOTA\",\"Description\":null,\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:21:13.787\"}]";
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
@@ -50,7 +50,9 @@ public class MakeActivity extends Activity
         setContentView(R.layout.activity_main);
 
 
+        SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
 
+        mPrefs.edit().putString("wish",jsonWith).commit();
 
         Gson gson = new Gson();
         Type listOfTestObject = new TypeToken<List<Make>>() {

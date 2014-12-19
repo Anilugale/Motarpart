@@ -31,26 +31,36 @@
 
         <activity
             android:name=".Detail"
-         />
+            />
         <activity
             android:name=".Cart"
-
             android:windowSoftInputMode="adjustPan" />
+
         <activity
-            android:name=".OrderDetailed"
-             />
+            android:name=".OrderDetailed"   />
+
         <activity
-            android:name=".ModelActivity"
-            />
+            android:name=".ModelActivity" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MakeActivity" /> </activity>
         <activity
-            android:name=".CategoryActivity"
-            />
+            android:name=".CategoryActivity"   >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".ModelActivity" /> </activity>
         <activity
-            android:name=".ProductActivity"
-             />
+            android:name=".ProductActivity"   >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+        android:value=".CategoryActivity" />
+        </activity>
         <activity
             android:name=".WishActivity"
             >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MakeActivity" />
         </activity>
     </application>
 

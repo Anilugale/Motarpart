@@ -1,7 +1,6 @@
 package app.motaroart.com.motarpart.adapter;
 
 
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,6 +27,7 @@ import app.motaroart.com.motarpart.ProductActivity;
 import app.motaroart.com.motarpart.R;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
 import app.motaroart.com.motarpart.pojo.Product;
+import app.motaroart.com.motarpart.pojo.Wish;
 
 /**
  * Created by Anil Ugale on 11/11/2014.
@@ -148,6 +149,29 @@ public class ProductAdapter extends BaseAdapter {
                     }
                 }
             });
+
+
+
+        // wish btn
+
+
+        ToggleButton wish_btn=(ToggleButton)vi.findViewById(R.id.wish_btn);
+        SharedPreferences mPrefs = activity.getSharedPreferences(activity.getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+        String withJson=mPrefs.getString("wish","");
+
+
+        Type listOfTestObject = new TypeToken<List<Wish>>() {
+        }.getType();
+        Gson gson = new Gson();
+        List<Wish>listWish = gson.fromJson(withJson, listOfTestObject);
+        for (Wish wish:listWish)
+        {
+            if(wish.getProductId().equals(product.getProductId()))
+            {
+                wish_btn.setEnabled(true);
+                break;
+            }
+        }
 
             return vi;
 
