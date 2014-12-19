@@ -35,15 +35,12 @@ public class WishActivity extends Activity {
 
         @Override
         protected void onPreExecute() {
-             pd=ProgressDialog.show(WishActivity.this, WishActivity.this.getResources().getString(R.string.app_name),"Loading..");
-
+            pd=ProgressDialog.show(WishActivity.this, WishActivity.this.getResources().getString(R.string.app_name),"Loading..");
             super.onPreExecute();
         }
 
         @Override
         protected String doInBackground(Void... voids) {
-
-
             return  mPrefs.getString("wish","");
         }
     }
