@@ -1,7 +1,6 @@
 package app.motaroart.com.motarpart.adapter;
 
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.motaroart.com.motarpart.Detail;
-import app.motaroart.com.motarpart.ProductActivity;
 import app.motaroart.com.motarpart.R;
+import app.motaroart.com.motarpart.WishActivity;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
 import app.motaroart.com.motarpart.pojo.Product;
 import app.motaroart.com.motarpart.pojo.Wish;
@@ -34,14 +33,14 @@ import app.motaroart.com.motarpart.pojo.Wish;
  * Created by Anil Ugale on 11/11/2014.
  */
 
-public class ProductAdapter extends BaseAdapter {
+public class WishAdapter extends BaseAdapter {
 
     List<Product> listData;
     List<Product> listMain;
-    Activity activity;
+    WishActivity activity;
     LayoutInflater inflater;
     ImageLoader imageLoader;
-    public ProductAdapter(Activity activity, List<Product> listData) {
+    public WishAdapter(WishActivity activity, List<Product> listData) {
 
         listMain=new ArrayList<Product>();
         this.listMain=listData;
@@ -131,8 +130,9 @@ public class ProductAdapter extends BaseAdapter {
                         list.add(product);
                         String json=gson.toJson(list,listOfTestObject);
                         mPrefs.edit().putString("cart",json).commit();
-                        ((ProductActivity)activity).updateCart(list.size());
-                        Toast.makeText(activity, "Product added in cart", Toast.LENGTH_LONG).show();
+                        activity.updateCart(list.size());
+                        Toast.makeText(activity,"Product added in cart",Toast.LENGTH_LONG).show();
+
                     }
                     else
                     {
