@@ -50,24 +50,28 @@ public class Cart extends Activity {
         Gson gson = new Gson();
         listData = gson.fromJson(JsonStr, listOfTestObject);
         double grand=0.0;
-        for (Product product:listData)
-        {
-            grand+=Double.valueOf(product.getProductPrice().trim());
-        }
-        product_grand_price.setText("Rs."+grand);
         cart_cnt = (TextView) findViewById(R.id.cart_cnt);
-        cart_cnt.setText("My Cart (" + listData.size() + ")");
-
-        adapter = new CartAdapter(this, listData);
-        main_page = (ListView) findViewById(R.id.mycart_list);
-        main_page.setAdapter(adapter);
-        main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(Cart.this, Login.class);
-                startActivity(intent);
+        if(listData!=null) {
+            for (Product product : listData) {
+                grand += Double.valueOf(product.getProductPrice().trim());
             }
-        });
+            product_grand_price.setText("Rs." + grand);
+            cart_cnt.setText("My Cart (" + listData.size() + ")");
+            adapter = new CartAdapter(this, listData);
+            main_page = (ListView) findViewById(R.id.mycart_list);
+            main_page.setAdapter(adapter);
+            main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(Cart.this, Login.class);
+                    startActivity(intent);
+                }
+            });
+        }
+        else
+        cart_cnt.setText("My Cart (" +0 + ")");
+
+
     }
 
     public void updateGrandPrice(double oldPrice,double newPrice,String productID)

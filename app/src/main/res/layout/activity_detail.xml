@@ -111,11 +111,10 @@
         <Button
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="Add to cart"
+            android:layout_height="40dp"
             android:textColor="#ffffff"
             android:gravity="center"
-            android:background="@drawable/btn_back"
+            android:background="@drawable/add_cart_btn_back"
             android:id="@+id/add_2cart" />
 
     </LinearLayout>

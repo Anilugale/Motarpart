@@ -20,7 +20,7 @@
 
         <ImageView
             android:id="@+id/product_images"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_width="100dp"
             android:src="@drawable/t2"
             android:padding="10dp" />
@@ -131,16 +131,15 @@
             android:text="RE 02210102" />
 
         <Button
-            android:layout_width="100dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="150dp"
             android:layout_alignParentRight="true"
-            android:layout_height="wrap_content"
-            android:text="Details"
+            android:layout_height="40dp"
             android:drawableRight="@drawable/right_arrow"
             android:textColor="#ffffff"
             android:gravity="center"
-            android:textSize="10sp"
-            android:background="@drawable/btn_back"
-
+            android:background="@drawable/details_btn_back"
             android:id="@+id/deatail" />
 
 
