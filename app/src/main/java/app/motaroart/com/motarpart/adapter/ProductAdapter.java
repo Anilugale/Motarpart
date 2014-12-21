@@ -35,7 +35,7 @@ import app.motaroart.com.motarpart.pojo.Wish;
  */
 
 public class ProductAdapter extends BaseAdapter {
-
+    List<Wish> listWish;
     List<Product> listData;
     List<Product> listMain;
     Activity activity;
@@ -158,22 +158,28 @@ public class ProductAdapter extends BaseAdapter {
 
         final ToggleButton wish_btn=(ToggleButton)vi.findViewById(R.id.wish_btn);
         final SharedPreferences mPrefs = activity.getSharedPreferences(activity.getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
-        String withJson=mPrefs.getString("wish","");
+        String wishJson=mPrefs.getString("wish","");
 
 
-        final Type listOfTestObject = new TypeToken<List<Wish>>() {
-        }.getType();
-        final Gson gson = new Gson();
-        final List<Wish>listWish = gson.fromJson(withJson, listOfTestObject);
-        for (Wish wish:listWish)
+    final Type listOfTestObject = new TypeToken<List<Wish>>() {
+    }.getType();
+    final Gson gson = new Gson();
+
+       if(wishJson!=null)
+        listWish=gson.fromJson(wishJson, listOfTestObject);
+        else
+           listWish =new ArrayList<Wish>();
+        if(listWish!=null)
         {
-            if(wish.getProductId().equals(product.getProductId()))
             {
-                wish_btn.setChecked(true);
-                break;
+                for (Wish wish : listWish) {
+                    if (wish.getProductId().equals(product.getProductId())) {
+                        wish_btn.setChecked(true);
+                        break;
+                    }
+                }
             }
-        }
-
+}
         wish_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

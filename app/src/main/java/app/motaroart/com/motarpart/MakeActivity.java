@@ -1,11 +1,13 @@
 package app.motaroart.com.motarpart;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
@@ -31,12 +33,11 @@ import java.util.Locale;
 import app.motaroart.com.motarpart.adapter.MakeAdapter;
 import app.motaroart.com.motarpart.pojo.Make;
 import app.motaroart.com.motarpart.pojo.Product;
+import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
 public class MakeActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-    String jsonWith="[{\"RecordId\":1,\"ProductId\":2,\"AccountId\":1,\"CreatedOn\":\"2014-12-08T16:40:09.063\"},{\"RecordId\":3,\"ProductId\":4,\"AccountId\":1,\"CreatedOn\":\"2014-12-08T16:40:15.137\"}]\n";
-    String JsonStr = "[{\"MakeId\":1,\"MakeName\":\"AUDI\",\"Description\":\"\",\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:20:45.353\"},{\"MakeId\":7,\"MakeName\":\"HONDA\",\"Description\":null,\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:21:23.07\"},{\"MakeId\":2,\"MakeName\":\"HYUNDAI\",\"Description\":null,\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:20:47.713\"},{\"MakeId\":3,\"MakeName\":\"KIA\",\"Description\":null,\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:20:55.903\"},{\"MakeId\":10,\"MakeName\":\"MAZDA\",\"Description\":null,\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:21:32.173\"},{\"MakeId\":4,\"MakeName\":\"MITSUBISHI\",\"Description\":null,\"IsActive\":false,\"CreatedOn\":\"2014-11-23T16:21:00.257\"},{\"MakeId\":11,\"MakeName\":\"New Make\",\"Description\":\"1\",\"IsActive\":true,\"CreatedOn\":\"2014-12-01T16:27:38.233\"},{\"MakeId\":8,\"MakeName\":\"NISSAN\",\"Description\":null,\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:21:27.847\"},{\"MakeId\":6,\"MakeName\":\"SUBARU\",\"Description\":null,\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:21:14.32\"},{\"MakeId\":9,\"MakeName\":\"SUZUKI\",\"Description\":null,\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:21:31.647\"},{\"MakeId\":5,\"MakeName\":\"TOYOTA\",\"Description\":null,\"IsActive\":true,\"CreatedOn\":\"2014-11-23T16:21:13.787\"}]";
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
     MakeAdapter adapter;
@@ -49,27 +50,8 @@ public class MakeActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        new DownloadData().execute();
 
-        SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
-
-        mPrefs.edit().putString("wish",jsonWith).commit();
-
-        Gson gson = new Gson();
-        Type listOfTestObject = new TypeToken<List<Make>>() {
-        }.getType();
-        listData = gson.fromJson(JsonStr, listOfTestObject);
-
-        adapter = new MakeAdapter(this, listData);
-        ListView main_page = (ListView) findViewById(R.id.main_page_list);
-        main_page.setAdapter(adapter);
-        main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MakeActivity.this, ModelActivity.class);
-                intent.putExtra("MakeID", listData.get(i).getMakeId());
-                startActivity(intent);
-            }
-        });
         key_word=(EditText)findViewById(R.id.key_word);
         key_word.addTextChangedListener(new TextWatcher() {
 
@@ -186,6 +168,58 @@ public class MakeActivity extends Activity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //  backgroud service
+
+
+    class DownloadData extends AsyncTask<Void,Void,String>
+    {
+
+        ProgressDialog process;
+        @Override
+        protected void onPostExecute(String jsondata) {
+
+            if(jsondata!=null) {
+                Gson gson = new Gson();
+                Type listOfTestObject = new TypeToken<List<Make>>() {
+                }.getType();
+                listData = gson.fromJson(jsondata, listOfTestObject);
+
+                adapter = new MakeAdapter(MakeActivity.this, listData);
+                ListView main_page = (ListView) findViewById(R.id.main_page_list);
+                main_page.setAdapter(adapter);
+                main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Intent intent = new Intent(MakeActivity.this, ModelActivity.class);
+                        intent.putExtra("MakeID", listData.get(i).getMakeId());
+                        startActivity(intent);
+                    }
+                });
+            }
+            {
+                System.out.println("nulll data");
+            }
+
+            process.dismiss();
+            super.onPostExecute(jsondata);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            process=ProgressDialog.show(MakeActivity.this,MakeActivity.this.getResources().getString(R.string.app_name),"Loading....",true,false);
+
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            String jsondata=WebServiceCall.getMakeJson();
+
+
+                        return jsondata;
+        }
     }
 
 

@@ -2,39 +2,46 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.0"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-5b796961f26a719fd295847d2f785b17277cfa94.jar" />
-    </item>
-    <item
-        jar="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\libs\ksoap2-android-2.5.2.jar"
-        jumboMode="false"
-        revision="21.1.0"
-        sha1="b2dba1c1872c937f0b0a5b10cb03f8e9f2c9e747">
-        <dex dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\ksoap2-android-2.5.2-ea00ca345f92f610b4dda4113dad6ed803a29e8e.jar" />
-    </item>
-    <item
-        jar="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
-        jumboMode="false"
-        revision="21.1.0"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\classes-30ece16164d32681dadac7ad93e8757c5a57a58a.jar" />
-    </item>
-    <item
-        jar="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
-        jumboMode="false"
-        revision="21.1.0"
-        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\classes-feeac1bb910feeac4b56e4254500619dbc25f940.jar" />
-    </item>
-    <item
-        jar="D:\Android\Android\adt-bundle-windows-x86-20140702\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jar="F:\Android\adt-bundle-windows-x86_64-20140702\adt-bundle-windows-x86_64-20140702\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
         jumboMode="false"
         revision="21.1.0"
         sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-1fe63473a7e5a131cc15d10633b8104df787b885.jar" />
+        <dex dex="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-ba5eb11b79dc624a2b4d2d682b2196691ded3cb6.jar" />
+    </item>
+    <item
+        jar="C:\Users\Aanil1989\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3.1\ecb6e1f8e4b0e84c4b886c2f14a1500caf309757\gson-2.3.1.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\pre-dexed\debug\gson-2.3.1-97e116440c8737799942973ffa31a056190dc05d.jar" />
+    </item>
+    <item
+        jar="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\pre-dexed\debug\classes-0c5fda63e3820755d7b9fc8482d9295d0ce64677.jar" />
+    </item>
+    <item
+        jar="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\pre-dexed\debug\classes-0c9a0c6b88a2a4534b7933ed3dcf22852ab624ac.jar" />
+    </item>
+    <item
+        jar="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-024bf43578b39c3c0ab71b6836674b2b39b1eefb.jar" />
+    </item>
+    <item
+        jar="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\libs\ksoap2-android-2.5.2.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="b2dba1c1872c937f0b0a5b10cb03f8e9f2c9e747">
+        <dex dex="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\pre-dexed\debug\ksoap2-android-2.5.2-b0c824056efbd05bbaa9ab4065c440b3db193276.jar" />
     </item>
 
 </items>

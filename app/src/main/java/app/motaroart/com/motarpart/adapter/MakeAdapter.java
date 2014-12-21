@@ -36,7 +36,7 @@ public class MakeAdapter extends BaseAdapter {
         this.activity=activity;
         inflater = (LayoutInflater)activity.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        imageLoader = new ImageLoader(activity.getApplicationContext());
+        imageLoader = new ImageLoader(activity);
     }
 
     @Override

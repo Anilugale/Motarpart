@@ -14,13 +14,13 @@ import org.ksoap2.transport.HttpTransportSE;
 public class WebServiceCall {
 
 
-    private static final String NAMESPACE = "http://hello_webservice/";
-    private static String URL="http://192.168.1.68:7001/HelloWebService/HelloWSService?WSDL";
+    private static final String NAMESPACE = "http://tempuri.org/";
+    private static String URL="http://213.147.67.114/mobileservice.asmx";
     private static final String METHOD_NAME = "hello";
     private static final String SOAP_ACTION =  "http://hello_webservice/hello";
 
 
-    public String CallMethod(String methodName,String username,String password)
+    public static String CallMethod(String methodName,String username,String password)
     {
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 
@@ -52,6 +52,22 @@ public class WebServiceCall {
 
         } catch (Exception e) {
 
+            return  null;
+        }
+    }
+    private static final String METHOD_NAME_MAKE = "GetMake";
+    private static final String SOAP_ACTION_MAKE =  "http://tempuri.org/GetMake";
+    public static String getMakeJson()
+    {
+        SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME_MAKE);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        try {
+            androidHttpTransport.call(SOAP_ACTION_MAKE, envelope);
+            SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
+            return resultsRequestSOAP.toString();
+        } catch (Exception e) {
             return  null;
         }
     }
