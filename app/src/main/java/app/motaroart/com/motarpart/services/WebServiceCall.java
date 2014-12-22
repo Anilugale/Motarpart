@@ -72,4 +72,21 @@ public class WebServiceCall {
         }
     }
 
+    private static final String METHOD_NAME_MODEL = "GetModel";
+    private static final String SOAP_ACTION_MODEL =  "http://tempuri.org/GetModel";
+    public static String getModelJson()
+    {
+        SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME_MODEL);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        try {
+            androidHttpTransport.call(SOAP_ACTION_MODEL, envelope);
+            SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
+            return resultsRequestSOAP.toString();
+        } catch (Exception e) {
+            return  null;
+        }
+    }
+
 }

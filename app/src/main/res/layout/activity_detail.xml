@@ -27,6 +27,7 @@
         >
 
         <ImageView
+            android:layout_margin="10dp"
             android:id="@+id/part_images"
             android:layout_height="100dp"
             android:layout_width="100dp"
