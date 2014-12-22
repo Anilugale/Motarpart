@@ -1,8 +1,10 @@
 package app.motaroart.com.motarpart;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -33,6 +35,7 @@ import java.util.Locale;
 import app.motaroart.com.motarpart.adapter.MakeAdapter;
 import app.motaroart.com.motarpart.pojo.Make;
 import app.motaroart.com.motarpart.pojo.Product;
+import app.motaroart.com.motarpart.services.InternetState;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
@@ -175,12 +178,19 @@ public class MakeActivity extends Activity
 
     class DownloadData extends AsyncTask<Void,Void,String>
     {
-
+        SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         ProgressDialog process;
         @Override
         protected void onPostExecute(String jsondata) {
 
-            if(jsondata!=null) {
+            try {
+                if (jsondata == null) {
+
+                    jsondata = mPrefs.getString("make", "");
+                    if(jsondata.equals(""))
+                        throw new NullPointerException("Some required files are missing");
+
+                }
                 Gson gson = new Gson();
                 Type listOfTestObject = new TypeToken<List<Make>>() {
                 }.getType();
@@ -197,12 +207,25 @@ public class MakeActivity extends Activity
                         startActivity(intent);
                     }
                 });
-            }
-            {
-                System.out.println("nulll data");
-            }
 
-            process.dismiss();
+
+                process.dismiss();
+            }
+            catch (NullPointerException ex)
+            {
+                process.dismiss();
+                new AlertDialog.Builder(MakeActivity.this)
+                        .setTitle(MakeActivity.this.getResources().getString(R.string.app_name))
+                        .setMessage("Sorry No offline Data available!")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
             super.onPostExecute(jsondata);
         }
 
@@ -215,10 +238,14 @@ public class MakeActivity extends Activity
 
         @Override
         protected String doInBackground(Void... voids) {
-            String jsondata=WebServiceCall.getMakeJson();
+            String jsondata=null;
+            if(InternetState.getState(MakeActivity.this)) {
+                jsondata = WebServiceCall.getMakeJson();
+                mPrefs.edit().putString("make",jsondata).apply();
+            }
 
 
-                        return jsondata;
+            return jsondata;
         }
     }
 

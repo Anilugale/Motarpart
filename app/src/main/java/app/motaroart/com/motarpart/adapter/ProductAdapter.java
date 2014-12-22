@@ -165,10 +165,10 @@ public class ProductAdapter extends BaseAdapter {
     }.getType();
     final Gson gson = new Gson();
 
-       if(wishJson!=null)
+
         listWish=gson.fromJson(wishJson, listOfTestObject);
-        else
-           listWish =new ArrayList<Wish>();
+
+
         if(listWish!=null)
         {
             {
@@ -180,6 +180,10 @@ public class ProductAdapter extends BaseAdapter {
                 }
             }
 }
+        else
+            listWish =new ArrayList<Wish>();
+
+
         wish_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

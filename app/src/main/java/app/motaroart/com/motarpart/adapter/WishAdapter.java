@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -73,7 +73,7 @@ public class WishAdapter extends BaseAdapter {
 
 
            final Product product= listMain.get(i);;
-            View vi = inflater.inflate(R.layout.listview_product, null);
+            View vi = inflater.inflate(R.layout.listview_wish, null);
             TextView product_name = (TextView) vi.findViewById(R.id.product_name);
             TextView product_make = (TextView) vi.findViewById(R.id.product_make);
             TextView product_model = (TextView) vi.findViewById(R.id.product_model);
@@ -156,7 +156,7 @@ public class WishAdapter extends BaseAdapter {
         // wish btn
 
 
-        final ToggleButton wish_btn=(ToggleButton)vi.findViewById(R.id.wish_btn);
+        final ImageButton wish_btn=(ImageButton)vi.findViewById(R.id.remove_btn);
         final SharedPreferences mPrefs = activity.getSharedPreferences(activity.getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         String withJson=mPrefs.getString("wish","");
 
@@ -165,36 +165,20 @@ public class WishAdapter extends BaseAdapter {
         }.getType();
         final Gson gson = new Gson();
         final List<Wish>listWish = gson.fromJson(withJson, listOfTestObject);
-        for (Wish wish:listWish)
-        {
-            if(wish.getProductId().equals(product.getProductId()))
-            {
-                wish_btn.setChecked(true);
-                break;
-            }
-        }
 
+        final int cnt=i;
         wish_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(wish_btn.isChecked())
-                {
-                    Wish wish=new Wish();
-                    wish.setAccountId(mPrefs.getString("accountid","1"));
-                    wish.setProductId(product.getProductId());
-                    listWish.add(wish);
-                    mPrefs.edit().putString("wish",gson.toJson(listWish,listOfTestObject)).commit();
-                }
-                else
-                {
-                    for (int i=0;i<listWish.size();i++)
-                    {
-                        if(listWish.get(i).getProductId().equals(product.getProductId()))
-                        {
-                            listWish.remove(i);
-                            mPrefs.edit().putString("wish",gson.toJson(listWish,listOfTestObject)).commit();
 
-                        }
+                for (int j=0;j<listWish.size();j++) {
+                Wish wish=listWish.get(j);
+
+                    if(wish.getProductId().equals(product.getProductId())) {
+                        listWish.remove(j);
+                        listMain.remove(cnt);
+                        mPrefs.edit().putString("wish", gson.toJson(listWish, listOfTestObject)).apply();
+                        WishAdapter.this.notifyDataSetChanged();
                     }
                 }
             }
