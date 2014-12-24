@@ -1,11 +1,15 @@
 package app.motaroart.com.motarpart;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,39 +34,27 @@ import java.util.Locale;
 import app.motaroart.com.motarpart.adapter.CategoryAdapter;
 import app.motaroart.com.motarpart.pojo.CategoryPojo;
 import app.motaroart.com.motarpart.pojo.Product;
+import app.motaroart.com.motarpart.services.InternetState;
+import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
 public class CategoryActivity extends Activity {
     EditText key_word;
-    List listData;
+    List<CategoryPojo> listData;
     CategoryAdapter adapter;
-    String JsonStr="[{\"CategoryId\":2,\"Category\":\"Auto Glass\",\"Description\":\"\",\"IsActive\":true,\"CreatedOn\":\"2014-12-01T11:28:40.867\"},{\"CategoryId\":1,\"Category\":\"Auto Lamp\",\"Description\":\"Auto Lamp\",\"IsActive\":true,\"CreatedOn\":\"2014-12-01T11:28:22.86\"},{\"CategoryId\":4,\"Category\":\"Auto Service\",\"Description\":\"\",\"IsActive\":false,\"CreatedOn\":\"2014-12-01T11:30:28.623\"},{\"CategoryId\":3,\"Category\":\"Body Part\",\"Description\":\"\",\"IsActive\":true,\"CreatedOn\":\"2014-12-01T11:29:08.22\"}]";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category2);
-
-        Gson gson = new Gson();
-        Type listOfTestObject = new TypeToken<List<CategoryPojo>>() {
-        }.getType();
-        listData = gson.fromJson(JsonStr, listOfTestObject);
-        adapter=new CategoryAdapter(this,listData);
-        ListView main_page=(ListView)findViewById(R.id.cat_list);
-        main_page.setAdapter(adapter);
-        main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent =new Intent(CategoryActivity.this,ProductActivity.class);
-               startActivity(intent);
-            }
-        });
+        new DownloadData().execute();
         // search
         key_word=(EditText)findViewById(R.id.key_word);
         key_word.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void afterTextChanged(Editable arg0) {
-                // TODO Auto-generated method stub
+
                 String text = key_word.getText().toString().toLowerCase(Locale.getDefault());
                 adapter.filter(text);
             }
@@ -70,13 +62,13 @@ public class CategoryActivity extends Activity {
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1,
                                           int arg2, int arg3) {
-                // TODO Auto-generated method stub
+
             }
 
             @Override
             public void onTextChanged(CharSequence arg0, int arg1, int arg2,
                                       int arg3) {
-                // TODO Auto-generated method stub
+
             }
         });
     }
@@ -158,6 +150,87 @@ public class CategoryActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    //  backgroud service
+   class DownloadData extends AsyncTask<Void,Void,String>
+    {
+        SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+        ProgressDialog process;
+        @Override
+        protected void onPostExecute(String jsondata) {
+
+            try {
+                if (jsondata == null) {
+
+                    jsondata = mPrefs.getString("make", "");
+                    if(jsondata.equals(""))
+                        throw new NullPointerException("Some required files are missing");
+
+                }
+                Gson gson = new Gson();
+                Type listOfTestObject = new TypeToken<List<CategoryPojo>>() {
+                }.getType();
+                listData = gson.fromJson(jsondata, listOfTestObject);
+
+                adapter = new CategoryAdapter(CategoryActivity.this, listData);
+                ListView main_page = (ListView) findViewById(R.id.cat_list);
+                main_page.setAdapter(adapter);
+                main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Intent intent = new Intent(CategoryActivity.this, ProductActivity.class);
+                        intent.putExtra("CatID", listData.get(i).getCategoryId());
+                        startActivity(intent);
+                    }
+                });
+
+
+                process.dismiss();
+            }
+            catch (NullPointerException ex)
+            {
+
+                process.dismiss();
+                new AlertDialog.Builder(CategoryActivity.this)
+                        .setTitle(CategoryActivity.this.getResources().getString(R.string.app_name))
+                        .setMessage("Sorry No offline Data available!"+ex)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+            super.onPostExecute(jsondata);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            process=ProgressDialog.show(CategoryActivity.this,CategoryActivity.this.getResources().getString(R.string.app_name),"Loading....",true,false);
+
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            String jsondata=null;
+            String str= mPrefs.getString("category","");
+            if(!str.equals(""))
+                return str;
+            if(InternetState.getState(CategoryActivity.this)) {
+                jsondata = WebServiceCall.getCategoryJson();
+                mPrefs.edit().putString("category",jsondata).apply();
+            }
+
+
+
+            return jsondata;
+        }
+    }
+
 
 
 }

@@ -239,6 +239,10 @@ public class MakeActivity extends Activity
         @Override
         protected String doInBackground(Void... voids) {
             String jsondata=null;
+            String str= mPrefs.getString("make","");
+            if(!str.equals(""))
+                return str;
+
             if(InternetState.getState(MakeActivity.this)) {
                 jsondata = WebServiceCall.getMakeJson();
                 mPrefs.edit().putString("make",jsondata).apply();

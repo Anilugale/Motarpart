@@ -3,10 +3,15 @@ package app.motaroart.com.motarpart;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -18,13 +23,23 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Spinner;
 
-import java.util.ArrayList;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.List;
+
+import app.motaroart.com.motarpart.adapter.CategoryAdapter;
+import app.motaroart.com.motarpart.adapter.MakeAdapter;
+import app.motaroart.com.motarpart.adapter.ModelAdapter;
+import app.motaroart.com.motarpart.pojo.CategoryPojo;
+import app.motaroart.com.motarpart.pojo.Make;
+import app.motaroart.com.motarpart.pojo.Model;
+import app.motaroart.com.motarpart.services.InternetState;
+import app.motaroart.com.motarpart.services.WebServiceCall;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -33,30 +48,17 @@ import java.util.List;
  */
 public class NavigationDrawerFragment extends Fragment implements View.OnClickListener {
 
-    /**
-     * Remember the position of the selected item.
-     */
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
 
-    /**
-     * Per the design guidelines, you should show the drawer on launch until the user manually
-     * expands it. This shared preference tracks this.
-     */
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
 
-    /**
-     * A pointer to the current callbacks instance (the Activity).
-     */
     private NavigationDrawerCallbacks mCallbacks;
 
-    /**
-     * Helper component that ties the action bar to the navigation drawer.
-     */
+
     private ActionBarDrawerToggle mDrawerToggle;
 
     private DrawerLayout mDrawerLayout;
-    private ListView mDrawerListView;
-    private View mFragmentContainerView;
+    View mFragmentContainerView;
 
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
@@ -89,68 +91,124 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         setHasOptionsMenu(true);
     }
 
-    Spinner sMake, sModel, sSubModel;
-
+    Spinner sMake, sModel, category;
+    View rootView;
+    SharedPreferences mPrefs ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_drawer, container, false);
-
+        rootView = inflater.inflate(R.layout.fragment_drawer, container, false);
+        mPrefs = rootView.getContext().getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         sMake = (Spinner) rootView.findViewById(R.id.s_make);
         sModel = (Spinner) rootView.findViewById(R.id.s_model);
-        sSubModel = (Spinner) rootView.findViewById(R.id.s_sub);
+        category = (Spinner) rootView.findViewById(R.id.s_sub);
 
         Button b = (Button) rootView.findViewById(R.id.main_seach_drawer);
         b.setOnClickListener(this);
 
+        new DownloadData().execute();
 
-        List<String> list = new ArrayList<String>();
-        list.add("Make");
-
-
-        list.add("TOYOTA");
-        list.add("NISSAN");
-        list.add("MITSUBISHI");
-        list.add("MAZDA");
-        list.add("HONDA");
-        list.add("ISUZU");
-        list.add("SUZUKI");
-        list.add("SUBARU");
-        list.add("LEXUS");
-        list.add("HINO");
-        list.add("ACURA MDX");
-        list.add("DAIHATSU");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, list);
-        sMake.setAdapter(adapter);
-
-        List<String> list2 = new ArrayList<String>();
-        list2.add("Model");
-        list2.add("COROLLA KE30 1976-1979");
-        list2.add("COROLLA KE30 1976-1979");
-        list2.add("COROLLA KE70 1980-1981");
-        list2.add("COROLLA KE73/KE76 1982-1983");
-        list2.add("COROLLA KE75 1984-1985");
-        list2.add("COROLLA EE80/AE82 1986-1987");
-        list2.add("COROLLA EE80/AE82 1986-1987");
-        list2.add("COROLLA EE80/AE82 1986-1987");
-        list2.add("COROLLA KE70");
-
-
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, list2);
-        sModel.setAdapter(adapter2);
-
-
-        List<String> list3 = new ArrayList<String>();
-        list3.add("Category");
-        list3.add("AUTO LAMPS");
-        list3.add("BODY PARTS ");
-        list3.add("AUTO GLASS");
-
-
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, list3);
-        sSubModel.setAdapter(adapter3);
         return rootView;
     }
+
+
+/// init the spinner of make model and category
+
+    class DownloadData extends AsyncTask<Void,Void,String[]>
+    {
+
+        ProgressDialog pd;
+        @Override
+        protected String[] doInBackground(Void... voids) {
+            String[] data=new String[5];
+
+            if(!mPrefs.getString("make","").equals(""))
+                data[0]=mPrefs.getString("make","");
+            else
+            {
+                if(InternetState.getState(rootView.getContext())) {
+                    data[0]= WebServiceCall.getMakeJson();
+                    mPrefs.edit().putString("make", data[0]).apply();
+                }
+            }
+
+            if(!mPrefs.getString("model","").equals(""))
+                data[1]=mPrefs.getString("model","");
+            else
+            {
+                if(InternetState.getState(rootView.getContext())) {
+                    data[1]= ModelActivity.JsonStr;//WebServiceCall.getModelJson();
+                    mPrefs.edit().putString("model", data[1]).apply();
+                }
+            }
+            if(!mPrefs.getString("category","").equals(""))
+                data[2]=mPrefs.getString("category","");
+            else
+            {
+                if(InternetState.getState(rootView.getContext())) {
+                    data[2]= WebServiceCall.getCategoryJson();
+                    mPrefs.edit().putString("category", data[2]).apply();
+                }
+            }
+
+
+            return data;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pd=ProgressDialog.show(rootView.getContext(),rootView.getResources().getString(R.string.app_name),"Loading..",true,false);
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String[] s) {
+
+            if(s[0].equals(null)&&s[1].equals(null)&&s[2].equals(null)) {
+                Gson gson = new Gson();
+                Type listOfTestObject = new TypeToken<List<Make>>() {
+                }.getType();
+                listData = gson.fromJson(s[0], listOfTestObject);
+                MakeAdapter makeAdapter = new MakeAdapter(getActivity(), listData);
+                sMake.setAdapter(makeAdapter);
+
+                Type listModeltObject = new TypeToken<List<Model>>() {
+                }.getType();
+                listDataModel = gson.fromJson(s[1], listModeltObject);
+                ModelAdapter ModelAdapter = new ModelAdapter(getActivity(), listDataModel);
+                sModel.setAdapter(ModelAdapter);
+
+                Type listCatObject = new TypeToken<List<CategoryPojo>>() {
+                }.getType();
+                listDataCat = gson.fromJson(s[2], listCatObject);
+                CategoryAdapter catAdapter = new CategoryAdapter(getActivity(), listDataCat);
+                category.setAdapter(catAdapter);
+                pd.dismiss();
+                super.onPostExecute(s);
+            }
+            else
+            {
+                pd.dismiss();
+                new AlertDialog.Builder(getActivity())
+                        .setTitle(getActivity().getResources().getString(R.string.app_name))
+                        .setMessage("Sorry No offline Data available!")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        }
+    }
+
+
+    List<CategoryPojo>listDataCat;
+    List<Model> listDataModel;
+    List<Make>listData;
+
 
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
@@ -230,18 +288,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    private void selectItem(int position) {
-        mCurrentSelectedPosition = position;
-        if (mDrawerListView != null) {
-            mDrawerListView.setItemChecked(position, true);
-        }
-        if (mDrawerLayout != null) {
-            mDrawerLayout.closeDrawer(mFragmentContainerView);
-        }
-        if (mCallbacks != null) {
-            mCallbacks.onNavigationDrawerItemSelected(position);
-        }
-    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -311,7 +357,10 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     @Override
     public void onClick(View view) {
 
-        Intent i = new Intent(getActivity(), Secound.class);
+        Intent i = new Intent(getActivity(), ProductActivity.class);
+        i.putExtra("makeID", (listData.get(sMake.getSelectedItemPosition()).getMakeId()));
+        i.putExtra("modelID", (listDataModel.get(sModel.getSelectedItemPosition()).getModelId()));
+        i.putExtra("categoryID", (listDataCat.get(category.getSelectedItemPosition()).getCategoryId()));
         startActivity(i);
 
 

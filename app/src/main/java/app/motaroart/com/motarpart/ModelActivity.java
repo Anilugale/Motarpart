@@ -31,19 +31,16 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Locale;
 
-import app.motaroart.com.motarpart.adapter.MakeAdapter;
 import app.motaroart.com.motarpart.adapter.ModelAdapter;
-import app.motaroart.com.motarpart.pojo.Make;
 import app.motaroart.com.motarpart.pojo.Model;
 import app.motaroart.com.motarpart.pojo.Product;
 import app.motaroart.com.motarpart.services.InternetState;
-import app.motaroart.com.motarpart.services.WebServiceCall;
 
 public class ModelActivity extends Activity {
     List<Model> listData;
     EditText key_word;
     ModelAdapter adapter;
-    String JsonStr = "[{\"ModelId\":4,\"MakeName\":\"HYUNDAI\",\"MakeID\":2,\"ModelName\":\"X 50\",\"ModelDesc\":\"1234\",\"PhotoUrl\":\"electricity bill.pdf\",\"IsActive\":true,\"ModelId1\":4},{\"ModelId\":5,\"MakeName\":\"MITSUBISHI\",\"MakeID\":4,\"ModelName\":\"X 50 555555508\",\"ModelDesc\":\"123455555555\",\"PhotoUrl\":\"\",\"IsActive\":false,\"ModelId1\":5}]";
+  public static String JsonStr = "[{\"ModelId\":4,\"MakeName\":\"HYUNDAI\",\"MakeID\":2,\"ModelName\":\"X 50\",\"ModelDesc\":\"1234\",\"PhotoUrl\":\"electricity bill.pdf\",\"IsActive\":true,\"ModelId1\":4},{\"ModelId\":5,\"MakeName\":\"MITSUBISHI\",\"MakeID\":4,\"ModelName\":\"X 50 555555508\",\"ModelDesc\":\"123455555555\",\"PhotoUrl\":\"\",\"IsActive\":false,\"ModelId1\":5}]";
 
     @Override
     @SuppressWarnings("deprecation")
@@ -180,7 +177,7 @@ public class ModelActivity extends Activity {
                 listData = gson.fromJson(jsondata, listOfTestObject);
 
                 adapter = new ModelAdapter(ModelActivity.this, listData);
-                ListView main_page = (ListView) findViewById(R.id.main_page_list);
+                ListView main_page = (ListView) findViewById(R.id.modle_list);
                 main_page.setAdapter(adapter);
                 main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -222,13 +219,16 @@ public class ModelActivity extends Activity {
         @Override
         protected String doInBackground(Void... voids) {
             String jsondata=null;
+            String str= mPrefs.getString("model","");
+            if(!str.equals(""))
+                return str;
             if(InternetState.getState(ModelActivity.this)) {
-                jsondata = WebServiceCall.getModelJson();
+           //     jsondata = WebServiceCall.getModelJson();
                 mPrefs.edit().putString("model",jsondata).apply();
             }
 
 
-            return jsondata;
+            return JsonStr;
         }
     }
 }

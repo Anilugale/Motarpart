@@ -16,7 +16,7 @@ public class Make implements Serializable
 
     private String CreatedOn;
 
-    private String MakeId;
+    private int MakeId;
 
     public String getMakeName ()
     {
@@ -58,12 +58,12 @@ public class Make implements Serializable
         this.CreatedOn = CreatedOn;
     }
 
-    public String getMakeId ()
+    public int getMakeId ()
     {
         return MakeId;
     }
 
-    public void setMakeId (String MakeId)
+    public void setMakeId (int MakeId)
     {
         this.MakeId = MakeId;
     }

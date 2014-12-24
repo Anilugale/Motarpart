@@ -39,7 +39,7 @@ public class WishActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wish);
-         mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+        mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
 
         new GetWish().execute();
     }
@@ -47,7 +47,7 @@ public class WishActivity extends Activity {
 
 
 
-   class GetWish extends AsyncTask<Void,Void,String>
+    class GetWish extends AsyncTask<Void,Void,String>
     {
         ProgressDialog pd;
         @Override
@@ -55,43 +55,43 @@ public class WishActivity extends Activity {
 
 
 
+            if(!s.equals("")) {
+                Type listOfTestObject = new TypeToken<List<Product>>() {
+                }.getType();
+                Gson gson = new Gson();
+                List<Product> listData = gson.fromJson(mPrefs.getString("products", ""), listOfTestObject);
 
-            Type listOfTestObject = new TypeToken<List<Product>>() {
-            }.getType();
-            Gson gson = new Gson();
-            List<Product> listData = gson.fromJson( mPrefs.getString("products",""), listOfTestObject);
+                Type listOfTestWish = new TypeToken<List<Wish>>() {
+                }.getType();
 
-            Type listOfTestWish= new TypeToken<List<Wish>>() {
-            }.getType();
+                List<Wish> listWish = gson.fromJson(s, listOfTestWish);
 
-            List<Wish> listWish = gson.fromJson(s, listOfTestWish);
-
-            List<Product> outdata=new ArrayList<Product>();
-            for(Product product:listData)
-            {
-               for (Wish wish:listWish) {
-                   if (product.getProductId().equals(wish.getProductId())) {
-                       outdata.add(product);
-                   }
-               }
-            }
-
-            WishAdapter adapter=new WishAdapter(WishActivity.this,outdata);
-
-            ListView main_page=(ListView)findViewById(R.id.product_list);
-            main_page.setAdapter(adapter);
-
-            main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-
-                    Intent intent =new Intent(WishActivity.this,Login.class);
-
-                    startActivity(intent);
-
+                List<Product> outdata = new ArrayList<Product>();
+                for (Product product : listData) {
+                    for (Wish wish : listWish) {
+                        if (product.getProductId().equals(wish.getProductId())) {
+                            outdata.add(product);
+                        }
+                    }
                 }
-            });
+
+                WishAdapter adapter = new WishAdapter(WishActivity.this, outdata);
+
+                ListView main_page = (ListView) findViewById(R.id.product_list);
+                main_page.setAdapter(adapter);
+
+                main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                        Intent intent = new Intent(WishActivity.this, Login.class);
+
+                        startActivity(intent);
+
+                    }
+                });
+            }
             pd.dismiss();
             super.onPostExecute(s);
         }
@@ -124,7 +124,7 @@ public class WishActivity extends Activity {
         super.onCreateOptionsMenu(menu);
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
+        inflater.inflate(R.menu.menu_wish, menu);
 
         count = new TextView(this);
 
@@ -180,17 +180,12 @@ public class WishActivity extends Activity {
         int id = item.getItemId();
 
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
         if (id == R.id.action_user) {
             startActivity(new Intent(this, Login.class));
             return true;
         }
-        if(id==R.id.action_wish){
-            startActivity(new Intent(this, WishActivity.class));
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }

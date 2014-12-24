@@ -89,4 +89,21 @@ public class WebServiceCall {
         }
     }
 
+    private static final String METHOD_NAME_CATEGORY = "GetCategory";
+    private static final String SOAP_ACTION_CATEGORY =  "http://tempuri.org/GetCategory";
+    public static String getCategoryJson()
+    {
+        SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME_CATEGORY);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        try {
+            androidHttpTransport.call(SOAP_ACTION_CATEGORY, envelope);
+            SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
+            return resultsRequestSOAP.toString();
+        } catch (Exception e) {
+            return  null;
+        }
+    }
+
 }
