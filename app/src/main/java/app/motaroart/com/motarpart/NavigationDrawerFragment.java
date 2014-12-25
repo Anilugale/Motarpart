@@ -32,9 +32,9 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import app.motaroart.com.motarpart.adapter.CategoryAdapter;
-import app.motaroart.com.motarpart.adapter.MakeAdapter;
-import app.motaroart.com.motarpart.adapter.ModelAdapter;
+import app.motaroart.com.motarpart.adapter.CategoryAdapterSpinner;
+import app.motaroart.com.motarpart.adapter.MakeAdapterSpinner;
+import app.motaroart.com.motarpart.adapter.ModelAdapterSpinner;
 import app.motaroart.com.motarpart.pojo.CategoryPojo;
 import app.motaroart.com.motarpart.pojo.Make;
 import app.motaroart.com.motarpart.pojo.Model;
@@ -164,24 +164,24 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         @Override
         protected void onPostExecute(String[] s) {
 
-            if(s[0].equals(null)&&s[1].equals(null)&&s[2].equals(null)) {
+            if(s[0]==null&&s[1]==null&&s[2]==null) {
                 Gson gson = new Gson();
                 Type listOfTestObject = new TypeToken<List<Make>>() {
                 }.getType();
                 listData = gson.fromJson(s[0], listOfTestObject);
-                MakeAdapter makeAdapter = new MakeAdapter(getActivity(), listData);
+                MakeAdapterSpinner makeAdapter = new MakeAdapterSpinner(getActivity(), listData);
                 sMake.setAdapter(makeAdapter);
 
                 Type listModeltObject = new TypeToken<List<Model>>() {
                 }.getType();
                 listDataModel = gson.fromJson(s[1], listModeltObject);
-                ModelAdapter ModelAdapter = new ModelAdapter(getActivity(), listDataModel);
+                ModelAdapterSpinner ModelAdapter = new ModelAdapterSpinner(getActivity(), listDataModel);
                 sModel.setAdapter(ModelAdapter);
 
                 Type listCatObject = new TypeToken<List<CategoryPojo>>() {
                 }.getType();
                 listDataCat = gson.fromJson(s[2], listCatObject);
-                CategoryAdapter catAdapter = new CategoryAdapter(getActivity(), listDataCat);
+                CategoryAdapterSpinner catAdapter = new CategoryAdapterSpinner(getActivity(), listDataCat);
                 category.setAdapter(catAdapter);
                 pd.dismiss();
                 super.onPostExecute(s);

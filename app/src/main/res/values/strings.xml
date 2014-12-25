@@ -1,29 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Motarpart</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="app_name">Auto Lamp</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
     <string name="search_hint">Search</string>
-    <string name="title_activity_secound">Secound</string>
     <string name="hello_world">LOGIN</string>
-    <string name="title_activity_login">Login</string>
-    <string name="title_activity_registration">Registration</string>
-    <string name="title_activity_forget_password">ForgetPassword</string>
-    <string name="title_activity_order">Order</string>
-    <string name="title_activity_category">Category</string>
-    <string name="title_activity_detail">Detail</string>
-    <string name="title_activity_cart">Cart</string>
-    <string name="title_activity_order_detailed">OrderDetailed</string>
     <string name="paid_by"><u>Paid By</u></string>
-    <string name="title_activity_model">ModelActivity</string>
-    <string name="title_activity_product">ProductActivity</string>
-    <string name="title_activity_wish">WishActivity</string>
+
 
 </resources>

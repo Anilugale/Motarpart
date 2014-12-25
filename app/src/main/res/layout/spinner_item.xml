@@ -8,4 +8,5 @@
     android:textColor="#ff005bc1"
     android:text="Make"
     android:padding="10dp"
+    android:id="@+id/model_name"
     />
