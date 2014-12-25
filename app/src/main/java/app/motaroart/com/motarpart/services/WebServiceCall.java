@@ -20,7 +20,7 @@ public class WebServiceCall {
     private static final String SOAP_ACTION =  "http://hello_webservice/hello";
 
 
-    public static String CallMethod(String methodName,String username,String password)
+    public static String userLogin(String username, String password)
     {
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 
@@ -51,6 +51,7 @@ public class WebServiceCall {
 
 
         } catch (Exception e) {
+            e.printStackTrace();
 
             return  null;
         }
@@ -68,6 +69,7 @@ public class WebServiceCall {
             SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
             return resultsRequestSOAP.toString();
         } catch (Exception e) {
+            e.printStackTrace();
             return  null;
         }
     }
@@ -85,6 +87,7 @@ public class WebServiceCall {
             SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
             return resultsRequestSOAP.toString();
         } catch (Exception e) {
+            e.printStackTrace();
             return  null;
         }
     }
@@ -102,6 +105,7 @@ public class WebServiceCall {
             SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
             return resultsRequestSOAP.toString();
         } catch (Exception e) {
+            e.printStackTrace();
             return  null;
         }
     }

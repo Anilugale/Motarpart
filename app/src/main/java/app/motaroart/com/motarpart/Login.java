@@ -3,11 +3,8 @@ package app.motaroart.com.motarpart;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-
 import android.text.InputType;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
@@ -15,6 +12,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
 public class Login extends Activity {
@@ -71,7 +70,9 @@ public class Login extends Activity {
 
         if (validateData()) {
 
-        } else {
+            String josn=WebServiceCall.userLogin(name.getText().toString().trim(),pass.getText().toString().trim());
+
+
         }
 
 
@@ -79,11 +80,11 @@ public class Login extends Activity {
 
     private boolean validateData() {
         if (name.getText().toString().trim().length()==0) {
-            Toast.makeText(this,"Enter the user name!",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Enter the user name!",Toast.LENGTH_SHORT).show();
             return false;
         }
         else if (pass.getText().toString().trim().length()==0) {
-            Toast.makeText(this,"Enter the password!",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Enter the password!",Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
