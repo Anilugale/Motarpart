@@ -102,12 +102,9 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         sMake = (Spinner) rootView.findViewById(R.id.s_make);
         sModel = (Spinner) rootView.findViewById(R.id.s_model);
         category = (Spinner) rootView.findViewById(R.id.s_sub);
-
         Button b = (Button) rootView.findViewById(R.id.main_seach_drawer);
         b.setOnClickListener(this);
-
         new DownloadData().execute();
-
         return rootView;
     }
 
@@ -121,13 +118,14 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         @Override
         protected String[] doInBackground(Void... voids) {
             String[] data=new String[5];
-
             if(!mPrefs.getString("make","").equals(""))
                 data[0]=mPrefs.getString("make","");
             else
             {
                 if(InternetState.getState(rootView.getContext())) {
-                    data[0]= WebServiceCall.getMakeJson();
+                  Object obj = WebServiceCall.getMakeJson();
+                    if(obj instanceof Object)
+                    data[0]=String.valueOf(obj);
                     mPrefs.edit().putString("make", data[0]).apply();
                 }
             }
@@ -150,8 +148,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                     mPrefs.edit().putString("category", data[2]).apply();
                 }
             }
-
-
             return data;
         }
 

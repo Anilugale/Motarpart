@@ -15,20 +15,17 @@ public class InternetState {
 
     public static boolean getState(Context con)
     {
-        ConnectivityManager conMgr = (ConnectivityManager)con.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connManager = (ConnectivityManager) con.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
-        if ( conMgr.getNetworkInfo(0).getState() == NetworkInfo.State.CONNECTED
-                || conMgr.getNetworkInfo(1).getState() == NetworkInfo.State.CONNECTING ) {
-
+        if (mWifi.isConnected()) {
             return true;
-
         }
-        else if ( conMgr.getNetworkInfo(0).getState() == NetworkInfo.State.DISCONNECTED
-                || conMgr.getNetworkInfo(1).getState() == NetworkInfo.State.DISCONNECTED) {
-
+        else
+        {
             return false;
+
         }
-        return false;
     }
 }
 
