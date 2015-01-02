@@ -1,11 +1,13 @@
 package app.motaroart.com.motarpart;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -25,44 +27,20 @@ import java.util.List;
 
 import app.motaroart.com.motarpart.adapter.ProductAdapter;
 import app.motaroart.com.motarpart.pojo.Product;
+import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
 public class ProductActivity extends Activity {
 
     SharedPreferences mPrefs;
     List listData;
-    String JsonStr="\n" +
-            "[{\"MakeName\":\"HYUNDAI\",\"ModelName\":\"X 50\",\"Category\":\"Auto Lamp\",\"ProductId\":1,\"ProductNumber\":\"1000001\",\"ProductCode\":\"1001\",\"OME\":\"10021445\",\"ProductName\":\"abcd\",\"MakeId\":2,\"ModelId\":4,\"CategoryId\":1,\"IsAvailable\":true,\"IsActive\":true,\"ProductImageUrl\":null,\"ProductDesc\":null,\"ProductPrice\":5000.00,\"RetailerPrice\":3000.00,\"WholesalerPrice\":2000.00},{\"MakeName\":\"HYUNDAI\",\"ModelName\":\"X 50\",\"Category\":\"Auto Lamp\",\"ProductId\":2,\"ProductNumber\":\"1000001\",\"ProductCode\":\"1002\",\"OME\":\"10021445\",\"ProductName\":\"abcd\",\"MakeId\":2,\"ModelId\":4,\"CategoryId\":1,\"IsAvailable\":true,\"IsActive\":true,\"ProductImageUrl\":null,\"ProductDesc\":null,\"ProductPrice\":5000.00,\"RetailerPrice\":3000.00,\"WholesalerPrice\":2000.00},{\"MakeName\":\"HYUNDAI\",\"ModelName\":\"X 50\",\"Category\":\"Auto Lamp\",\"ProductId\":3,\"ProductNumber\":\"1000001\",\"ProductCode\":\"1003\",\"OME\":\"10021445\",\"ProductName\":\"abcd\",\"MakeId\":2,\"ModelId\":4,\"CategoryId\":1,\"IsAvailable\":true,\"IsActive\":true,\"ProductImageUrl\":null,\"ProductDesc\":null,\"ProductPrice\":5000.00,\"RetailerPrice\":3000.00,\"WholesalerPrice\":2000.00},{\"MakeName\":\"HYUNDAI\",\"ModelName\":\"X 50\",\"Category\":\"Auto Lamp\",\"ProductId\":4,\"ProductNumber\":\"1000001\",\"ProductCode\":\"1004\",\"OME\":\"10021445\",\"ProductName\":\"abcd\",\"MakeId\":2,\"ModelId\":4,\"CategoryId\":1,\"IsAvailable\":true,\"IsActive\":true,\"ProductImageUrl\":null,\"ProductDesc\":null,\"ProductPrice\":5000.00,\"RetailerPrice\":3000.00,\"WholesalerPrice\":2000.00},{\"MakeName\":\"HYUNDAI\",\"ModelName\":\"X 50\",\"Category\":\"Auto Lamp\",\"ProductId\":5,\"ProductNumber\":\"1000001\",\"ProductCode\":\"1005\",\"OME\":\"10021445\",\"ProductName\":\"abcd\",\"MakeId\":2,\"ModelId\":4,\"CategoryId\":1,\"IsAvailable\":true,\"IsActive\":true,\"ProductImageUrl\":null,\"ProductDesc\":null,\"ProductPrice\":5000.00,\"RetailerPrice\":3000.00,\"WholesalerPrice\":2000.00}]\n";
-
+    Gson gson = new Gson();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
-
-
-        Type listOfTestObject = new TypeToken<List<Product>>() {
-        }.getType();
-        Gson gson = new Gson();
-        listData = gson.fromJson(JsonStr, listOfTestObject);
-
         mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
-        mPrefs.edit().putString("products",JsonStr).commit();
-        ProductAdapter adapter=new ProductAdapter(this,listData);
-
-        ListView main_page=(ListView)findViewById(R.id.product_list);
-        main_page.setAdapter(adapter);
-
-        main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-
-                Intent intent =new Intent(ProductActivity.this,Login.class);
-
-                startActivity(intent);
-
-            }
-        });
+        new GetProduct().execute();
     }
 
 
@@ -151,5 +129,54 @@ public class ProductActivity extends Activity {
             count.setText(cnt + "  ");
     }
 
+    class GetProduct extends AsyncTask<Void,Void,String>
+    {
+        ProgressDialog pd;
+        @Override
+        protected String doInBackground(Void... voids) {
+
+            return  WebServiceCall.getProduct(mPrefs.getString("modelID",""));
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+          //  pd=ProgressDialog.show(ProductActivity.this,getString(R.string.app_name),"Loading...!",true,false);
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+            if (s!=null) {
+                Type listOfTestObject = new TypeToken<List<Product>>() {
+                }.getType();
+
+                listData = gson.fromJson(s, listOfTestObject);
+
+
+
+                ProductAdapter adapter=new ProductAdapter(ProductActivity.this,listData);
+
+                ListView main_page=(ListView)findViewById(R.id.product_list);
+                main_page.setAdapter(adapter);
+
+                main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                        Intent intent =new Intent(ProductActivity.this,Login.class);
+
+                        startActivity(intent);
+
+                    }
+                });
+            }
+
+        //    pd.dismiss();
+            super.onPostExecute(s);
+        }
+    }
 
 }

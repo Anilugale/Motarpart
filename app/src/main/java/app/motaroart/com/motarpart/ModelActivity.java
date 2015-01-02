@@ -35,6 +35,7 @@ import app.motaroart.com.motarpart.adapter.ModelAdapter;
 import app.motaroart.com.motarpart.pojo.Model;
 import app.motaroart.com.motarpart.pojo.Product;
 import app.motaroart.com.motarpart.services.InternetState;
+import app.motaroart.com.motarpart.services.WebServiceCall;
 
 public class ModelActivity extends Activity {
     List<Model> listData;
@@ -183,6 +184,7 @@ public class ModelActivity extends Activity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Intent intent = new Intent(ModelActivity.this, CategoryActivity.class);
+                        mPrefs.edit().putString("modelID",listData.get(i).getModelId()).apply();
                         intent.putExtra("MakeID", listData.get(i).getModelId());
                         startActivity(intent);
                     }
@@ -218,17 +220,17 @@ public class ModelActivity extends Activity {
 
         @Override
         protected String doInBackground(Void... voids) {
-            String jsondata=null;
+
             String str= mPrefs.getString("model","");
             if(!str.equals(""))
                 return str;
             if(InternetState.getState(ModelActivity.this)) {
-           //     jsondata = WebServiceCall.getModelJson();
-                mPrefs.edit().putString("model",jsondata).apply();
+                str = WebServiceCall.getModelJson();
+                mPrefs.edit().putString("model",str).apply();
             }
 
 
-            return JsonStr;
+            return str;
         }
     }
 }

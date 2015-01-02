@@ -130,12 +130,12 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                 }
             }
 
-            if(!mPrefs.getString("model","").equals(""))
+            if(!mPrefs.getString("model","[]").equals("[]") )
                 data[1]=mPrefs.getString("model","");
             else
             {
                 if(InternetState.getState(rootView.getContext())) {
-                    data[1]= ModelActivity.JsonStr;//WebServiceCall.getModelJson();
+                    data[1]= WebServiceCall.getModelJson();
                     mPrefs.edit().putString("model", data[1]).apply();
                 }
             }
@@ -160,7 +160,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         @Override
         protected void onPostExecute(String[] s) {
 
-            if(s[0]==null&&s[1]==null&&s[2]==null) {
+            if(s[0]!=null&&s[1]!=null&&s[2]!=null) {
                 Gson gson = new Gson();
                 Type listOfTestObject = new TypeToken<List<Make>>() {
                 }.getType();
