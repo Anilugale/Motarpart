@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -47,14 +48,14 @@ public class MakeActivity extends Activity
     private CharSequence mTitle;
     List<Make> listData;
     EditText key_word;
-
+    SharedPreferences mPrefs ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         new DownloadData().execute();
-
+        mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         key_word=(EditText)findViewById(R.id.key_word);
         key_word.addTextChangedListener(new TextWatcher() {
 
@@ -75,6 +76,21 @@ public class MakeActivity extends Activity
             public void onTextChanged(CharSequence arg0, int arg1, int arg2,
                                       int arg3) {
 
+            }
+        });
+
+        Button searchKey=(Button)findViewById(R.id.searchKey);
+        searchKey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText keySearch=(EditText)findViewById(R.id.keySearch);
+                if(keySearch.getText().toString().length()>0) {
+                    Intent i = new Intent(MakeActivity.this, ProductActivity.class);
+                    SharedPreferences.Editor edit = mPrefs.edit();
+                    edit.putString("searchKey",keySearch.getText().toString());
+                    edit.apply();
+                    startActivity(i);
+                }
             }
         });
     }

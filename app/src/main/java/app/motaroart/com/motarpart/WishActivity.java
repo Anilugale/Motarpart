@@ -22,6 +22,9 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,7 @@ import java.util.List;
 import app.motaroart.com.motarpart.adapter.WishAdapter;
 import app.motaroart.com.motarpart.pojo.Product;
 import app.motaroart.com.motarpart.pojo.Wish;
+import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
 public class WishActivity extends Activity {
@@ -105,7 +109,30 @@ public class WishActivity extends Activity {
         @Override
         protected String doInBackground(Void... voids) {
 
+            try {
+                Type listOfTestObject = new TypeToken<List<Product>>() {
+                }.getType();
+                Gson gson = new Gson();
 
+                Type listOfTestWish = new TypeToken<List<Wish>>() {
+                }.getType();
+
+                List<Wish> listWish = gson.fromJson( mPrefs.getString("wish",""), listOfTestWish);
+
+                JSONObject wishList=new JSONObject();
+                wishList.put("AccountId", "1");
+                wishList.put("WishList",gson.toJson(listWish));
+
+
+
+                String str="{'AccountWishList':{'WishList':"+gson.toJson(listWish)+",'AccountId':'1'}}";
+                String result=WebServiceCall.SetWishList(str);
+                System.out.println(result+"set wish ");
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             return  mPrefs.getString("wish","");
         }

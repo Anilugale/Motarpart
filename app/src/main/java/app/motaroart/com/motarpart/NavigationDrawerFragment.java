@@ -63,7 +63,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
-
+    SharedPreferences sp;
     public NavigationDrawerFragment() {
     }
 
@@ -73,7 +73,8 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
         if (savedInstanceState != null) {
@@ -105,8 +106,17 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         Button b = (Button) rootView.findViewById(R.id.main_seach_drawer);
         b.setOnClickListener(this);
         new DownloadData().execute();
+
+
+
         return rootView;
+
+
+
+
     }
+
+
 
 
 /// init the spinner of make model and category
@@ -354,9 +364,10 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     public void onClick(View view) {
 
         Intent i = new Intent(getActivity(), ProductActivity.class);
-        i.putExtra("makeID", (listData.get(sMake.getSelectedItemPosition()).getMakeId()));
-        i.putExtra("modelID", (listDataModel.get(sModel.getSelectedItemPosition()).getModelId()));
-        i.putExtra("categoryID", (listDataCat.get(category.getSelectedItemPosition()).getCategoryId()));
+        SharedPreferences.Editor edit=sp.edit();
+        edit.putString("modelID", (listDataModel.get(sModel.getSelectedItemPosition()).getModelId()));
+        edit.putString("catID", (listDataCat.get(category.getSelectedItemPosition()).getCategoryId()));
+        edit.apply();
         startActivity(i);
 
 

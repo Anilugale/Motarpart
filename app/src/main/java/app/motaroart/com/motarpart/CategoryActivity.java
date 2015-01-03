@@ -180,7 +180,7 @@ public class CategoryActivity extends Activity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Intent intent = new Intent(CategoryActivity.this, ProductActivity.class);
-                        intent.putExtra("CatID", listData.get(i).getCategoryId());
+                        intent.putExtra("catID", listData.get(i).getCategoryId());
                         startActivity(intent);
                     }
                 });

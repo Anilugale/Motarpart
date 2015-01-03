@@ -130,7 +130,7 @@ public class ProductAdapter extends BaseAdapter {
                     {
                         list.add(product);
                         String json=gson.toJson(list,listOfTestObject);
-                        mPrefs.edit().putString("cart",json).commit();
+                        mPrefs.edit().putString("cart",json).apply();
                         ((ProductActivity)activity).updateCart(list.size());
                         Toast.makeText(activity, "Product added in cart", Toast.LENGTH_LONG).show();
                     }
@@ -181,7 +181,7 @@ public class ProductAdapter extends BaseAdapter {
             }
 }
         else
-            listWish =new ArrayList<Wish>();
+            listWish =new ArrayList<>();
 
 
         wish_btn.setOnClickListener(new View.OnClickListener() {
@@ -193,7 +193,9 @@ public class ProductAdapter extends BaseAdapter {
                     wish.setAccountId(mPrefs.getString("accountid","1"));
                     wish.setProductId(product.getProductId());
                     listWish.add(wish);
-                    mPrefs.edit().putString("wish",gson.toJson(listWish,listOfTestObject)).commit();
+                    Gson g=new Gson();
+                    System.out.println(g.toJson(wish).toString());
+                    mPrefs.edit().putString("wish",gson.toJson(listWish,listOfTestObject)).apply();
                 }
                 else
                 {
@@ -202,7 +204,7 @@ public class ProductAdapter extends BaseAdapter {
                         if(listWish.get(i).getProductId().equals(product.getProductId()))
                         {
                             listWish.remove(i);
-                            mPrefs.edit().putString("wish",gson.toJson(listWish,listOfTestObject)).commit();
+                            mPrefs.edit().putString("wish",gson.toJson(listWish,listOfTestObject)).apply();
 
                         }
                     }

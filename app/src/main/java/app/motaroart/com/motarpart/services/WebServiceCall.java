@@ -105,7 +105,7 @@ public class WebServiceCall {
     private static final String METHOD_NAME_Product= "GetgetProduct";
     private static final String ACTION_PRODUCT= "http://tempuri.org/GetProduct";
 
-    public static String getProduct(String modelID) {
+    public static String getProduct(String modelID,String catID) {
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME_Product);
 
         PropertyInfo usernameParam=new PropertyInfo();
@@ -113,7 +113,13 @@ public class WebServiceCall {
         usernameParam.type= PropertyInfo.STRING_CLASS;
         usernameParam.setValue(modelID);
 
+        PropertyInfo ProductId=new PropertyInfo();
+        ProductId.name="strProductId";
+        ProductId.type= PropertyInfo.STRING_CLASS;
+        ProductId.setValue(modelID);
+
         request.addProperty(usernameParam);
+        request.addProperty(ProductId);
 
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.dotNet=true;
@@ -125,6 +131,74 @@ public class WebServiceCall {
             androidHttpTransport.call(ACTION_PRODUCT, envelope);
             SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
             System.out.println(resultsRequestSOAP.toString());
+            return resultsRequestSOAP.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return  null;
+        }
+    }
+
+    private static final String METHOD_NAME_SEARCH= "SearchProduct";
+    private static final String ACTION_SEARCH= "http://tempuri.org/SearchProduct";
+    public static String SearchProduct(String str) {
+
+        SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME_SEARCH);
+
+
+
+        PropertyInfo ProductId=new PropertyInfo();
+        ProductId.name="pSearchText";
+        ProductId.type= PropertyInfo.STRING_CLASS;
+        ProductId.setValue(str);
+
+
+        request.addProperty(ProductId);
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+
+
+        try {
+            androidHttpTransport.call(ACTION_SEARCH, envelope);
+            SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
+            System.out.println(resultsRequestSOAP.toString());
+            return resultsRequestSOAP.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return  null;
+        }
+    }
+
+    private static final String METHOD_NAME_WISH_UPDATE= "SetWishList";
+    private static final String ACTION_WISH_UPDATE= "http://tempuri.org/SetWishList";
+    public static String SetWishList(String str) {
+
+        SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME_WISH_UPDATE);
+
+
+
+        PropertyInfo ProductId=new PropertyInfo();
+        ProductId.name="pAccountWishList";
+        ProductId.type= PropertyInfo.STRING_CLASS;
+        ProductId.setValue(str);
+
+
+        request.addProperty(ProductId);
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+
+
+        try {
+            androidHttpTransport.call(ACTION_WISH_UPDATE, envelope);
+            SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
+
             return resultsRequestSOAP.toString();
         } catch (Exception e) {
             e.printStackTrace();

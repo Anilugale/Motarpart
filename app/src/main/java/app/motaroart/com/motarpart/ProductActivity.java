@@ -135,13 +135,19 @@ public class ProductActivity extends Activity {
         @Override
         protected String doInBackground(Void... voids) {
 
-            return  WebServiceCall.getProduct(mPrefs.getString("modelID",""));
+            String str=mPrefs.getString("searchKey","");
+            mPrefs.edit().remove("searchKey").apply();
+            if(str.equals(""))
+            return  WebServiceCall.getProduct(mPrefs.getString("modelID",""),mPrefs.getString("catID",""));
+            else
+                return WebServiceCall.SearchProduct(str);
+
 
         }
 
         @Override
         protected void onPreExecute() {
-          //  pd=ProgressDialog.show(ProductActivity.this,getString(R.string.app_name),"Loading...!",true,false);
+           pd=ProgressDialog.show(ProductActivity.this,getString(R.string.app_name),"Loading...!",true,false);
             super.onPreExecute();
         }
 
@@ -174,7 +180,7 @@ public class ProductActivity extends Activity {
                 });
             }
 
-        //    pd.dismiss();
+           pd.dismiss();
             super.onPostExecute(s);
         }
     }
