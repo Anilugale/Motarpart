@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import app.motaroart.com.motarpart.WishActivity;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
 import app.motaroart.com.motarpart.pojo.Product;
 import app.motaroart.com.motarpart.pojo.Wish;
+import app.motaroart.com.motarpart.services.WebServiceCall;
 
 /**
  * Created by Anil Ugale on 11/11/2014.
@@ -72,7 +74,7 @@ public class WishAdapter extends BaseAdapter {
 
 
 
-           final Product product= listMain.get(i);;
+           final Product product= listMain.get(i);
             View vi = inflater.inflate(R.layout.listview_wish, null);
             TextView product_name = (TextView) vi.findViewById(R.id.product_name);
             TextView product_make = (TextView) vi.findViewById(R.id.product_make);
@@ -81,6 +83,10 @@ public class WishAdapter extends BaseAdapter {
             TextView product_code = (TextView) vi.findViewById(R.id.product_code);
             TextView product_number = (TextView) vi.findViewById(R.id.product_number);
             TextView product_oem_no = (TextView) vi.findViewById(R.id.product_oem_no);
+            ImageView part_images= (ImageView) vi.findViewById(R.id.part_images);
+
+            imageLoader.DisplayImage(WebServiceCall.BASE_URL+product.getProductImageUrl(),part_images);
+
             product_name.setText(product.getProductName());
             product_make.setText(product.getMakeName());
             product_model.setText(product.getModelName());

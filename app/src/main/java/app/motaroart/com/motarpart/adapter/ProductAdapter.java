@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -29,6 +30,8 @@ import app.motaroart.com.motarpart.R;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
 import app.motaroart.com.motarpart.pojo.Product;
 import app.motaroart.com.motarpart.pojo.Wish;
+import app.motaroart.com.motarpart.services.ImageViewer;
+import app.motaroart.com.motarpart.services.WebServiceCall;
 
 /**
  * Created by Anil Ugale on 11/11/2014.
@@ -89,7 +92,19 @@ public class ProductAdapter extends BaseAdapter {
             product_code.setText(product.getProductCode()+"");
             product_number.setText("Code."+product.getProductNumber());
             product_oem_no.setText(product.getOME()+"");
+            ImageView part_images= (ImageView) vi.findViewById(R.id.part_images);
 
+        part_images.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.startActivity(new Intent(activity, ImageViewer.class).putExtra("imageURL",WebServiceCall.BASE_URL+product.getProductImageUrl()));
+
+            }
+        });
+
+
+
+            imageLoader.DisplayImage(WebServiceCall.BASE_URL+product.getProductImageUrl(),part_images);
             Button details= (Button) vi.findViewById(R.id.deatail);
 
             details.setOnClickListener(new View.OnClickListener() {

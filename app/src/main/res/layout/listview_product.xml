@@ -37,8 +37,8 @@
         <ImageView
             android:id="@+id/part_images"
             android:layout_height="100dp"
-            android:layout_width="100dp"
-            android:layout_weight="0.5"
+            android:layout_width="match_parent"
+
             android:src="@drawable/t2"
             android:padding="10dp"   />
 </LinearLayout>
@@ -136,7 +136,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Rs.120"
+                android:text="KN.120"
                 android:textStyle="bold"
                 android:textColor="#CF0000"
                 android:textSize="20sp"/>

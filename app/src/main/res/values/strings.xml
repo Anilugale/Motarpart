@@ -10,6 +10,6 @@
     <string name="search_hint">Search</string>
     <string name="hello_world">LOGIN</string>
     <string name="paid_by"><u>Paid By</u></string>
-
+    <string name="title_activity_image_viewer">ImageViewer</string>
 
 </resources>

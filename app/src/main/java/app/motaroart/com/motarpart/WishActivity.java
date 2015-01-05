@@ -26,7 +26,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 import app.motaroart.com.motarpart.adapter.WishAdapter;
@@ -63,23 +62,8 @@ public class WishActivity extends Activity {
                 Type listOfTestObject = new TypeToken<List<Product>>() {
                 }.getType();
                 Gson gson = new Gson();
-                List<Product> listData = gson.fromJson(mPrefs.getString("products", ""), listOfTestObject);
-
-                Type listOfTestWish = new TypeToken<List<Wish>>() {
-                }.getType();
-
-                List<Wish> listWish = gson.fromJson(s, listOfTestWish);
-
-                List<Product> outdata = new ArrayList<Product>();
-                for (Product product : listData) {
-                    for (Wish wish : listWish) {
-                        if (product.getProductId().equals(wish.getProductId())) {
-                            outdata.add(product);
-                        }
-                    }
-                }
-
-                WishAdapter adapter = new WishAdapter(WishActivity.this, outdata);
+                List<Product> listData = gson.fromJson(s, listOfTestObject);
+                 WishAdapter adapter = new WishAdapter(WishActivity.this, listData);
 
                 ListView main_page = (ListView) findViewById(R.id.product_list);
                 main_page.setAdapter(adapter);
@@ -112,6 +96,7 @@ public class WishActivity extends Activity {
             try {
                 Type listOfTestObject = new TypeToken<List<Product>>() {
                 }.getType();
+
                 Gson gson = new Gson();
 
                 Type listOfTestWish = new TypeToken<List<Wish>>() {
@@ -127,14 +112,16 @@ public class WishActivity extends Activity {
 
                 String str="{'AccountWishList':{'WishList':"+gson.toJson(listWish)+",'AccountId':'1'}}";
                 String result=WebServiceCall.SetWishList(str);
-                System.out.println(result+"set wish ");
 
+            return   WebServiceCall.getWishListProduct(1);//user id replce
 
             } catch (JSONException e) {
                 e.printStackTrace();
+                return null;
+
             }
 
-            return  mPrefs.getString("wish","");
+
         }
     }
 

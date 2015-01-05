@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.Locale;
 import app.motaroart.com.motarpart.R;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
 import app.motaroart.com.motarpart.pojo.CategoryPojo;
+import app.motaroart.com.motarpart.services.WebServiceCall;
 
 /**
  * Created by Anil Ugale on 11/11/2014.
@@ -59,8 +61,11 @@ public class CategoryAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        View vi = inflater.inflate(R.layout.list_view_main, null);
+        View vi = inflater.inflate(R.layout.list_view_cat, null);
         TextView cat_name=(TextView)vi.findViewById(R.id.model_name);
+        ImageView part_images= (ImageView) vi.findViewById(R.id.cat_img);
+
+        imageLoader.DisplayImage(WebServiceCall.BASE_URL+listData.get(i).getImageUrl(),part_images);
         cat_name.setText("  "+listData.get(i).getCategory()); return vi;
     }
 

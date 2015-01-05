@@ -1,0 +1,21 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="fill_parent"
+    android:background="#000"
+    android:layout_height="fill_parent">
+
+
+    <ImageView
+        android:visibility="gone"
+        android:background="#000"
+
+        android:src="@drawable/car"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/image_viewer"/>
+    <ProgressBar
+        android:id="@+id/loader_img"
+        android:layout_centerInParent="true"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+  </RelativeLayout>

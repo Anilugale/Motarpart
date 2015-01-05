@@ -17,6 +17,8 @@ public class CategoryPojo implements Serializable
 
     private String CreatedOn;
 
+    private String ImageUrl;
+
     public String getDescription ()
     {
         return Description;
@@ -65,5 +67,15 @@ public class CategoryPojo implements Serializable
     public void setCreatedOn (String CreatedOn)
     {
         this.CreatedOn = CreatedOn;
+    }
+
+    public String getImageUrl ()
+    {
+        return ImageUrl;
+    }
+
+    public void setImageUrl (String ImageUrl)
+    {
+        this.ImageUrl = ImageUrl;
     }
 }
