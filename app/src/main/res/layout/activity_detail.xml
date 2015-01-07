@@ -2,8 +2,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:orientation="vertical"
-
-    android:background="#D6E4EF"
     android:layout_height="wrap_content">
     <TextView
         android:id="@+id/product_name"
@@ -25,18 +23,32 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content"
         >
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:gravity="center"
+            android:text="CN200012"
+            android:id="@+id/product_code" />
 
         <ImageView
             android:layout_margin="10dp"
             android:id="@+id/part_images"
-            android:layout_height="100dp"
-            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:layout_width="200dp"
             android:src="@drawable/t2"
-            android:padding="10dp"   />
+            android:background="#000"
+            android:padding="1dp"   />
+</LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
+
             android:orientation="vertical">
 
             <LinearLayout
@@ -49,7 +61,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Make: BMW"
+                    android:text=" BMW"
                     android:textStyle="bold"
                     android:textColor="#b50345ff"
                     android:textSize="20sp"/>
@@ -59,21 +71,21 @@
                 android:id="@+id/product_model"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Model: Mahindra and Mahindra"
+                android:text="Mahindra and Mahindra"
                 android:textColor="#000"
                 android:textSize="20sp"/>
             <TextView
                 android:id="@+id/product_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Number: LX00210"
+                android:text="LX00210"
                 android:textColor="#000"
                 android:textSize="20sp"/>
             <TextView
                 android:id="@+id/product_oem_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="OEM No:0022656"
+                android:text="0022656"
                 android:textColor="#000"
                 android:textSize="20sp"/>
 
@@ -85,13 +97,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="Code:CN200012"
-        android:id="@+id/product_code" />
 
 
     <LinearLayout
@@ -102,21 +107,25 @@
         <TextView
             android:id="@+id/product_mrp"
             android:layout_width="0dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
+
             android:layout_height="wrap_content"
             android:text="MRP:120"
-            android:gravity="left"
+            android:gravity="center"
             android:textStyle="bold"
             android:textColor="#b5ff000b"
             android:textSize="25sp"/>
         <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
+            android:layout_gravity="center"
+
+
+            android:layout_height="wrap_content"
             android:textColor="#ffffff"
             android:gravity="center"
             android:background="@drawable/add_cart_btn_back"
-            android:id="@+id/add_2cart" />
+            android:id="@+id/add_2cart"
+            android:layout_width="120dp" />
 
     </LinearLayout>
 

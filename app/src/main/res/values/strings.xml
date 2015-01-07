@@ -11,5 +11,7 @@
     <string name="hello_world">LOGIN</string>
     <string name="paid_by"><u>Paid By</u></string>
     <string name="title_activity_image_viewer">ImageViewer</string>
+    <string name="title_activity_user">UserActivity</string>
+    <string name="title_activity_user_acitivity">UserAcitivity</string>
 
 </resources>

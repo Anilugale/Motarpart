@@ -1,8 +1,10 @@
 package app.motaroart.com.motarpart;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -30,6 +32,7 @@ import java.util.List;
 
 import app.motaroart.com.motarpart.adapter.WishAdapter;
 import app.motaroart.com.motarpart.pojo.Product;
+import app.motaroart.com.motarpart.pojo.User;
 import app.motaroart.com.motarpart.pojo.Wish;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
@@ -43,7 +46,6 @@ public class WishActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wish);
         mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
-
         new GetWish().execute();
     }
 
@@ -57,28 +59,46 @@ public class WishActivity extends Activity {
         protected void onPostExecute(String s) {
 
 
+           if(s!=null) {
+                if(!s.equals("")) {
 
-            if(!s.equals("")) {
-                Type listOfTestObject = new TypeToken<List<Product>>() {
-                }.getType();
-                Gson gson = new Gson();
-                List<Product> listData = gson.fromJson(s, listOfTestObject);
-                 WishAdapter adapter = new WishAdapter(WishActivity.this, listData);
+                    if (s.equals("NotLogin")) {
+                        new AlertDialog.Builder(WishActivity.this)
+                                .setTitle(WishActivity.this.getString(R.string.app_name))
+                                .setMessage("login for see wish list")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                    }
+                                })
 
-                ListView main_page = (ListView) findViewById(R.id.product_list);
-                main_page.setAdapter(adapter);
-
-                main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-
-                        Intent intent = new Intent(WishActivity.this, Login.class);
-
-                        startActivity(intent);
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
 
                     }
-                });
+
+                        Type listOfTestObject = new TypeToken<List<Product>>() {
+                        }.getType();
+                        Gson gson = new Gson();
+                        List<Product> listData = gson.fromJson(s, listOfTestObject);
+                        WishAdapter adapter = new WishAdapter(WishActivity.this, listData);
+
+                        ListView main_page = (ListView) findViewById(R.id.product_list);
+                        main_page.setAdapter(adapter);
+
+                        main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                                Intent intent = new Intent(WishActivity.this, Login.class);
+
+                                startActivity(intent);
+
+                            }
+                        });
+
+                }
             }
             pd.dismiss();
             super.onPostExecute(s);
@@ -94,28 +114,35 @@ public class WishActivity extends Activity {
         protected String doInBackground(Void... voids) {
 
             try {
-                Type listOfTestObject = new TypeToken<List<Product>>() {
-                }.getType();
-
                 Gson gson = new Gson();
-
                 Type listOfTestWish = new TypeToken<List<Wish>>() {
                 }.getType();
 
                 List<Wish> listWish = gson.fromJson( mPrefs.getString("wish",""), listOfTestWish);
+                String userStr=mPrefs.getString("user","");
 
-                JSONObject wishList=new JSONObject();
-                wishList.put("AccountId", "1");
-                wishList.put("WishList",gson.toJson(listWish));
+                    if(!userStr.equals("")) {
 
+                        Type type=new TypeToken<User>(){}.getType();
+                        User user=gson.fromJson(userStr,type);
+                        JSONObject wishList = new JSONObject();
+                        wishList.put("AccountId", user.getAccountId());//TODO
+                        wishList.put("WishList", gson.toJson(listWish));
+                        String str = "{'AccountWishList':{'WishList':" + gson.toJson(listWish) + ",'AccountId':'"+user.getAccountId()+"'}}";
+                        String result = WebServiceCall.SetWishList(str);
+                        if(Boolean.valueOf(result))
+                        {
+                            mPrefs.edit().remove("wish").apply();
+                        }
 
+                        return   WebServiceCall.getWishListProduct(user.getAccountId());
+                    }
+                    else
+                    {
+                        return "NotLogin";
+                    }
 
-                String str="{'AccountWishList':{'WishList':"+gson.toJson(listWish)+",'AccountId':'1'}}";
-                String result=WebServiceCall.SetWishList(str);
-
-            return   WebServiceCall.getWishListProduct(1);//user id replce
-
-            } catch (JSONException e) {
+             } catch (JSONException e) {
                 e.printStackTrace();
                 return null;
 

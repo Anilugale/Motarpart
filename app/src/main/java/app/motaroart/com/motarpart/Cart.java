@@ -11,10 +11,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.util.List;
+
 import app.motaroart.com.motarpart.adapter.CartAdapter;
 import app.motaroart.com.motarpart.pojo.Product;
 
@@ -105,5 +108,7 @@ public class Cart extends Activity {
         product_grand_price.setText("Rs." + newPriceGrand);
         cart_cnt.setText("My Cart (" + productID + ")");
     }
+
+
 }
 

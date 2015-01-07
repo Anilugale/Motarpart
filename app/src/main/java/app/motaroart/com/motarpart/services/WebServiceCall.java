@@ -1,4 +1,9 @@
 package app.motaroart.com.motarpart.services;
+/**
+ * Created by Anil   Ugale on 20-12-2014.
+ */
+
+import android.util.Base64;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
@@ -7,10 +12,8 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-/**
- * Created by AnilU on 20-12-2014.
- */
-//   import org.ksoap2.transport.HttpTransportSE;
+
+
 public class WebServiceCall {
 
 
@@ -23,15 +26,16 @@ public class WebServiceCall {
 
     public static String userLogin(String username, String password)
     {
-     //   SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+        SoapObject request = new SoapObject(NAMESPACE, "ValidateUser");
 
-       /* PropertyInfo usernameParam=new PropertyInfo();
+        PropertyInfo usernameParam=new PropertyInfo();
         usernameParam.name="username";
         usernameParam.type= PropertyInfo.STRING_CLASS;
         usernameParam.setValue(username);
         PropertyInfo passwordParam=new PropertyInfo();
         passwordParam.name="username";
-        passwordParam.setValue(password);
+        String base64 = Base64.encodeToString(password.getBytes(), Base64.DEFAULT);
+        passwordParam.setValue(base64);
         passwordParam.type= PropertyInfo.STRING_CLASS;
         request.addProperty(usernameParam);
         request.addProperty(passwordParam);
@@ -40,15 +44,15 @@ public class WebServiceCall {
         HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
 
         try {
-          //  androidHttpTransport.call(SOAP_ACTION, envelope);
+           androidHttpTransport.call(NAMESPACE+"ValidateUser", envelope);
             SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
             return resultsRequestSOAP.toString();
         } catch (Exception e) {
             e.printStackTrace();
 
             return  null;
-        }*/
-        return null;
+        }
+
     }
     private static final String METHOD_NAME_MAKE = "GetMake";
     private static final String SOAP_ACTION_MAKE =  "http://tempuri.org/GetMake";
@@ -70,9 +74,14 @@ public class WebServiceCall {
 
     private static final String METHOD_NAME_MODEL = "GetModel";
     private static final String SOAP_ACTION_MODEL =  "http://tempuri.org/GetModel";
-    public static String getModelJson()
+    public static String getModelJson(String MakeID)
     {
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME_MODEL);
+
+        PropertyInfo ProductId=new PropertyInfo();
+        ProductId.name="strMakeID";
+        ProductId.type= PropertyInfo.STRING_CLASS;
+        ProductId.setValue(MakeID);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
         HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
@@ -90,6 +99,7 @@ public class WebServiceCall {
     private static final String SOAP_ACTION_CATEGORY =  "http://tempuri.org/GetCategory";
     public static String getCategoryJson()
     {
+
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME_CATEGORY);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
@@ -210,7 +220,7 @@ public class WebServiceCall {
 
     private static final String METHOD_NAME_WISH_PRODUCT= "GetWishList";
     private static final String ACTION_WISH_PRODUCT= "http://tempuri.org/GetWishList";
-    public static String getWishListProduct(int userid) {
+    public static String getWishListProduct(String userid) {
 
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME_WISH_PRODUCT);
 
@@ -232,6 +242,75 @@ public class WebServiceCall {
 
         try {
             androidHttpTransport.call(ACTION_WISH_PRODUCT, envelope);
+            SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
+
+            return resultsRequestSOAP.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return  null;
+        }
+
+    }
+
+    private static final String ACTION_WISH_REMOVE= "http://tempuri.org/RemoveWishListItem";
+    private static final String REMOVE_WISH= "RemoveWishListItem";
+    public static String removeWishListItem(String accountID,String productID) {
+
+        SoapObject request = new SoapObject(NAMESPACE, REMOVE_WISH);
+
+
+
+        PropertyInfo AccountId=new PropertyInfo();
+        AccountId.name="pAccountId";
+        AccountId.type= PropertyInfo.STRING_CLASS;
+        AccountId.setValue(accountID);
+
+        PropertyInfo ProductId=new PropertyInfo();
+        ProductId.name="pProductId";
+        ProductId.type= PropertyInfo.STRING_CLASS;
+       ProductId.setValue(productID);
+
+        request.addProperty(AccountId);
+        request.addProperty(ProductId);
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+
+
+        try {
+            androidHttpTransport.call(ACTION_WISH_REMOVE, envelope);
+            SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
+
+            return resultsRequestSOAP.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return  null;
+        }
+
+    }
+
+    public static String getRegistration(String json) {
+        SoapObject request = new SoapObject(NAMESPACE, "CreateCustomer");
+
+
+
+        PropertyInfo AccountId=new PropertyInfo();
+        AccountId.name="jsonAccount";
+        AccountId.type= PropertyInfo.STRING_CLASS;
+        AccountId.setValue(json);
+        request.addProperty(AccountId);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+
+
+        try {
+            androidHttpTransport.call(NAMESPACE+"CreateCustomer", envelope);
             SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
 
             return resultsRequestSOAP.toString();

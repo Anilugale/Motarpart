@@ -221,16 +221,16 @@ public class ModelActivity extends Activity {
         @Override
         protected String doInBackground(Void... voids) {
 
-            String str= mPrefs.getString("model","");
-            if(!str.equals(""))
-                return str;
+
+
             if(InternetState.getState(ModelActivity.this)) {
-                str = WebServiceCall.getModelJson();
-                mPrefs.edit().putString("model",str).apply();
+
+                return WebServiceCall.getModelJson(mPrefs.getString("makeID",""));
+
             }
 
 
-            return str;
+            return null;
         }
     }
 }

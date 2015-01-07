@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,11 +27,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.motaroart.com.motarpart.lazyloader.ImageLoader;
 import app.motaroart.com.motarpart.pojo.Product;
+import app.motaroart.com.motarpart.services.ImageViewer;
+import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
 public class Detail extends Activity {
     Product product;
+    ImageLoader imageLoader ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +51,16 @@ public class Detail extends Activity {
         TextView product_oem_no = (TextView) findViewById(R.id.product_oem_no);
         TextView product_desc = (TextView) findViewById(R.id.product_desc);
 
+        ImageView partImg= (ImageView) findViewById(R.id.part_images);
+        partImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Detail.this, ImageViewer.class).putExtra("imageURL", WebServiceCall.BASE_URL + product.getProductImageUrl()));
+            }
+        });
+
+        imageLoader = new ImageLoader(getApplicationContext());
+        imageLoader.DisplayImage( WebServiceCall.BASE_URL + product.getProductImageUrl(),partImg);
         product_name.setText(product.getProductName());
         product_make.setText(product.getMakeName());
         product_model.setText(product.getModelName());
@@ -90,7 +105,7 @@ void init()
             {
                 list.add(product);
                 String json=gson.toJson(list,listOfTestObject);
-                mPrefs.edit().putString("cart",json).commit();
+                mPrefs.edit().putString("cart",json).apply();
                updateCart(list.size());
                 Toast.makeText(Detail.this, "Product added in cart", Toast.LENGTH_LONG).show();
             }

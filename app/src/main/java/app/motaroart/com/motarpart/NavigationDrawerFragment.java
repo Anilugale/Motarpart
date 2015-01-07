@@ -145,7 +145,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             else
             {
                 if(InternetState.getState(rootView.getContext())) {
-                    data[1]= WebServiceCall.getModelJson();
+               //     data[1]= WebServiceCall.getModelJson();
                     mPrefs.edit().putString("model", data[1]).apply();
                 }
             }

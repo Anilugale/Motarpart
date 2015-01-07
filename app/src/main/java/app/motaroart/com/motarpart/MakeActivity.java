@@ -219,7 +219,7 @@ public class MakeActivity extends Activity
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Intent intent = new Intent(MakeActivity.this, ModelActivity.class);
-                        intent.putExtra("MakeID", listData.get(i).getMakeId());
+                        mPrefs.edit().putString("makeID", String.valueOf(listData.get(i).getMakeId())).apply();
                         startActivity(intent);
                     }
                 });

@@ -1,11 +1,10 @@
 package app.motaroart.com.motarpart;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -19,14 +18,20 @@ import app.motaroart.com.motarpart.services.WebServiceCall;
 public class Login extends Activity {
 
     EditText name, pass;
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ActionBar actionBar = getActionBar();
 
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        pref=getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
+        String userStr=pref.getString("user","");
+        if(!userStr.equals(""))
+        {
+          startActivity(new Intent(this,UserActivity.class));
+            finish();
+        }
 
 
         pass = (EditText) findViewById(R.id.password);
@@ -72,7 +77,7 @@ public class Login extends Activity {
 
             String josn=WebServiceCall.userLogin(name.getText().toString().trim(),pass.getText().toString().trim());
 
-
+            finish();
         }
 
 
@@ -95,22 +100,4 @@ public class Login extends Activity {
 
 
 
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
-        return true;
-    }
-*/
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // app icon in action bar clicked; goto parent activity.
-                this.finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 }

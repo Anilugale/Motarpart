@@ -29,8 +29,8 @@ import app.motaroart.com.motarpart.ProductActivity;
 import app.motaroart.com.motarpart.R;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
 import app.motaroart.com.motarpart.pojo.Product;
+import app.motaroart.com.motarpart.pojo.User;
 import app.motaroart.com.motarpart.pojo.Wish;
-import app.motaroart.com.motarpart.services.ImageViewer;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
 /**
@@ -97,8 +97,10 @@ public class ProductAdapter extends BaseAdapter {
         part_images.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.startActivity(new Intent(activity, ImageViewer.class).putExtra("imageURL",WebServiceCall.BASE_URL+product.getProductImageUrl()));
 
+                Intent intent =new Intent(activity, Detail.class);
+                intent.putExtra("Product", product)   ;
+                activity.startActivity(intent);
             }
         });
 
@@ -204,13 +206,35 @@ public class ProductAdapter extends BaseAdapter {
             public void onClick(View view) {
                 if(wish_btn.isChecked())
                 {
-                    Wish wish=new Wish();
-                    wish.setAccountId(mPrefs.getString("accountid","1"));
-                    wish.setProductId(product.getProductId());
-                    listWish.add(wish);
-                    Gson g=new Gson();
-                    System.out.println(g.toJson(wish).toString());
-                    mPrefs.edit().putString("wish",gson.toJson(listWish,listOfTestObject)).apply();
+                    mPrefs.edit().remove("wish").apply();
+                    String userStr=mPrefs.getString("user","");
+                    if(!userStr.equals("")) {
+
+                        Type type = new TypeToken<User>() {
+                        }.getType();
+                        User user = gson.fromJson(userStr, type);
+                        Wish wish = new Wish();
+                        wish.setAccountId(user.getAccountId());
+                        wish.setProductId(product.getProductId());
+                        listWish.add(wish);
+                        Gson g = new Gson();
+                        System.out.println(g.toJson(wish).toString());
+                        mPrefs.edit().putString("wish", gson.toJson(listWish, listOfTestObject)).apply();
+                    }else
+                    {
+                        new AlertDialog.Builder(activity)
+                                .setTitle(activity.getString(R.string.app_name))
+                                .setMessage("login for see wish list")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                })
+
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+
+                    }
                 }
                 else
                 {
