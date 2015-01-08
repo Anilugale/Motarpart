@@ -30,6 +30,7 @@ import app.motaroart.com.motarpart.Detail;
 import app.motaroart.com.motarpart.R;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
 import app.motaroart.com.motarpart.pojo.Product;
+import app.motaroart.com.motarpart.pojo.User;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
 /**
@@ -101,21 +102,31 @@ public class CartAdapter extends BaseAdapter {
             });
 
         ImageView part_images= (ImageView) vi.findViewById(R.id.part_images);
-
         imageLoader.DisplayImage(WebServiceCall.BASE_URL+product.getProductImageUrl(),part_images);
-
         part_images.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //  activity.startActivity(new Intent(activity, ImageViewer.class).putExtra("imageURL",WebServiceCall.BASE_URL+product.getProductImageUrl()));
+
                 Intent intent =new Intent(activity, Detail.class);
                 intent.putExtra("Product", product)   ;
                 activity.startActivity(intent);
             }
         });
-            product_name.setText(product.getProductName());
+        product_name.setText(product.getProductName());
+
+        SharedPreferences pref=activity.getSharedPreferences(activity.getString(R.string.app_name),activity.MODE_PRIVATE);
+        Gson gson=new Gson();
+        Type type=new TypeToken<User>(){}.getType();
+        User user=gson.fromJson(pref.getString("user",""),type);
+
+
+
+
+        //TODO
+
             product_mrp.setText("Rs." + product.getProductPrice());
             product_qty_total.setText("Rs." + product.getProductPrice());
+
             product_code.setText(product.getProductNumber() + "");
             if(listMain.get(product.getProductId())!=null) {
                 product_qty.setText(listMain.get(product.getProductId()));

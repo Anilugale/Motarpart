@@ -42,8 +42,6 @@ public class Cart extends Activity {
     private void init() {
 
         product_grand_price=(TextView)findViewById(R.id.product_grand_price);
-
-
         Type listOfTestObject = new TypeToken<List<Product>>() {
         }.getType();
         Context mContext = getApplicationContext();

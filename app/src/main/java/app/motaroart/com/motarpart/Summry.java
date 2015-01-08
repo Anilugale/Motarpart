@@ -43,7 +43,7 @@ public class Summry extends Activity {
             cntTotal.setText(order.getProductCount()+"");
             total.setText(order.getTotalAmount()+"");
 
-
+            order.getProductList().get(0);
 
         }
 
