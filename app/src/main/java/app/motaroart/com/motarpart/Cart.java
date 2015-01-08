@@ -19,7 +19,9 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import app.motaroart.com.motarpart.adapter.CartAdapter;
+import app.motaroart.com.motarpart.pojo.Order;
 import app.motaroart.com.motarpart.pojo.Product;
+import app.motaroart.com.motarpart.pojo.User;
 
 
 public class Cart extends Activity {
@@ -29,12 +31,12 @@ public class Cart extends Activity {
     TextView product_grand_price;
     ListView main_page;
     TextView cart_cnt;
+    SharedPreferences mPrefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         init();
-
     }
 
     private void init() {
@@ -45,7 +47,7 @@ public class Cart extends Activity {
         Type listOfTestObject = new TypeToken<List<Product>>() {
         }.getType();
         Context mContext = getApplicationContext();
-        SharedPreferences mPrefs = mContext.getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+        mPrefs = mContext.getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         String JsonStr =mPrefs.getString("cart","");
         Gson gson = new Gson();
         listData = gson.fromJson(JsonStr, listOfTestObject);
@@ -69,37 +71,29 @@ public class Cart extends Activity {
             });
         }
         else
-        cart_cnt.setText("My Cart (" +0 + ")");
-
-
+            cart_cnt.setText("My Cart (" +0 + ")");
     }
 
     public void updateGrandPrice(double oldPrice,double newPrice,String productID)
     {
         cart_cnt.setText("My Cart (" + productID + ")");
         if (adapter.getCount()==0 )
-            {
-                new AlertDialog.Builder(this)
-                        .setTitle(getResources().getString(R.string.app_name))
-                        .setMessage("No products in cart.")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        })
+        {
+            new AlertDialog.Builder(this)
+                    .setTitle(getResources().getString(R.string.app_name))
+                    .setMessage("No products in cart.")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
 
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-            }
-
-
-
-
-            String old=product_grand_price.getText().toString().substring(3,product_grand_price.getText().length());
-            double newPriceGrand = (Double.valueOf(old) - oldPrice) + newPrice;
-            product_grand_price.setText("Rs." + newPriceGrand);
-
-
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
+        String old=product_grand_price.getText().toString().substring(3,product_grand_price.getText().length());
+        double newPriceGrand = (Double.valueOf(old) - oldPrice) + newPrice;
+        product_grand_price.setText("Rs." + newPriceGrand);
     }
     public void updateGrandPriceMinuse(double oldPrice,int productID)
     {
@@ -110,5 +104,53 @@ public class Cart extends Activity {
     }
 
 
+    public void continueChekOut(View view) {
+
+        String userStr=  mPrefs.getString("user","");
+        if(userStr.trim().length()==0)
+        {
+            startActivity(new Intent(this,Login.class).putExtra("Cart",true));
+        }
+        else
+        {
+        /*
+            "AccountId":"1", *
+                "ProductCount":"5",*
+                "OrderAmount":"56000.00",
+                "VATPercent":"16.50",
+                "VATAmount":"9240.00",
+                "TotalAmount":"65240.00",
+                "TransactionNumber":"",
+                "TransactionMode":"MPESA/CARD",-
+                "Remark":"MPESA TEXT DATA",-
+                "OrderSource":"MAPP", *
+                "VoucherCode":"",
+                "OrderBy":"Jai",*
+                */
+
+            Gson gson=new Gson();
+            Type type=new TypeToken<User>(){}.getType();
+            User user=gson.fromJson(userStr,type);
+            /// parameter setting
+            Order order=new Order();
+            order.setAccountId(user.getAccountId());
+            order.setOrderBy(user.getLoginId());
+            order.setProductCount(String.valueOf(adapter.listData.size()));
+            order.setOrderSource("MAPP");
+            order.setProductList(adapter.listData);
+            //TODO
+           /* order.setOrderAmount();
+            order.setVATAmount();
+            order.setVATPercent();
+            order.setTotalAmount();*/
+
+            Intent intent=new Intent(this,Summry.class);
+            intent.putExtra("Order",order);
+            startActivity(intent);
+
+
+        }
+
+    }
 }
 

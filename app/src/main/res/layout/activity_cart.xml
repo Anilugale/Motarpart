@@ -28,18 +28,18 @@
         android:layout_width="match_parent"
         android:layout_gravity="bottom"
         android:orientation="vertical"
-        android:layout_weight="1"
+        android:layout_weight=".8"
         android:layout_height="0dp">
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight=".8"
             android:orientation="horizontal">
             <TextView
                 android:text="Total"
                 android:textStyle="bold"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:padding="5dp"
                 android:textColor="#E68502"
                 android:layout_width="0dp"
@@ -55,7 +55,7 @@
                     android:id="@+id/product_grand_price"
                     android:gravity="center"
                     android:text="RS.0.0"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:textColor="#BA1E1F"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -75,10 +75,11 @@
         <Button
             android:text="CHECKOUT AND CONTINUE"
             android:textStyle="bold"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/btn_back"
             android:layout_width="match_parent"
             android:textColor="#fff"
+            android:onClick="continueChekOut"
             android:layout_height="0dp"
             android:layout_weight=".8"/>
     </LinearLayout>

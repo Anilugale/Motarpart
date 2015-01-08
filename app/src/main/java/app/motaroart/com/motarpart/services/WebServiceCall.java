@@ -12,47 +12,51 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.io.UnsupportedEncodingException;
 
 
 public class WebServiceCall {
 
 
     private static final String NAMESPACE = "http://tempuri.org/";
-    private static String URL="http://192.168.42.122/TEST/mobileservice.asmx";
-    public static String BASE_URL="http://192.168.42.122/TEST/";
 
+    public static String BASE_URL="http://192.168.42.124//TEST/";
+    public static String URL=BASE_URL+"mobileservice.asmx";
 
 
 
     public static String userLogin(String username, String password)
     {
         SoapObject request = new SoapObject(NAMESPACE, "ValidateUser");
-
+        try {
         PropertyInfo usernameParam=new PropertyInfo();
-        usernameParam.name="username";
+        usernameParam.name="userId";
         usernameParam.type= PropertyInfo.STRING_CLASS;
         usernameParam.setValue(username);
         PropertyInfo passwordParam=new PropertyInfo();
-        passwordParam.name="username";
-        String base64 = Base64.encodeToString(password.getBytes(), Base64.DEFAULT);
+        passwordParam.name="pass";
+        String base64 = Base64.encodeToString(password.getBytes("US-ASCII"), Base64.DEFAULT);
         passwordParam.setValue(base64);
         passwordParam.type= PropertyInfo.STRING_CLASS;
         request.addProperty(usernameParam);
         request.addProperty(passwordParam);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
+        envelope.dotNet=true;
         HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
 
-        try {
+
            androidHttpTransport.call(NAMESPACE+"ValidateUser", envelope);
             SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
             return resultsRequestSOAP.toString();
-        } catch (Exception e) {
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
             e.printStackTrace();
 
             return  null;
         }
-
+        return  null;
     }
     private static final String METHOD_NAME_MAKE = "GetMake";
     private static final String SOAP_ACTION_MAKE =  "http://tempuri.org/GetMake";
@@ -79,11 +83,13 @@ public class WebServiceCall {
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME_MODEL);
 
         PropertyInfo ProductId=new PropertyInfo();
-        ProductId.name="strMakeID";
+        ProductId.name="pMakeId";
         ProductId.type= PropertyInfo.STRING_CLASS;
         ProductId.setValue(MakeID);
+        request.addProperty(ProductId);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
+        envelope.dotNet=true;
         HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
         try {
             androidHttpTransport.call(SOAP_ACTION_MODEL, envelope);
@@ -113,7 +119,7 @@ public class WebServiceCall {
             return  null;
         }
     }
-    private static final String METHOD_NAME_Product= "GetgetProduct";
+    private static final String METHOD_NAME_Product= "GetProduct";
     private static final String ACTION_PRODUCT= "http://tempuri.org/GetProduct";
 
     public static String getProduct(String modelID,String catID) {
@@ -125,9 +131,9 @@ public class WebServiceCall {
         usernameParam.setValue(modelID);
 
         PropertyInfo ProductId=new PropertyInfo();
-        ProductId.name="strProductId";
+        ProductId.name="pCategoryId";
         ProductId.type= PropertyInfo.STRING_CLASS;
-        ProductId.setValue(modelID);
+        ProductId.setValue(catID);
 
         request.addProperty(usernameParam);
         request.addProperty(ProductId);

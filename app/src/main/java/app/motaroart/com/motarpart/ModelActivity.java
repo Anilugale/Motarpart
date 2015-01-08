@@ -41,10 +41,9 @@ public class ModelActivity extends Activity {
     List<Model> listData;
     EditText key_word;
     ModelAdapter adapter;
-  public static String JsonStr = "[{\"ModelId\":4,\"MakeName\":\"HYUNDAI\",\"MakeID\":2,\"ModelName\":\"X 50\",\"ModelDesc\":\"1234\",\"PhotoUrl\":\"electricity bill.pdf\",\"IsActive\":true,\"ModelId1\":4},{\"ModelId\":5,\"MakeName\":\"MITSUBISHI\",\"MakeID\":4,\"ModelName\":\"X 50 555555508\",\"ModelDesc\":\"123455555555\",\"PhotoUrl\":\"\",\"IsActive\":false,\"ModelId1\":5}]";
 
     @Override
-    @SuppressWarnings("deprecation")
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -60,7 +59,7 @@ public class ModelActivity extends Activity {
 
             @Override
             public void afterTextChanged(Editable arg0) {
-                // TODO Auto-generated method stub
+
                 String text = key_word.getText().toString().toLowerCase(Locale.getDefault());
                 adapter.filter(text);
             }
@@ -68,13 +67,13 @@ public class ModelActivity extends Activity {
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1,
                                           int arg2, int arg3) {
-                // TODO Auto-generated method stub
+
             }
 
             @Override
             public void onTextChanged(CharSequence arg0, int arg1, int arg2,
                                       int arg3) {
-                // TODO Auto-generated method stub
+
             }
         });
     }
@@ -165,13 +164,6 @@ public class ModelActivity extends Activity {
         protected void onPostExecute(String jsondata) {
 
             try {
-                if (jsondata == null) {
-
-                    jsondata = mPrefs.getString("model", "");
-                    if(jsondata.equals(""))
-                        throw new NullPointerException("Some required files are missing");
-
-                }
                 Gson gson = new Gson();
                 Type listOfTestObject = new TypeToken<List<Model>>() {
                 }.getType();
@@ -185,7 +177,7 @@ public class ModelActivity extends Activity {
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Intent intent = new Intent(ModelActivity.this, CategoryActivity.class);
                         mPrefs.edit().putString("modelID",listData.get(i).getModelId()).apply();
-                        intent.putExtra("MakeID", listData.get(i).getModelId());
+
                         startActivity(intent);
                     }
                 });

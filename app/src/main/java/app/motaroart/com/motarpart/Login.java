@@ -1,8 +1,13 @@
 package app.motaroart.com.motarpart;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -12,6 +17,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
@@ -19,12 +28,13 @@ public class Login extends Activity {
 
     EditText name, pass;
     SharedPreferences pref;
+    boolean isCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        isCart=getIntent().getBooleanExtra("Cart",false);
         pref=getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
         String userStr=pref.getString("user","");
         if(!userStr.equals(""))
@@ -74,10 +84,7 @@ public class Login extends Activity {
     public void loginData(View view) {
 
         if (validateData()) {
-
-            String josn=WebServiceCall.userLogin(name.getText().toString().trim(),pass.getText().toString().trim());
-
-            finish();
+            new Validation().execute();
         }
 
 
@@ -95,7 +102,71 @@ public class Login extends Activity {
         return true;
     }
 
+class Validation extends AsyncTask<Void,Void,String>
+{
+    ProgressDialog pd;
+    @Override
+    protected String doInBackground(Void... voids) {
+        return WebServiceCall.userLogin(name.getText().toString().trim(),pass.getText().toString().trim());
+    }
 
+    @Override
+    protected void onPreExecute() {
+        pd=ProgressDialog.show(Login.this,Login.this.getString(R.string.app_name),"Loading...!",true,false);
+        super.onPreExecute();
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+
+
+        try {
+            JSONObject jsonResult=new JSONObject(s);
+            JSONArray jsonArrayResult=jsonResult.getJSONArray("Status");
+            JSONObject status=jsonArrayResult.getJSONObject(0);
+            String errorCode= status.getString("ERROR_CODE");
+            String errorMsg= status.getString("ERROR_DESC");
+
+            if(errorCode.equals("1003")||errorCode.equals("1002")||errorCode.equals("1001"))
+            {
+                new AlertDialog.Builder(Login.this)
+                        .setTitle(Login.this.getString(R.string.app_name))
+                        .setMessage(errorMsg)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        })
+
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+            if(errorCode.equals("1000"))
+            {
+                SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);                        mPrefs.edit().putString("user",jsonResult.getJSONArray("UserAccount").get(0).toString()).apply();
+                mPrefs.edit().putString("user",jsonResult.getJSONArray("UserAccount").get(0).toString());
+                Intent intent=new Intent(Login.this,MakeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+        if(isCart)
+          finish();
+         else {
+            startActivity(new Intent(Login.this, UserActivity.class));
+            finish();
+        }
+        pd.dismiss();
+        super.onPostExecute(s);
+    }
+}
 
 
 

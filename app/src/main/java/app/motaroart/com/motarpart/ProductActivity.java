@@ -134,39 +134,27 @@ public class ProductActivity extends Activity {
         ProgressDialog pd;
         @Override
         protected String doInBackground(Void... voids) {
-
             String str=mPrefs.getString("searchKey","");
             mPrefs.edit().remove("searchKey").apply();
             if(str.equals(""))
             return  WebServiceCall.getProduct(mPrefs.getString("modelID",""),mPrefs.getString("catID",""));
             else
                 return WebServiceCall.SearchProduct(str);
-
-
         }
-
         @Override
         protected void onPreExecute() {
            pd=ProgressDialog.show(ProductActivity.this,getString(R.string.app_name),"Loading...!",true,false);
             super.onPreExecute();
         }
-
         @Override
         protected void onPostExecute(String s) {
-
             if (s!=null) {
                 Type listOfTestObject = new TypeToken<List<Product>>() {
                 }.getType();
-
                 listData = gson.fromJson(s, listOfTestObject);
-
-
-
                 ProductAdapter adapter=new ProductAdapter(ProductActivity.this,listData);
-
                 ListView main_page=(ListView)findViewById(R.id.product_list);
                 main_page.setAdapter(adapter);
-
                 main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

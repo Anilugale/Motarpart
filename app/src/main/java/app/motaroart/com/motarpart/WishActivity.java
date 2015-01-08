@@ -76,6 +76,7 @@ public class WishActivity extends Activity {
                                 .show();
 
                     }
+                    else {
 
                         Type listOfTestObject = new TypeToken<List<Product>>() {
                         }.getType();
@@ -97,6 +98,7 @@ public class WishActivity extends Activity {
 
                             }
                         });
+                    }
 
                 }
             }
@@ -152,12 +154,6 @@ public class WishActivity extends Activity {
         }
     }
 
-
-
-
-
-
-
     TextView count;
 
     @Override
@@ -166,15 +162,11 @@ public class WishActivity extends Activity {
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_wish, menu);
-
         count = new TextView(this);
-
         count.setTextColor(Color.BLUE);
-
         count.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 startActivity(new Intent(WishActivity.this, Cart.class));
             }
         });

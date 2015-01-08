@@ -38,7 +38,7 @@ import app.motaroart.com.motarpart.services.WebServiceCall;
 
 public class CartAdapter extends BaseAdapter {
 
-    List<Product> listData;
+   public List<Product> listData;
     Map<String,String> listMain;
     Activity activity;
     LayoutInflater inflater;
@@ -121,11 +121,11 @@ public class CartAdapter extends BaseAdapter {
                 product_qty.setText(listMain.get(product.getProductId()));
                 int price_count = 0;
 
-                listMain.put(product.getProductId(),listMain.get(product.getProductId().toString()));
+                listMain.put(product.getProductId(),listMain.get(product.getProductId()));
 
                 if (listMain.get(product.getProductId()).length() != 0) {
 
-                    price_count = Integer.valueOf(listMain.get(product.getProductId()).toString());
+                    price_count = Integer.valueOf(listMain.get(product.getProductId()));
                 }
                 String old =product_qty_total.getText().toString().substring(3,product_qty_total.getText().toString().length());
 
@@ -180,9 +180,6 @@ public class CartAdapter extends BaseAdapter {
     }
 
 
-    void chnageLsit()
-    {
-        notifyDataSetChanged();
-    }
+
 
 }
