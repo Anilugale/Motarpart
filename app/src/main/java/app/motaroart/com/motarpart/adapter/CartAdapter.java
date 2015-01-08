@@ -114,7 +114,7 @@ public class CartAdapter extends BaseAdapter {
         });
         product_name.setText(product.getProductName());
 
-        SharedPreferences pref=activity.getSharedPreferences(activity.getString(R.string.app_name),activity.MODE_PRIVATE);
+        SharedPreferences pref=activity.getSharedPreferences(activity.getString(R.string.app_name),Activity.MODE_PRIVATE);
         Gson gson=new Gson();
         Type type=new TypeToken<User>(){}.getType();
         User user=gson.fromJson(pref.getString("user",""),type);
@@ -123,9 +123,25 @@ public class CartAdapter extends BaseAdapter {
 
 
         //TODO
+           if(user!=null) {
 
-            product_mrp.setText("Rs." + product.getProductPrice());
-            product_qty_total.setText("Rs." + product.getProductPrice());
+               if(user.getAccountType()=="U") {
+                   product_mrp.setText("Rs." + product.getProductPrice());
+                   product_qty_total.setText("Rs." + product.getProductPrice());
+               }
+               else  if(user.getAccountType()=="W") {
+                   product_mrp.setText("Rs." + product.getWholesalerPrice());
+                   product_qty_total.setText("Rs." + product.getWholesalerPrice());
+               }else  if(user.getAccountType()=="R") {
+                   product_mrp.setText("Rs." + product.getRetailerPrice());
+                   product_qty_total.setText("Rs." + product.getRetailerPrice());
+               }
+           }
+        else
+           {
+               product_mrp.setText("Rs." + product.getProductPrice());
+               product_qty_total.setText("Rs." + product.getProductPrice());
+           }
 
             product_code.setText(product.getProductNumber() + "");
             if(listMain.get(product.getProductId())!=null) {
@@ -140,11 +156,29 @@ public class CartAdapter extends BaseAdapter {
                 }
                 String old =product_qty_total.getText().toString().substring(3,product_qty_total.getText().toString().length());
 
-                double price = Double.valueOf(product.getProductPrice()) * (price_count);
+                double value=0.0;
+                if(user!=null) {
+
+                    if(user.getAccountType()=="U") {
+                        value=   Double.valueOf(product.getProductPrice());
+                    }
+                    else  if(user.getAccountType()=="W") {
+                        value=   Double.valueOf(product.getWholesalerPrice());
+                    }else  if(user.getAccountType()=="R") {
+                        value=   Double.valueOf(product.getRetailerPrice());
+                    }
+                }
+                else
+                {
+                    value=   Double.valueOf(product.getProductPrice());
+                }
+
+
+                double price = value * (price_count);
                 product_qty_total.setText("Rs." + price);
 
 
-                ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),Double.valueOf(price),listData.size()+"");
+                ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),(price),listData.size()+"");
             }
             else
                 product_qty.setText("1");
