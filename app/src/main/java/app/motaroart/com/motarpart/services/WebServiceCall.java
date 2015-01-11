@@ -20,7 +20,7 @@ public class WebServiceCall {
 
     private static final String NAMESPACE = "http://tempuri.org/";
 
-    public static String BASE_URL="http://192.168.42.124//TEST/";
+    public static String BASE_URL="http://192.168.0.104/mservice/";
     public static String URL=BASE_URL+"mobileservice.asmx";
 
 
@@ -326,5 +326,23 @@ public class WebServiceCall {
             return  null;
         }
 
+    }
+
+
+    public static String getSettings()
+    {
+
+        SoapObject request = new SoapObject(NAMESPACE, "GetSettings");
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        try {
+            androidHttpTransport.call(NAMESPACE+"GetSettings", envelope);
+            SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
+            return resultsRequestSOAP.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return  null;
+        }
     }
 }

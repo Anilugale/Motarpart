@@ -105,7 +105,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         category = (Spinner) rootView.findViewById(R.id.s_sub);
         Button b = (Button) rootView.findViewById(R.id.main_seach_drawer);
         b.setOnClickListener(this);
-        new DownloadData().execute();
+    //    new DownloadData().execute();
 
 
 

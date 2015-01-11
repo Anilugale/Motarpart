@@ -2,11 +2,11 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\libs\ksoap2-android-assembly-3.3.0-jar-with-dependencies.jar"
+        jar="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\libs\ksoap2-android-assembly-3.3.0-jar-with-dependencies.jar"
         jumboMode="false"
         revision="21.1.0"
         sha1="62681b8212ca52278feafec31775fd0cb096d99a">
-        <dex dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\ksoap2-android-assembly-3.3.0-jar-with-dependencies-c1a4a1cb40537d628b35cd443f074b44765bef94.jar" />
+        <dex dex="C:\Users\Aanil1989\Desktop\Live Projects\SRC\Motarpart\app\build\intermediates\pre-dexed\debug\ksoap2-android-assembly-3.3.0-jar-with-dependencies-18dba24a01e96b7b363213ae96ea9913cb243ca8.jar" />
     </item>
 
 </items>

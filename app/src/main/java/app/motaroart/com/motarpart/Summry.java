@@ -3,7 +3,9 @@ package app.motaroart.com.motarpart;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -19,6 +21,7 @@ public class Summry extends Activity {
 
     SharedPreferences mPrefs;
 
+    EditText address1,address2,state,city,pobox;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,19 +34,34 @@ public class Summry extends Activity {
         User user=gson.fromJson(userStr,type);
         if(order!=null)
         {
-
-            TextView name,cntTotal,total,addresss,poNo;
-
+            TextView name,cntTotal,total;
+            address1=(EditText)findViewById(R.id.address1);
+            address2=(EditText)findViewById(R.id.address2);
+            state=(EditText)findViewById(R.id.state);
+            city=(EditText)findViewById(R.id.city);
+            pobox=(EditText)findViewById(R.id.pobox);
             name=(TextView)findViewById(R.id.user_name);
             cntTotal=(TextView)findViewById(R.id.item_cnt);
             total=(TextView)findViewById(R.id.item_total);
-            addresss=(TextView)findViewById(R.id.address);
-
             name.setText("Hi."+order.getOrderBy());
             cntTotal.setText(order.getProductCount()+"");
             total.setText(order.getTotalAmount()+"");
-
             order.getProductList().get(0);
+
+            if(user!=null)
+            {
+                address1.setText(user.getShipmentAddress1());
+                address2.setText(user.getShipmentAddress2());
+                state.setText(user.getShipmentState());
+                city.setText(user.getShipmentCity());
+                pobox.setText(user.getShipmentPoBox());
+            }
+
+           else
+            {
+               Toast.makeText(this,"Login to Continue",Toast.LENGTH_SHORT).show();
+                finish();
+            }
 
         }
 

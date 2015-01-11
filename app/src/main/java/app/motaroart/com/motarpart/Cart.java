@@ -93,16 +93,19 @@ public class Cart extends Activity {
         double newPriceGrand = (Double.valueOf(old) - oldPrice) + newPrice;
         product_grand_price.setText("Rs." + newPriceGrand);
     }
-    public void updateGrandPriceMinuse(double oldPrice,int productID)
+    public void updateGrandPriceMinuse(double oldPrice,double productID)
     {
         String old=product_grand_price.getText().toString().substring(3,product_grand_price.getText().length());
         double newPriceGrand = (Double.valueOf(old) - oldPrice) ;
         product_grand_price.setText("Rs." + newPriceGrand);
         cart_cnt.setText("My Cart (" + productID + ")");
+        totalPrice=productID;
     }
 
+    double totalPrice;
 
     public void continueChekOut(View view) {
+
 
         String userStr=  mPrefs.getString("user","");
         if(userStr.trim().length()==0)
@@ -111,21 +114,6 @@ public class Cart extends Activity {
         }
         else
         {
-        /*
-            "AccountId":"1", *
-                "ProductCount":"5",*
-                "OrderAmount":"56000.00",
-                "VATPercent":"16.50",
-                "VATAmount":"9240.00",
-                "TotalAmount":"65240.00",
-                "TransactionNumber":"",
-                "TransactionMode":"MPESA/CARD",-
-                "Remark":"MPESA TEXT DATA",-
-                "OrderSource":"MAPP", *
-                "VoucherCode":"",
-                "OrderBy":"Jai",*
-                */
-
             Gson gson=new Gson();
             Type type=new TypeToken<User>(){}.getType();
             User user=gson.fromJson(userStr,type);
@@ -139,8 +127,8 @@ public class Cart extends Activity {
             //TODO
            /* order.setOrderAmount();
             order.setVATAmount();
-            order.setVATPercent();
-            order.setTotalAmount();*/
+            order.setVATPercent();*/
+            order.setTotalAmount(String.valueOf(totalPrice));
 
             Intent intent=new Intent(this,Summry.class);
             intent.putExtra("Order",order);
