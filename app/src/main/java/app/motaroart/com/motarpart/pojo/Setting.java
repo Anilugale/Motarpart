@@ -3,11 +3,8 @@ package app.motaroart.com.motarpart.pojo;
 public class Setting
 {
     private String DisplayText;
-
     private String SettingId;
-
     private String KeyValue;
-
     private String KeyName;
 
     public String getDisplayText ()
