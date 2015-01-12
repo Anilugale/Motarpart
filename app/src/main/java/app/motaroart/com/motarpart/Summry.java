@@ -3,6 +3,8 @@ package app.motaroart.com.motarpart;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -18,12 +20,13 @@ public class Summry extends Activity {
 
 
     SharedPreferences mPrefs;
-
+    Order order;
+    EditText add1,add2,state,city,pobox;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summry);
-        Order order= (Order) getIntent().getSerializableExtra("Order");
+        order= (Order) getIntent().getSerializableExtra("Order");
         mPrefs=getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
         String userStr=  mPrefs.getString("user","");
         Gson gson=new Gson();
@@ -32,23 +35,44 @@ public class Summry extends Activity {
         if(order!=null)
         {
 
-            TextView name,cntTotal,total,addresss,poNo;
+            TextView name,cntTotal,total;
 
             name=(TextView)findViewById(R.id.user_name);
             cntTotal=(TextView)findViewById(R.id.item_cnt);
             total=(TextView)findViewById(R.id.item_total);
-            addresss=(TextView)findViewById(R.id.address);
 
             name.setText("Hi."+order.getOrderBy());
             cntTotal.setText(order.getProductCount()+"");
             total.setText(order.getTotalAmount()+"");
 
-            order.getProductList().get(0);
+
+            add1=(EditText)findViewById(R.id.address1);
+            add2=(EditText)findViewById(R.id.address2);
+            state=(EditText)findViewById(R.id.state);
+            city=(EditText)findViewById(R.id.city);
+            pobox=(EditText)findViewById(R.id.pobox);
+
+            add1.setText(user.getShipmentAddress1());
+            add2.setText(user.getShipmentAddress2());
+            state.setText(user.getShipmentState());
+            city.setText(user.getShipmentCity());
+            pobox.setText(user.getShipmentPoBox());
+
+
 
         }
 
     }
 
+
+    public  void paymentOrder(View v)
+    {
+        order.setShipmentAddress1(add1.getText().toString().trim());
+        order.setShipmentAddress2(add2.getText().toString().trim());
+        order.setShipmentState(state.getText().toString().trim());
+        order.setShipmentCity(city.getText().toString().trim());
+        order.setShipmentPoBox(pobox.getText().toString().trim());
+    }
 
 
 }

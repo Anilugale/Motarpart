@@ -2,10 +2,12 @@ package app.motaroart.com.motarpart;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,31 +18,42 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import app.motaroart.com.motarpart.adapter.CartAdapter;
 import app.motaroart.com.motarpart.pojo.Order;
 import app.motaroart.com.motarpart.pojo.Product;
+import app.motaroart.com.motarpart.pojo.Setting;
 import app.motaroart.com.motarpart.pojo.User;
+import app.motaroart.com.motarpart.services.InternetState;
+import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
 public class Cart extends Activity {
     List<Product> listData;
-
+    List<Setting> settings;
     CartAdapter adapter;
     TextView product_grand_price;
     ListView main_page;
-    TextView cart_cnt;
+    TextView cart_cnt,vat_per,vat_price;
     SharedPreferences mPrefs;
+    double vatRate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        init();
+
+        if(InternetState.getState(this)) {
+            new DownLoadSetting().execute();
+
+        }
     }
 
     private void init() {
-
+        vat_per=(TextView)findViewById(R.id.vat_per);
+        vat_price=(TextView)findViewById(R.id.vat_price);
+        vat_per.setText(settings.get(5).getKeyValue()+"%");
         product_grand_price=(TextView)findViewById(R.id.product_grand_price);
         Type listOfTestObject = new TypeToken<List<Product>>() {
         }.getType();
@@ -55,7 +68,10 @@ public class Cart extends Activity {
             for (Product product : listData) {
                 grand += Double.valueOf(product.getProductPrice().trim());
             }
-            product_grand_price.setText("Rs." + grand);
+
+            double vatPrice=(grand*vatRate);
+            product_grand_price.setText("Rs." +Math.floor(grand+vatPrice));
+            vat_price.setText(Math.floor(vatPrice)+"");
             cart_cnt.setText("My Cart (" + listData.size() + ")");
             adapter = new CartAdapter(this, listData);
             main_page = (ListView) findViewById(R.id.mycart_list);
@@ -74,7 +90,7 @@ public class Cart extends Activity {
 
     public void updateGrandPrice(double oldPrice,double newPrice,String productID)
     {
-        cart_cnt.setText("My Cart (" + productID + ")");
+        cart_cnt.setText("My Cart (" + productID + ")"+settings.get(5).getKeyValue());
         if (adapter.getCount()==0 )
         {
             new AlertDialog.Builder(this)
@@ -91,13 +107,17 @@ public class Cart extends Activity {
         }
         String old=product_grand_price.getText().toString().substring(3,product_grand_price.getText().length());
         double newPriceGrand = (Double.valueOf(old) - oldPrice) + newPrice;
-        product_grand_price.setText("Rs." + newPriceGrand);
+        double vatPrice=newPriceGrand*vatRate;
+        vat_price.setText(Math.floor(vatPrice)+"");
+        product_grand_price.setText("Rs." +Math.floor(newPriceGrand+vatPrice));
     }
     public void updateGrandPriceMinuse(double oldPrice,int productID)
     {
         String old=product_grand_price.getText().toString().substring(3,product_grand_price.getText().length());
         double newPriceGrand = (Double.valueOf(old) - oldPrice) ;
+
         product_grand_price.setText("Rs." + newPriceGrand);
+
         cart_cnt.setText("My Cart (" + productID + ")");
     }
 
@@ -136,6 +156,8 @@ public class Cart extends Activity {
             order.setProductCount(String.valueOf(adapter.listData.size()));
             order.setOrderSource("MAPP");
             order.setProductList(adapter.listData);
+
+
             //TODO
            /* order.setOrderAmount();
             order.setVATAmount();
@@ -149,6 +171,43 @@ public class Cart extends Activity {
 
         }
 
+    }
+
+    class DownLoadSetting extends AsyncTask<Void,Void,String>
+    {
+        ProgressDialog pd;
+        @Override
+        protected void onPreExecute() {
+            pd=ProgressDialog.show(Cart.this,getString(R.string.app_name),"Loading",true,false);
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String aVoid) {
+
+            if(aVoid!=null) {
+                Gson gson = new Gson();
+
+                Type type = new TypeToken<List<Setting>>() {
+                }.getType();
+               settings= gson.fromJson(aVoid,type);
+                 vatRate=((Double.valueOf(settings.get(5).getKeyValue()) /100.0));
+                init();
+            }
+
+           pd.dismiss();
+            super.onPostExecute(aVoid);
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            return WebServiceCall.getSetting(mPrefs);
+
+        }
+    }
+    double roundTwoDecimals(double d) {
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+        return Double.valueOf(twoDForm.format(d));
     }
 }
 

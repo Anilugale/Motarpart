@@ -4,121 +4,241 @@ package app.motaroart.com.motarpart.pojo;
  * Created by AnilU on 06-01-2015.
  */
 public class Customer
-
 {
+    private String ShipmentPoBox;
 
-    public String AccountType;
-    public String LoginId;
-    public String LoginPwd;
-    public String Name;
-    public String Email;
-    public String Mobile;
-    public String CompanyName;
-    public String Address;
-    public String PoBox;
-    public String TIN;
-    public String VATNumber;
+    private String TIN;
+
+    private String LoginId;
+
+    private String VATNumber;
+
+    private String CompanyName;
+
+    private String City;
+
+    private String Name;
+
+    private String PoBox;
+
+    private String LoginPwd;
+
+    private String ShipmentAddress1;
+
+    private String Email;
+
+    private String Address2;
+
+    private String Address1;
+
+    private String ShipmentCity;
+
+    private String Mobile;
+
+    private String ShipmentAddress2;
+
+    private String ShipmentState;
+
+    private String AccountType;
 
     public Customer() {
-
-        AccountType="U";
-        LoginId="";
-        LoginPwd="";
-        Name="";
-        Email="";
-        Mobile="";
-        CompanyName="";
-        Address="";
-        PoBox="";
-        TIN="";
-        VATNumber="";
+        ShipmentPoBox = "";
+        this.TIN = "";
+        LoginId = "";
+        this.VATNumber = "";
+        CompanyName = "";
+        City = "";
+        Name = "";
+        PoBox = "";
+        LoginPwd = "";
+        ShipmentAddress1 = "";
+        Email = "";
+        Address2 = "";
+        Address1 = "";
+        ShipmentCity = "";
+        Mobile = "";
+        ShipmentAddress2 = "";
+        ShipmentState = "";
+        AccountType = "";
     }
 
-    public String getAccountType() {
-        return AccountType;
+    public String getShipmentPoBox ()
+    {
+        return ShipmentPoBox;
     }
 
-    public void setAccountType(String accountType) {
-        AccountType = accountType;
+    public void setShipmentPoBox (String ShipmentPoBox)
+    {
+        this.ShipmentPoBox = ShipmentPoBox;
     }
 
-    public String getLoginId() {
-        return LoginId;
-    }
-
-    public void setLoginId(String loginId) {
-        LoginId = loginId;
-    }
-
-    public String getLoginPwd() {
-        return LoginPwd;
-    }
-
-    public void setLoginPwd(String loginPwd) {
-        LoginPwd = loginPwd;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
-    }
-
-    public String getMobile() {
-        return Mobile;
-    }
-
-    public void setMobile(String mobile) {
-        Mobile = mobile;
-    }
-
-    public String getCompanyName() {
-        return CompanyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        CompanyName = companyName;
-    }
-
-    public String getAddress() {
-        return Address;
-    }
-
-    public void setAddress(String address) {
-        Address = address;
-    }
-
-    public String getPoBox() {
-        return PoBox;
-    }
-
-    public void setPoBox(String poBox) {
-        PoBox = poBox;
-    }
-
-    public String getTIN() {
+    public String getTIN ()
+    {
         return TIN;
     }
 
-    public void setTIN(String TIN) {
+    public void setTIN (String TIN)
+    {
         this.TIN = TIN;
     }
 
-    public String getVATNumber() {
+    public String getLoginId ()
+    {
+        return LoginId;
+    }
+
+    public void setLoginId (String LoginId)
+    {
+        this.LoginId = LoginId;
+    }
+
+    public String getVATNumber ()
+    {
         return VATNumber;
     }
 
-    public void setVATNumber(String VATNumber) {
+    public void setVATNumber (String VATNumber)
+    {
         this.VATNumber = VATNumber;
+    }
+
+    public String getCompanyName ()
+    {
+        return CompanyName;
+    }
+
+    public void setCompanyName (String CompanyName)
+    {
+        this.CompanyName = CompanyName;
+    }
+
+    public String getCity ()
+    {
+        return City;
+    }
+
+    public void setCity (String City)
+    {
+        this.City = City;
+    }
+
+    public String getName ()
+    {
+        return Name;
+    }
+
+    public void setName (String Name)
+    {
+        this.Name = Name;
+    }
+
+    public String getPoBox ()
+    {
+        return PoBox;
+    }
+
+    public void setPoBox (String PoBox)
+    {
+        this.PoBox = PoBox;
+    }
+
+    public String getLoginPwd ()
+    {
+        return LoginPwd;
+    }
+
+    public void setLoginPwd (String LoginPwd)
+    {
+        this.LoginPwd = LoginPwd;
+    }
+
+    public String getShipmentAddress1 ()
+    {
+        return ShipmentAddress1;
+    }
+
+    public void setShipmentAddress1 (String ShipmentAddress1)
+    {
+        this.ShipmentAddress1 = ShipmentAddress1;
+    }
+
+    public String getEmail ()
+    {
+        return Email;
+    }
+
+    public void setEmail (String Email)
+    {
+        this.Email = Email;
+    }
+
+    public String getAddress2 ()
+    {
+        return Address2;
+    }
+
+    public void setAddress2 (String Address2)
+    {
+        this.Address2 = Address2;
+    }
+
+    public String getAddress1 ()
+    {
+        return Address1;
+    }
+
+    public void setAddress1 (String Address1)
+    {
+        this.Address1 = Address1;
+    }
+
+    public String getShipmentCity ()
+    {
+        return ShipmentCity;
+    }
+
+    public void setShipmentCity (String ShipmentCity)
+    {
+        this.ShipmentCity = ShipmentCity;
+    }
+
+    public String getMobile ()
+    {
+        return Mobile;
+    }
+
+    public void setMobile (String Mobile)
+    {
+        this.Mobile = Mobile;
+    }
+
+    public String getShipmentAddress2 ()
+    {
+        return ShipmentAddress2;
+    }
+
+    public void setShipmentAddress2 (String ShipmentAddress2)
+    {
+        this.ShipmentAddress2 = ShipmentAddress2;
+    }
+
+    public String getShipmentState ()
+    {
+        return ShipmentState;
+    }
+
+    public void setShipmentState (String ShipmentState)
+    {
+        this.ShipmentState = ShipmentState;
+    }
+
+    public String getAccountType ()
+    {
+        return AccountType;
+    }
+
+    public void setAccountType (String AccountType)
+    {
+        this.AccountType = AccountType;
     }
 }

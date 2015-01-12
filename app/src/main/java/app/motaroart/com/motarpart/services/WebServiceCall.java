@@ -3,15 +3,21 @@ package app.motaroart.com.motarpart.services;
  * Created by Anil   Ugale on 20-12-2014.
  */
 
+import android.content.SharedPreferences;
 import android.util.Base64;
+import android.util.Log;
 
 import org.ksoap2.SoapEnvelope;
+import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpResponseException;
 import org.ksoap2.transport.HttpTransportSE;
+import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 
@@ -302,7 +308,7 @@ public class WebServiceCall {
     public static String getRegistration(String json) {
         SoapObject request = new SoapObject(NAMESPACE, "CreateCustomer");
 
-
+        System.out.println(json);
 
         PropertyInfo AccountId=new PropertyInfo();
         AccountId.name="jsonAccount";
@@ -324,6 +330,42 @@ public class WebServiceCall {
             e.printStackTrace();
 
             return  null;
+        }
+
+    }
+
+
+    public static String getSetting(SharedPreferences con) {
+        SoapObject request = new SoapObject(NAMESPACE, "GetSettings");
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        try {
+            androidHttpTransport.call(NAMESPACE+"GetSettings", envelope);
+            SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
+
+
+            Log.d("SEt",resultsRequestSOAP.toString());
+            return resultsRequestSOAP.toString();
+        } catch (XmlPullParserException e) {
+
+            return null;
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+
+            return null;
+
+        } catch (HttpResponseException e) {
+            e.printStackTrace();
+
+            return null;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+            return null;
+
         }
 
     }

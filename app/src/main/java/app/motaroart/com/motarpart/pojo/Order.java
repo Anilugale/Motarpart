@@ -22,6 +22,54 @@ public class Order implements Serializable
     private String Remark;
     private List<Product> ProductList;
 
+
+    public String ShipmentAddress1;
+    public String ShipmentAddress2;
+
+    public String ShipmentCity;
+    public String ShipmentState;
+    public String ShipmentPoBox;
+
+    public String getShipmentAddress1() {
+        return ShipmentAddress1;
+    }
+
+    public void setShipmentAddress1(String shipmentAddress1) {
+        ShipmentAddress1 = shipmentAddress1;
+    }
+
+    public String getShipmentAddress2() {
+        return ShipmentAddress2;
+    }
+
+    public void setShipmentAddress2(String shipmentAddress2) {
+        ShipmentAddress2 = shipmentAddress2;
+    }
+
+    public String getShipmentCity() {
+        return ShipmentCity;
+    }
+
+    public void setShipmentCity(String shipmentCity) {
+        ShipmentCity = shipmentCity;
+    }
+
+    public String getShipmentState() {
+        return ShipmentState;
+    }
+
+    public void setShipmentState(String shipmentState) {
+        ShipmentState = shipmentState;
+    }
+
+    public String getShipmentPoBox() {
+        return ShipmentPoBox;
+    }
+
+    public void setShipmentPoBox(String shipmentPoBox) {
+        ShipmentPoBox = shipmentPoBox;
+    }
+
     public String getVATAmount ()
     {
         return VATAmount;

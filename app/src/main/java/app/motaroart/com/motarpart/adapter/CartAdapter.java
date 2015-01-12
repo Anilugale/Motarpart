@@ -125,14 +125,14 @@ public class CartAdapter extends BaseAdapter {
         //TODO
            if(user!=null) {
 
-               if(user.getAccountType()=="U") {
+               if(user.getAccountType().equals("C")) {
                    product_mrp.setText("Rs." + product.getProductPrice());
                    product_qty_total.setText("Rs." + product.getProductPrice());
                }
-               else  if(user.getAccountType()=="W") {
+               else  if(user.getAccountType().equals("W")) {
                    product_mrp.setText("Rs." + product.getWholesalerPrice());
                    product_qty_total.setText("Rs." + product.getWholesalerPrice());
-               }else  if(user.getAccountType()=="R") {
+               }else  if(user.getAccountType().equals("R")) {
                    product_mrp.setText("Rs." + product.getRetailerPrice());
                    product_qty_total.setText("Rs." + product.getRetailerPrice());
                }
@@ -159,12 +159,12 @@ public class CartAdapter extends BaseAdapter {
                 double value=0.0;
                 if(user!=null) {
 
-                    if(user.getAccountType()=="U") {
+                    if(user.getAccountType().equals("C")) {
                         value=   Double.valueOf(product.getProductPrice());
                     }
-                    else  if(user.getAccountType()=="W") {
+                    else  if(user.getAccountType().equals("W")) {
                         value=   Double.valueOf(product.getWholesalerPrice());
-                    }else  if(user.getAccountType()=="R") {
+                    }else  if(user.getAccountType().equals("R")) {
                         value=   Double.valueOf(product.getRetailerPrice());
                     }
                 }

@@ -1,5 +1,12 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<ScrollView
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+>
+
+<LinearLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="app.motaroart.com.motarpart.Summry">
@@ -96,14 +103,67 @@
         android:background="#1B62A2"
         />
 
-
-    <TextView
-        android:id="@+id/po_code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hi XXXX"
-        android:textSize="13sp"
+    <EditText
+        android:layout_margin="5dp"
+        android:id="@+id/address1"
+        android:background="@drawable/edit_text_back"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:maxLines="2"
+        android:gravity="left|top"
+        android:hint="Address1"
         android:padding="5dp"
         android:textStyle="bold"
         />
+    <EditText
+        android:layout_margin="5dp"
+        android:background="@drawable/edit_text_back"
+        android:id="@+id/address2"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:maxLines="2"
+        android:gravity="left|top"
+        android:hint="Address2"
+        android:padding="5dp"
+        android:textStyle="bold"
+        />
+    <EditText
+        android:layout_margin="5dp"
+        android:background="@drawable/edit_text_back"
+        android:id="@+id/state"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:maxLines="2"
+        android:gravity="left|top"
+        android:hint="State"
+        android:padding="5dp"
+        android:textStyle="bold"
+        />
+    <EditText
+        android:layout_margin="5dp"
+        android:background="@drawable/edit_text_back"
+        android:id="@+id/city"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:maxLines="2"
+        android:gravity="left|top"
+        android:hint="City"
+        android:padding="5dp"
+        android:textStyle="bold"
+        />
+    <EditText
+        android:layout_margin="5dp"
+        android:background="@drawable/edit_text_back"
+        android:id="@+id/pobox"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:maxLines="2"
+        android:gravity="left|top"
+        android:hint="PO Box"
+        android:padding="5dp"
+        android:textStyle="bold"
+        />
+
+
 </LinearLayout>
+</ScrollView>

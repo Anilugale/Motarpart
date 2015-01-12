@@ -40,6 +40,9 @@ public class UserActivity extends Activity {
 
         pref=getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
         String userStr=pref.getString("user","");
+        System.out.println(
+                userStr
+        );
         if(!userStr.equals(""))
         {
             Gson gson=new Gson();

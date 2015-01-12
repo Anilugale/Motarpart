@@ -14,10 +14,13 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import app.motaroart.com.motarpart.pojo.Customer;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
@@ -25,8 +28,8 @@ import app.motaroart.com.motarpart.services.WebServiceCall;
 public class Registration extends Activity {
 
 
-    EditText company_name,tin_number,vat_number,address,zip_code,po_code,username,pass,pass1,email,mobile,name;
-    CheckBox company_detail,postal_address;
+    EditText company_name,tin_number,vat_number,addresss1,addresss2, city_p,po_code,username,pass,pass1,email,mobile,name,address1,address2,state,city,pobox;
+    CheckBox company_detail,postal_address,shipping_address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,7 @@ public class Registration extends Activity {
 
         company_detail = (CheckBox) findViewById(R.id.company_detail);
         postal_address = (CheckBox) findViewById(R.id.postal_address);
+        shipping_address = (CheckBox) findViewById(R.id.shipping_address);
         company_detail.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -55,13 +59,35 @@ public class Registration extends Activity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b)
                 {
-                    address.setVisibility(View.VISIBLE);
-                    zip_code.setVisibility(View.VISIBLE);
+                    addresss1.setVisibility(View.VISIBLE);
+                    addresss2.setVisibility(View.VISIBLE);
+                    city_p.setVisibility(View.VISIBLE);
                     po_code.setVisibility(View.VISIBLE);
                 }else {
-                    address.setVisibility(View.GONE);
-                    zip_code.setVisibility(View.GONE);
+                    addresss1.setVisibility(View.VISIBLE);
+                    addresss2.setVisibility(View.VISIBLE);
+                    city_p.setVisibility(View.GONE);
                     po_code.setVisibility(View.GONE);
+                }
+
+            }
+        });
+        shipping_address.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b)
+                {
+                    address1.setVisibility(View.VISIBLE);
+                    address2.setVisibility(View.VISIBLE);
+                    state.setVisibility(View.VISIBLE);
+                    city.setVisibility(View.VISIBLE);
+                    pobox.setVisibility(View.VISIBLE);
+                }else {
+                    address1.setVisibility(View.GONE);
+                    address2.setVisibility(View.GONE);
+                    state.setVisibility(View.GONE);
+                    city.setVisibility(View.GONE);
+                    pobox.setVisibility(View.GONE);
                 }
             }
         });
@@ -73,10 +99,20 @@ public class Registration extends Activity {
         company_name=(EditText)findViewById(R.id.company_name);
         tin_number=(EditText)findViewById(R.id.tin_number);
         vat_number=(EditText)findViewById(R.id.vat_number);
-        address=(EditText)findViewById(R.id.address);
-        zip_code=(EditText)findViewById(R.id.zip_code);
+        addresss1=(EditText)findViewById(R.id.address);
+        addresss2=(EditText)findViewById(R.id.addresss2);
+        city_p=(EditText)findViewById(R.id.city_p);
         po_code=(EditText)findViewById(R.id.po_code);
         name=(EditText)findViewById(R.id.user_name);
+
+
+        address1=(EditText)findViewById(R.id.address1);
+        address2=(EditText)findViewById(R.id.address2);
+        state=(EditText)findViewById(R.id.state);
+        city=(EditText)findViewById(R.id.city);
+        pobox=(EditText)findViewById(R.id.pobox);
+
+
 
 
         username=(EditText)findViewById(R.id.username);
@@ -92,55 +128,38 @@ public class Registration extends Activity {
     Customer customer;
     public void register(View view) {
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        boolean company,address;
-        String passw1= pass.getText().toString().trim();
-        String passw2=pass1.getText().toString().trim();
+        boolean company, address;
+        String passw1 = pass.getText().toString().trim();
+        String passw2 = pass1.getText().toString().trim();
 
-        if(name.getText().toString().trim().length()==0)
-        {
-            Toast.makeText(this,"Enter the Name!",Toast.LENGTH_SHORT ).show();
-        } else if(username.getText().toString().trim().length()==0)
-        {
-            Toast.makeText(this,"Enter the username!",Toast.LENGTH_SHORT ).show();
-        }
-        else if(mobile.getText().toString().trim().length()==0)
-        {
-            Toast.makeText(this,"Enter the mobile number!",Toast.LENGTH_SHORT ).show();
-        }
-        else if(pass.getText().toString().trim().length()==0)
-        {
-            Toast.makeText(this,"Enter the password!",Toast.LENGTH_SHORT ).show();
-        }
-        else if(pass1.getText().toString().trim().length()==0)
-        {
-            Toast.makeText(this,"Enter the Re password!",Toast.LENGTH_SHORT ).show();
-        }
-        else if(!passw1.equals(passw2))
-        {
-            Toast.makeText(this,"password not match!",Toast.LENGTH_SHORT ).show();
-        }
-        else if(email.getText().toString().trim().length()==0)
-        {
-            Toast.makeText(this,"Enter the email id!",Toast.LENGTH_SHORT ).show();
-        }
-        else if(!email.getText().toString().trim().matches(emailPattern))
-        {
-            Toast.makeText(this,"invalid the email id!",Toast.LENGTH_SHORT ).show();
-        }
-        else {
-            customer=new Customer();
+        if (name.getText().toString().trim().length() == 0) {
+            Toast.makeText(this, "Enter the Name!", Toast.LENGTH_SHORT).show();
+        } else if (username.getText().toString().trim().length() == 0) {
+            Toast.makeText(this, "Enter the username!", Toast.LENGTH_SHORT).show();
+        } else if (mobile.getText().toString().trim().length() == 0) {
+            Toast.makeText(this, "Enter the mobile number!", Toast.LENGTH_SHORT).show();
+        } else if (pass.getText().toString().trim().length() == 0) {
+            Toast.makeText(this, "Enter the password!", Toast.LENGTH_SHORT).show();
+        } else if (pass1.getText().toString().trim().length() == 0) {
+            Toast.makeText(this, "Enter the Re password!", Toast.LENGTH_SHORT).show();
+        } else if (!passw1.equals(passw2)) {
+            Toast.makeText(this, "password not match!", Toast.LENGTH_SHORT).show();
+        } else if (email.getText().toString().trim().length() == 0) {
+            Toast.makeText(this, "Enter the email id!", Toast.LENGTH_SHORT).show();
+        } else if (!email.getText().toString().trim().matches(emailPattern)) {
+            Toast.makeText(this, "invalid the email id!", Toast.LENGTH_SHORT).show();
+        } else {
+            customer = new Customer();
             customer.setName(name.getText().toString().trim());
             customer.setLoginId(username.getText().toString().trim());
             customer.setLoginPwd(passw1.trim());
             customer.setEmail(email.getText().toString().trim());
             customer.setMobile(mobile.getText().toString().trim());
 
-            if(company_detail.isChecked())
-            {
-                company=  validateCompanyDetail();
+            if (company_detail.isChecked()) {
+                company = validateCompanyDetail();
 
-                if(company)
-                {
+                if (company) {
                     customer.setCompanyName(company_name.getText().toString().trim());
                     customer.setTIN(tin_number.getText().toString().trim());
                     customer.setVATNumber(vat_number.getText().toString().trim());
@@ -148,58 +167,90 @@ public class Registration extends Activity {
 
                     if (postal_address.isChecked()) {
 
-                        address= validateAddress();
-                        if(address)
-                        {
-
-                            customer.setAddress(this.address.getText().toString().trim()+po_code.getText().toString().trim());
+                        address = validateAddress();
+                        if (address) {
+                            customer.setAddress1(this.addresss1.getText().toString().trim());
+                            customer.setAddress2(this.addresss2.getText().toString().trim());
+                            customer.setCity(this.city_p.getText().toString().trim());
                             customer.setPoBox(this.po_code.getText().toString().trim());
+                        }
+                        if (validateShippingAddress()) {
+                            customer.setShipmentAddress1(address1.getText().toString().trim());
+                            customer.setShipmentAddress2(address2.getText().toString().trim());
+                            customer.setShipmentState(state.getText().toString().trim());
+                            customer.setShipmentCity(city.getText().toString().trim());
+                            customer.setShipmentPoBox(pobox.getText().toString().trim());
+                            new RegisterBack().execute();
+                        } else {
+
 
                             new RegisterBack().execute();
-
-
                         }
 
+
                     }
-                    else {
+
+                } else if (shipping_address.isChecked()) {
+                    if (validateShippingAddress()) {
+                        customer.setShipmentAddress1(address1.getText().toString().trim());
+                        customer.setShipmentAddress2(address2.getText().toString().trim());
+                        customer.setShipmentState(state.getText().toString().trim());
+                        customer.setShipmentCity(city.getText().toString().trim());
+                        customer.setShipmentPoBox(pobox.getText().toString().trim());
+                        new RegisterBack().execute();
+                    } else {
                         new RegisterBack().execute();
                     }
 
                 }
 
-            }
-            else
-            {
+            } else {
 
                 if (postal_address.isChecked()) {
 
-                    address= validateAddress();
-                    if(address)
-                    {
-                        customer.setAddress(this.address.getText().toString().trim()+po_code.getText().toString().trim());
+                    address = validateAddress();
+                    if (address) {
+                        customer.setAddress1(this.addresss1.getText().toString().trim());
+                        customer.setAddress2(this.addresss2.getText().toString().trim());
+                        customer.setCity(this.city_p.getText().toString().trim());
                         customer.setPoBox(this.po_code.getText().toString().trim());
                         new RegisterBack().execute();
                     }
                 }
-                else
-                {
+                if (shipping_address.isChecked()) {
+                    if (validateShippingAddress()) {
+                        customer.setShipmentAddress1(address1.getText().toString().trim());
+                        customer.setShipmentAddress2(address2.getText().toString().trim());
+                        customer.setShipmentState(state.getText().toString().trim());
+                        customer.setShipmentCity(city.getText().toString().trim());
+                        customer.setShipmentPoBox(pobox.getText().toString().trim());
+                        new RegisterBack().execute();
+                    } else {
+                        new RegisterBack().execute();
+                    }
+
+
+                } else {
                     new RegisterBack().execute();
                 }
 
             }
-
         }
     }
 
     boolean validateAddress()
     {
 
-        if (address.getText().toString().trim().length()==0)
+        if (addresss1.getText().toString().trim().length()==0)
         {
-            Toast.makeText(this,"Enter the Address!",Toast.LENGTH_SHORT ).show();
+            Toast.makeText(this,"Enter the Address1!",Toast.LENGTH_SHORT ).show();
             return false;
 
-        } else if (zip_code.getText().toString().trim().length()==0)
+        } else if (addresss2.getText().toString().trim().length()==0)
+        {
+            Toast.makeText(this,"Enter the Address2!",Toast.LENGTH_SHORT ).show();
+            return false;
+        }else if (city_p.getText().toString().trim().length()==0)
         {
             Toast.makeText(this,"Enter the Zip Code!",Toast.LENGTH_SHORT ).show();
             return false;
@@ -212,6 +263,38 @@ public class Registration extends Activity {
 
         return true;
     }
+
+    boolean validateShippingAddress()
+    {
+
+        if (address1.getText().toString().trim().length()==0)
+        {
+            Toast.makeText(this,"Enter the Address1!",Toast.LENGTH_SHORT ).show();
+            return false;
+
+        } else if (address2.getText().toString().trim().length()==0)
+        {
+            Toast.makeText(this,"EEnter the Address1!",Toast.LENGTH_SHORT ).show();
+            return false;
+        }else if (state.getText().toString().trim().length()==0)
+        {
+            Toast.makeText(this,"Enter the State!",Toast.LENGTH_SHORT ).show();
+            return false;
+        }else if (city.getText().toString().trim().length()==0)
+        {
+            Toast.makeText(this,"Enter the City!",Toast.LENGTH_SHORT ).show();
+            return false;
+        }else if (pobox.getText().toString().trim().length()==0)
+        {
+            Toast.makeText(this,"Enter the Po Box!",Toast.LENGTH_SHORT ).show();
+            return false;
+        }
+
+
+        return true;
+    }
+
+
     boolean validateCompanyDetail()
     {
         if(company_name.getText().toString().trim().length()==0)
