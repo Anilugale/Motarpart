@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -59,10 +60,7 @@ public class Summry extends Activity {
             city.setText(user.getShipmentCity());
             pobox.setText(user.getShipmentPoBox());
 
-            System.out.println(order.getTotalAmount());
-            System.out.println(order.getVATAmount());
-            System.out.println(order.getVATPercent());
-            System.out.println(order.getOrderAmount());
+
 
         }
 
@@ -77,15 +75,45 @@ public class Summry extends Activity {
         order.setShipmentCity(city.getText().toString().trim());
         order.setShipmentPoBox(pobox.getText().toString().trim());
         order.setVoucherCode("");
-//TODO
-   /*     "TransactionNumber":"",
-            "TransactionMode":"MPESA/CARD",
-            "Remark":"MPESA TEXT DATA",*/
+        System.out.println(new Gson().toJson(order));
 
-        startActivity(new Intent(this,Payment.class).putExtra("order",order));
+        if( validate()) {
+            startActivity(new Intent(this, Payment.class).putExtra("order", order));
+        finish();
+        }
 
 
+    }
 
+    boolean validate()
+    {
+
+
+        if(add1.getText().toString().trim().length()==0)
+        {
+            Toast.makeText(this,"Enter the Address1!",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else
+        if(add2.getText().toString().trim().length()==0)
+        {
+            Toast.makeText(this,"Enter the Address2!",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(state.getText().toString().trim().length()==0)
+        {
+            Toast.makeText(this,"Enter the State!",Toast.LENGTH_SHORT).show();
+            return false;
+        } else if(city.getText().toString().trim().length()==0)
+        {
+            Toast.makeText(this,"Enter the City!",Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(pobox.getText().toString().trim().length()==0)
+        {
+            Toast.makeText(this,"Enter the Po Box!",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
 
