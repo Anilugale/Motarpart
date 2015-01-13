@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.AvoidXfermode;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -23,13 +24,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import app.motaroart.com.motarpart.adapter.CategoryAdapterSpinner;
@@ -71,8 +75,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Read in the flag indicating whether or not the user has demonstrated awareness of the
-        // drawer. See PREF_USER_LEARNED_DRAWER for details.
+
 
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
@@ -88,7 +91,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        // Indicate that this fragment would like to influence the set of actions in the action bar.
+
         setHasOptionsMenu(true);
     }
 
@@ -105,9 +108,27 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         category = (Spinner) rootView.findViewById(R.id.s_sub);
         Button b = (Button) rootView.findViewById(R.id.main_seach_drawer);
         b.setOnClickListener(this);
-    //    new DownloadData().execute();
+        new DownloadData().execute();
 
+        sMake.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(listData.get(i).getMakeId()!=-1)
+                {
+                    new DownloadDataCar().execute();
 
+                }else
+                {
+                    Toast.makeText(getActivity(),"Opps! No model found.",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         return rootView;
 
@@ -119,7 +140,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
 
 
-/// init the spinner of make model and category
+
 
     class DownloadData extends AsyncTask<Void,Void,String[]>
     {
@@ -130,34 +151,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             String[] data=new String[5];
             if(!mPrefs.getString("make","").equals(""))
                 data[0]=mPrefs.getString("make","");
-            else
-            {
-                if(InternetState.getState(rootView.getContext())) {
-                  Object obj = WebServiceCall.getMakeJson();
-                    if(obj instanceof Object)
-                    data[0]=String.valueOf(obj);
-                    mPrefs.edit().putString("make", data[0]).apply();
-                }
-            }
 
-            if(!mPrefs.getString("model","[]").equals("[]") )
-                data[1]=mPrefs.getString("model","");
-            else
-            {
-                if(InternetState.getState(rootView.getContext())) {
-               //     data[1]= WebServiceCall.getModelJson();
-                    mPrefs.edit().putString("model", data[1]).apply();
-                }
-            }
-            if(!mPrefs.getString("category","").equals(""))
-                data[2]=mPrefs.getString("category","");
-            else
-            {
-                if(InternetState.getState(rootView.getContext())) {
-                    data[2]= WebServiceCall.getCategoryJson();
-                    mPrefs.edit().putString("category", data[2]).apply();
-                }
-            }
             return data;
         }
 
@@ -170,47 +164,76 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         @Override
         protected void onPostExecute(String[] s) {
 
-            if(s[0]!=null&&s[1]!=null&&s[2]!=null) {
+            if(s[0]!=null) {
                 Gson gson = new Gson();
                 Type listOfTestObject = new TypeToken<List<Make>>() {
                 }.getType();
+                Make make=new Make();
+                make.setMakeId(-1);
+                make.setMakeName("Make");
                 listData = gson.fromJson(s[0], listOfTestObject);
+                listData.add(0,make);
                 MakeAdapterSpinner makeAdapter = new MakeAdapterSpinner(getActivity(), listData);
                 sMake.setAdapter(makeAdapter);
 
-                Type listModeltObject = new TypeToken<List<Model>>() {
-                }.getType();
-                listDataModel = gson.fromJson(s[1], listModeltObject);
-                ModelAdapterSpinner ModelAdapter = new ModelAdapterSpinner(getActivity(), listDataModel);
-                sModel.setAdapter(ModelAdapter);
-
-                Type listCatObject = new TypeToken<List<CategoryPojo>>() {
-                }.getType();
-                listDataCat = gson.fromJson(s[2], listCatObject);
-                CategoryAdapterSpinner catAdapter = new CategoryAdapterSpinner(getActivity(), listDataCat);
-                category.setAdapter(catAdapter);
                 pd.dismiss();
                 super.onPostExecute(s);
             }
             else
             {
                 pd.dismiss();
-                new AlertDialog.Builder(getActivity())
-                        .setTitle(getActivity().getResources().getString(R.string.app_name))
-                        .setMessage("Sorry No offline Data available!")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                Toast.makeText(getActivity(),"Opps! Connection is lost.",Toast.LENGTH_LONG).show();
             }
         }
     }
 
+    class DownloadDataCar extends AsyncTask<Void,Void,List<String>>
+    {
+        ProgressDialog pd;
+        @Override
+        protected void onPreExecute() {
+         //   pd=ProgressDialog.show(getActivity(),getString(R.string.app_name),"Loading...",true,false);
+            super.onPreExecute();
+        }
 
+        @Override
+        protected List<String> doInBackground(Void... voids) {
+
+          List<String> str=new ArrayList<>();
+            str.add(WebServiceCall.getModelJson(listData.get(sMake.getSelectedItemPosition()).getMakeId()+""));
+            str.add(WebServiceCall.getCategoryJson());
+            return  str;
+        }
+
+        @Override
+        protected void onPostExecute(List<String> strings) {
+
+            if(strings!=null) {
+                Gson gson = new Gson();
+
+                Type listModeltObject = new TypeToken<List<Model>>() {
+                }.getType();
+                Model model=new Model();
+                        model.setMakeName("Model");
+                model.setModelId("-1");
+                listDataModel = gson.fromJson(strings.get(0), listModeltObject);
+                ModelAdapterSpinner ModelAdapter = new ModelAdapterSpinner(getActivity(), listDataModel);
+                sModel.setAdapter(ModelAdapter);
+
+                Type listCatObject = new TypeToken<List<CategoryPojo>>() {
+                }.getType();
+                listDataCat = gson.fromJson(strings.get(1), listCatObject);
+                CategoryAdapterSpinner catAdapter = new CategoryAdapterSpinner(getActivity(), listDataCat);
+                category.setAdapter(catAdapter);
+            }else
+            {
+                Toast.makeText(getActivity(),"Opps! Connection Problem.",Toast.LENGTH_LONG).show();
+            }
+
+         //   pd.dismiss();
+            super.onPostExecute(strings);
+        }
+    }
     List<CategoryPojo>listDataCat;
     List<Model> listDataModel;
     List<Make>listData;

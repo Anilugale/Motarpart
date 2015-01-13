@@ -26,7 +26,7 @@ public class WebServiceCall {
 
     private static final String NAMESPACE = "http://tempuri.org/";
 
-    public static String BASE_URL="http://192.168.42.124//TEST/";
+    public static String BASE_URL="http://autolampskenya.cloudapp.net/";
     public static String URL=BASE_URL+"mobileservice.asmx";
 
 
