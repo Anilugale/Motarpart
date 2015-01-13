@@ -136,6 +136,11 @@ public class CartAdapter extends BaseAdapter {
                    product_mrp.setText("Rs." + product.getRetailerPrice());
                    product_qty_total.setText("Rs." + product.getRetailerPrice());
                }
+               else
+               {
+                   product_mrp.setText("Rs." + product.getProductPrice());
+                   product_qty_total.setText("Rs." + product.getProductPrice());
+               }
            }
         else
            {
@@ -166,6 +171,10 @@ public class CartAdapter extends BaseAdapter {
                         value=   Double.valueOf(product.getWholesalerPrice());
                     }else  if(user.getAccountType().equals("R")) {
                         value=   Double.valueOf(product.getRetailerPrice());
+                    }
+                    else
+                    {
+                        value=   Double.valueOf(product.getProductPrice());
                     }
                 }
                 else
