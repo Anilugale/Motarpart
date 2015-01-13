@@ -18,7 +18,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.text.DecimalFormat;
 import java.util.List;
 
 import app.motaroart.com.motarpart.adapter.CartAdapter;
@@ -193,9 +192,6 @@ public class Cart extends Activity {
 
         }
     }
-    double roundTwoDecimals(double d) {
-        DecimalFormat twoDForm = new DecimalFormat("#.##");
-        return Double.valueOf(twoDForm.format(d));
-    }
+
 }
 
