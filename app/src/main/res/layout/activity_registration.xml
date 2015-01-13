@@ -104,6 +104,7 @@
                 android:inputType="textEmailAddress"
                 android:hint="Email Id"
                 android:paddingLeft="5dp" />
+
             <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,6 +113,28 @@
                 android:text="Company Detail"
                 android:id="@+id/company_detail"
                 android:textSize="25sp" />
+<RadioGroup
+    android:visibility="gone"
+    android:id="@+id/user_type"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+    <RadioButton
+
+        android:text="Wholesaler"
+        android:id="@+id/wholesaler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <RadioButton
+
+        android:text="Retailers"
+        android:id="@+id/retailers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    </RadioGroup>
+
 
 
             <EditText
@@ -225,7 +248,6 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
                 android:paddingTop="20dp"
-
                 android:text="Shipping Address"
                 android:id="@+id/shipping_address"
                 android:textSize="25sp" />

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -30,6 +31,7 @@ public class Registration extends Activity {
 
     EditText company_name,tin_number,vat_number,addresss1,addresss2, city_p,po_code,username,pass,pass1,email,mobile,name,address1,address2,state,city,pobox;
     CheckBox company_detail,postal_address,shipping_address;
+    RadioGroup rg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +46,12 @@ public class Registration extends Activity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b)
                 {
+                    rg.setVisibility(View.VISIBLE);
                     company_name.setVisibility(View.VISIBLE);
                     tin_number.setVisibility(View.VISIBLE);
                     vat_number.setVisibility(View.VISIBLE);
                 }else {
+                    rg.setVisibility(View.GONE);
                     company_name.setVisibility(View.GONE);
                     tin_number.setVisibility(View.GONE);
                     vat_number.setVisibility(View.GONE);
@@ -96,6 +100,7 @@ public class Registration extends Activity {
 
     private void init() {
 
+        rg=(RadioGroup)findViewById(R.id.user_type);
         company_name=(EditText)findViewById(R.id.company_name);
         tin_number=(EditText)findViewById(R.id.tin_number);
         vat_number=(EditText)findViewById(R.id.vat_number);
@@ -157,13 +162,13 @@ public class Registration extends Activity {
             customer.setMobile(mobile.getText().toString().trim());
 
             if (company_detail.isChecked()) {
-                company = validateCompanyDetail();
 
-                if (company) {
+
+
                     customer.setCompanyName(company_name.getText().toString().trim());
                     customer.setTIN(tin_number.getText().toString().trim());
                     customer.setVATNumber(vat_number.getText().toString().trim());
-                    customer.setAccountType("C");
+                    customer.setAccountType("R");
 
                     if (postal_address.isChecked()) {
 
@@ -188,7 +193,7 @@ public class Registration extends Activity {
                         }
 
 
-                    }
+
 
                 } else if (shipping_address.isChecked()) {
                     if (validateShippingAddress()) {
@@ -217,7 +222,7 @@ public class Registration extends Activity {
                         new RegisterBack().execute();
                     }
                 }
-                if (shipping_address.isChecked()) {
+               else  if (shipping_address.isChecked()) {
                     if (validateShippingAddress()) {
                         customer.setShipmentAddress1(address1.getText().toString().trim());
                         customer.setShipmentAddress2(address2.getText().toString().trim());
@@ -297,7 +302,11 @@ public class Registration extends Activity {
 
     boolean validateCompanyDetail()
     {
-        if(company_name.getText().toString().trim().length()==0)
+        if(rg.getCheckedRadioButtonId()==-1)
+        {
+            Toast.makeText(this,"Enter the Company Type number!",Toast.LENGTH_SHORT ).show();
+            return false;
+        }else if(company_name.getText().toString().trim().length()==0)
         {
             Toast.makeText(this,"Enter the Company name!",Toast.LENGTH_SHORT ).show();
             return false;

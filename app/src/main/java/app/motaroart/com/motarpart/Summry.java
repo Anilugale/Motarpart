@@ -1,6 +1,7 @@
 package app.motaroart.com.motarpart;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -58,7 +59,10 @@ public class Summry extends Activity {
             city.setText(user.getShipmentCity());
             pobox.setText(user.getShipmentPoBox());
 
-
+            System.out.println(order.getTotalAmount());
+            System.out.println(order.getVATAmount());
+            System.out.println(order.getVATPercent());
+            System.out.println(order.getOrderAmount());
 
         }
 
@@ -72,6 +76,16 @@ public class Summry extends Activity {
         order.setShipmentState(state.getText().toString().trim());
         order.setShipmentCity(city.getText().toString().trim());
         order.setShipmentPoBox(pobox.getText().toString().trim());
+        order.setVoucherCode("");
+//TODO
+   /*     "TransactionNumber":"",
+            "TransactionMode":"MPESA/CARD",
+            "Remark":"MPESA TEXT DATA",*/
+
+        startActivity(new Intent(this,Payment.class).putExtra("order",order));
+
+
+
     }
 
 

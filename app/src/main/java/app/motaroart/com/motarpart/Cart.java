@@ -18,10 +18,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import app.motaroart.com.motarpart.adapter.CartAdapter;
 import app.motaroart.com.motarpart.pojo.Order;
+import app.motaroart.com.motarpart.pojo.OrderProduct;
 import app.motaroart.com.motarpart.pojo.Product;
 import app.motaroart.com.motarpart.pojo.Setting;
 import app.motaroart.com.motarpart.pojo.User;
@@ -52,7 +54,7 @@ public class Cart extends Activity {
     private void init() {
         vat_per=(TextView)findViewById(R.id.vat_per);
         vat_price=(TextView)findViewById(R.id.vat_price);
-        vat_per.setText(settings.get(5).getKeyValue()+"%");
+        vat_per.setText(settings.get(5).getKeyValue()+"% VAT");
         product_grand_price=(TextView)findViewById(R.id.product_grand_price);
         Type listOfTestObject = new TypeToken<List<Product>>() {
         }.getType();
@@ -67,9 +69,10 @@ public class Cart extends Activity {
             for (Product product : listData) {
                 grand += Double.valueOf(product.getProductPrice().trim());
             }
-
             double vatPrice=(grand*vatRate);
-            product_grand_price.setText("Rs." +Math.floor(grand+vatPrice));
+            this.vatPrice=vatPrice;
+            totalPrice=Math.floor(grand);
+            product_grand_price.setText("Rs." +Math.floor(totalPrice+vatPrice));
             vat_price.setText(Math.floor(vatPrice)+"");
             cart_cnt.setText("My Cart (" + listData.size() + ")");
             adapter = new CartAdapter(this, listData);
@@ -89,7 +92,7 @@ public class Cart extends Activity {
 
     public void updateGrandPrice(double oldPrice,double newPrice,String productID)
     {
-        cart_cnt.setText("My Cart (" + productID + ")"+settings.get(5).getKeyValue());
+        cart_cnt.setText("My Cart (" + productID + ")");
         if (adapter.getCount()==0 )
         {
             new AlertDialog.Builder(this)
@@ -104,24 +107,34 @@ public class Cart extends Activity {
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
         }
-        String old=product_grand_price.getText().toString().substring(3,product_grand_price.getText().length());
-        double newPriceGrand = (Double.valueOf(old) - oldPrice) + newPrice;
-        double vatPrice=newPriceGrand*vatRate;
+
+
+
+
+
+        totalPrice=(totalPrice - oldPrice) + newPrice;
+        double vatPrice=totalPrice*vatRate;
+        this.vatPrice=vatPrice;
+        product_grand_price.setText("Rs." +Math.floor(totalPrice+vatPrice));
         vat_price.setText(Math.floor(vatPrice)+"");
-        product_grand_price.setText("Rs." +Math.floor(newPriceGrand+vatPrice));
     }
     public void updateGrandPriceMinuse(double oldPrice,double productID)
     {
-        String old=product_grand_price.getText().toString().substring(3,product_grand_price.getText().length());
-        double newPriceGrand = (Double.valueOf(old) - oldPrice) ;
 
-        product_grand_price.setText("Rs." + newPriceGrand);
 
+        vat_price.setText(Math.floor(vatPrice)+"");
+        totalPrice=(totalPrice- oldPrice) ;
+
+        this.vatPrice=totalPrice*vatRate;
         cart_cnt.setText("My Cart (" + productID + ")");
-        totalPrice=productID;
+        product_grand_price.setText("Rs." + Math.floor(totalPrice+vatPrice));
+        vat_price.setText(Math.floor(vatPrice)+"");
     }
 
     double totalPrice;
+    double vatPrice;
+
+
 
     public void continueChekOut(View view) {
 
@@ -137,19 +150,43 @@ public class Cart extends Activity {
             Type type=new TypeToken<User>(){}.getType();
             User user=gson.fromJson(userStr,type);
             /// parameter setting
+
+
             Order order=new Order();
             order.setAccountId(user.getAccountId());
             order.setOrderBy(user.getLoginId());
             order.setProductCount(String.valueOf(adapter.listData.size()));
             order.setOrderSource("MAPP");
-            order.setProductList(adapter.listData);
+            List<OrderProduct> productList=new ArrayList<>();
+
+            for(Product pro:adapter.listData)
+            {
+                OrderProduct op=new OrderProduct();
+                op.setCategoryId(pro.getCategoryId());
+                op.setCategoryName(pro.getCategory());
+                op.setMakeId(pro.getMakeId());
+                op.setMakeName(pro.getMakeName());
+                op.setProductId(pro.getProductId());
+                op.setProductCode(pro.getProductCode());
+                op.setProductName(pro.getProductName());
+                op.setProductNumber(pro.getProductNumber());
+                op.setProductPrice(pro.getProductPrice());
+                op.setModelId(pro.getModelId());
+                op.setModelName(pro.getModelName());
+                op.setQuantity(adapter.listMain.get(pro.getProductId()));
+                productList.add(op);
+
+            }
+
+            order.setProductList(productList);
+            order.setOrderAmount(String.valueOf(totalPrice));
+            order.setVATAmount(String.valueOf(vatPrice));
+            order.setVATPercent(settings.get(5).getKeyValue());
+            order.setTotalAmount(String.valueOf(totalPrice+vatPrice));
 
 
-            //TODO
-           /* order.setOrderAmount();
-            order.setVATAmount();
-            order.setVATPercent();*/
-            order.setTotalAmount(String.valueOf(totalPrice));
+
+            System.out.println(  gson.toJson(order));
 
             Intent intent=new Intent(this,Summry.class);
             intent.putExtra("Order",order);
@@ -177,12 +214,12 @@ public class Cart extends Activity {
 
                 Type type = new TypeToken<List<Setting>>() {
                 }.getType();
-               settings= gson.fromJson(aVoid,type);
-                 vatRate=((Double.valueOf(settings.get(5).getKeyValue()) /100.0));
+                settings= gson.fromJson(aVoid,type);
+                vatRate=((Double.valueOf(settings.get(5).getKeyValue()) /100.0));
                 init();
             }
 
-           pd.dismiss();
+            pd.dismiss();
             super.onPostExecute(aVoid);
         }
 

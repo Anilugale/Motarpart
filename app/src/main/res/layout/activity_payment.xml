@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="app.motaroart.com.motarpart.Payment">
+
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#ff8d0e0c"
+        android:gravity="right"
+        android:layout_margin="3dp"
+        android:text="20020.0"/>
+
+    <RadioGroup
+        android:orientation="horizontal"
+        android:id="@+id/pay_method"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:layout_marginLeft="10dp"
+            android:id="@+id/m_paisa"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="M-Paisa"
+            android:textStyle="bold"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:layout_marginLeft="10dp"
+            android:id="@+id/debit_card"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="Bank"
+            android:textStyle="bold"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
+
+
+</LinearLayout>

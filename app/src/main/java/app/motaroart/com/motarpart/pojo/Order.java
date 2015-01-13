@@ -20,7 +20,7 @@ public class Order implements Serializable
     private String TotalAmount;
     private String TransactionNumber;
     private String Remark;
-    private List<Product> ProductList;
+    private List<OrderProduct> ProductList;
 
 
     public String ShipmentAddress1;
@@ -190,12 +190,12 @@ public class Order implements Serializable
         this.Remark = Remark;
     }
 
-    public  List<Product> getProductList ()
+    public  List<OrderProduct> getProductList ()
     {
         return ProductList;
     }
 
-    public void setProductList ( List<Product> ProductList)
+    public void setProductList ( List<OrderProduct> ProductList)
     {
         this.ProductList = ProductList;
     }

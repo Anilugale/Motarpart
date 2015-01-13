@@ -40,7 +40,7 @@ import app.motaroart.com.motarpart.services.WebServiceCall;
 public class CartAdapter extends BaseAdapter {
 
    public List<Product> listData;
-    Map<String,String> listMain;
+    public Map<String,String> listMain;
     Activity activity;
     LayoutInflater inflater;
     ImageLoader imageLoader;
@@ -68,7 +68,7 @@ public class CartAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return i;
+        return Long.valueOf(listData.get(i).getProductId());
     }
 
     @Override
@@ -94,7 +94,7 @@ public class CartAdapter extends BaseAdapter {
                     Type listOfTestObject = new TypeToken<List<Product>>() {
                     }.getType();
                     String json=gson.toJson(listData,listOfTestObject);
-                    mPrefs.edit().putString("cart",json).commit();
+                    mPrefs.edit().putString("cart",json).apply();
                     ((Cart)activity).updateGrandPriceMinuse(Double.valueOf(old.trim()),listData.size());
                     CartAdapter.this.notifyDataSetChanged();
 
@@ -191,6 +191,10 @@ public class CartAdapter extends BaseAdapter {
             }
             else
                 product_qty.setText("1");
+
+        listMain.put(product.getProductId(),"1");
+
+
             product_qty.addTextChangedListener(new TextWatcher() {
 
                 public void onTextChanged(CharSequence s, int start, int before,
@@ -212,7 +216,7 @@ public class CartAdapter extends BaseAdapter {
                     String old =product_qty_total.getText().toString().substring(3,product_qty_total.getText().toString().length());
                    double price = Double.valueOf(product.getProductPrice()) * (price_count);
                     product_qty_total.setText("Rs." + price);
-                    ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),Double.valueOf(price),listData.size()+"");
+                    ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),(price),listData.size()+"");
 
 
                 }
