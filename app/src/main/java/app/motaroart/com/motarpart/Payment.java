@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.nfc.cardemulation.CardEmulation;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +19,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.io.UnsupportedEncodingException;
+
+import app.motaroart.com.motarpart.pojo.CardInfo;
 import app.motaroart.com.motarpart.pojo.Order;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
@@ -40,7 +45,7 @@ public class Payment extends Activity {
 
     private void init() {
         TextView total=(TextView)findViewById(R.id.total);
-        total.setText("KES."+order.getTotalAmount());
+        total.setText("KES "+order.getTotalAmount());
         debit_card= (RadioButton) findViewById(R.id.debit_card);
         m_paisa= (RadioButton) findViewById(R.id.m_paisa);
         mpaisa_edit=(EditText)findViewById(R.id.mpaisa_edit);
@@ -91,8 +96,69 @@ public class Payment extends Activity {
     }
 
 
+//
 
-    @Override
+    public void cardPayment(View v) {
+
+
+        EditText name,cardNo,mm,yy,cvv;
+        name=(EditText)findViewById(R.id.card_name);
+        cardNo=(EditText)findViewById(R.id.card_number);
+        mm=(EditText)findViewById(R.id.expiry_mm);
+        yy=(EditText)findViewById(R.id.expiry_yy);
+        cvv=(EditText)findViewById(R.id.card_cvv);
+
+        if(name.getText().toString().trim().length()==0)
+        {
+            Toast.makeText(this,"Enter the Card holder name.",Toast.LENGTH_SHORT).show();
+        }
+        else if(cardNo.getText().toString().trim().length()==0)
+        {
+            Toast.makeText(this,"Enter the Card number properly.",Toast.LENGTH_SHORT).show();
+        } else if(cardNo.getText().toString().trim().length()<16 ||cardNo.getText().toString().trim().length()>16)
+        {
+            Toast.makeText(this,"Enter the Card  number properly.",Toast.LENGTH_SHORT).show();
+        }else if(mm.getText().toString().trim().length()==0)
+        {
+            Toast.makeText(this,"Enter the Card  month",Toast.LENGTH_SHORT).show();
+        }else if(yy.getText().toString().trim().length()==0)
+        {
+            Toast.makeText(this,"Enter the Card  year",Toast.LENGTH_SHORT).show();
+        }else if(cvv.getText().toString().trim().length()==0)
+        {
+            Toast.makeText(this,"Enter the Card  cvv",Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            CardInfo card=new CardInfo();
+            card.setCreditCardCVV(cvv.getText().toString().trim());
+            card.setCreditCardHolderName(name.getText().toString().trim());
+            card.setCreditCardExpiry(mm.getText().toString().trim()+"/"+yy.getText().toString().trim());
+            card.setOrderAmount(order.getOrderAmount());
+            card.setOrderBy(order.getOrderBy());
+
+            Gson gson=new Gson();
+
+            try {
+                String cardinfo=Base64.encodeToString(gson.toJson(card).getBytes("US-ASCII"),Base64.DEFAULT);
+                String orderinfo=Base64.encodeToString(gson.toJson(order).getBytes("US-ASCII"),Base64.DEFAULT);
+
+
+                new Cardpaymene().execute(cardinfo,orderinfo);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+
+
+
+            
+        }
+
+    }
+
+
+        @Override
     public void onBackPressed() {
 
     }
@@ -149,6 +215,29 @@ public class Payment extends Activity {
         protected String doInBackground(Void... voids) {
             Gson gson=new Gson();
             return WebServiceCall.createOrder("{\"Order\":"+gson.toJson(order)+"}");
+        }
+    }
+
+    class Cardpaymene extends AsyncTask<String,Void,String>
+    {
+        ProgressDialog pd;
+        @Override
+        protected void onPreExecute() {
+            pd=ProgressDialog.show(Payment.this,getString(R.string.app_name),"Loading",true,false);
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+            pd.dismiss();
+            Toast.makeText(Payment.this,s,Toast.LENGTH_SHORT).show();
+            super.onPostExecute(s);
+        }
+
+        @Override
+        protected String doInBackground(String... voids) {
+            return WebServiceCall.createCardOrder(voids[0],voids[1]);
         }
     }
 

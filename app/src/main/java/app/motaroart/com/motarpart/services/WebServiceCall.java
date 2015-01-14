@@ -398,4 +398,33 @@ public class WebServiceCall {
         }
 
     }
+
+    public static String createCardOrder(String json,String json1) {
+
+        SoapObject request = new SoapObject(NAMESPACE, "ChargeCreditCard");
+
+        System.out.println(json);
+
+        PropertyInfo AccountId=new PropertyInfo();
+        AccountId.name="jsonOrder";
+        AccountId.type= PropertyInfo.STRING_CLASS;
+        AccountId.setValue(json);
+        request.addProperty(AccountId);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+
+
+        try {
+            androidHttpTransport.call(NAMESPACE+"ChargeCreditCard", envelope);
+            SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
+
+            return resultsRequestSOAP.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return  null;
+        }
+    }
 }
