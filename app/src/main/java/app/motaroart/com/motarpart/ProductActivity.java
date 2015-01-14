@@ -136,8 +136,15 @@ public class ProductActivity extends Activity {
         protected String doInBackground(Void... voids) {
             String str=mPrefs.getString("searchKey","");
             mPrefs.edit().remove("searchKey").apply();
-            if(str.equals(""))
-            return  WebServiceCall.getProduct(mPrefs.getString("modelID",""),mPrefs.getString("catID",""));
+            if(str.equals("")) {
+
+                String result=WebServiceCall.getProduct(mPrefs.getString("modelID", ""), mPrefs.getString("catID", ""));
+                SharedPreferences.Editor editor=mPrefs.edit();
+                editor.remove("modelID");
+                editor.remove("catID");
+                editor.apply();
+                return result;
+            }
             else
                 return WebServiceCall.SearchProduct(str);
         }

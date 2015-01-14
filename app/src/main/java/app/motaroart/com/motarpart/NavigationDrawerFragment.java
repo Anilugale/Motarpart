@@ -3,15 +3,12 @@ package app.motaroart.com.motarpart;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.AvoidXfermode;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -42,7 +39,6 @@ import app.motaroart.com.motarpart.adapter.ModelAdapterSpinner;
 import app.motaroart.com.motarpart.pojo.CategoryPojo;
 import app.motaroart.com.motarpart.pojo.Make;
 import app.motaroart.com.motarpart.pojo.Model;
-import app.motaroart.com.motarpart.services.InternetState;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
 /**
@@ -192,7 +188,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         ProgressDialog pd;
         @Override
         protected void onPreExecute() {
-         //   pd=ProgressDialog.show(getActivity(),getString(R.string.app_name),"Loading...",true,false);
+           pd=ProgressDialog.show(getActivity(),getString(R.string.app_name),"Loading...",true,false);
             super.onPreExecute();
         }
 
@@ -230,7 +226,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                 Toast.makeText(getActivity(),"Opps! Connection Problem.",Toast.LENGTH_LONG).show();
             }
 
-         //   pd.dismiss();
+           pd.dismiss();
             super.onPostExecute(strings);
         }
     }
@@ -387,11 +383,12 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     public void onClick(View view) {
 
         Intent i = new Intent(getActivity(), ProductActivity.class);
-        SharedPreferences.Editor edit=sp.edit();
+        SharedPreferences.Editor edit=mPrefs.edit();
         edit.putString("modelID", (listDataModel.get(sModel.getSelectedItemPosition()).getModelId()));
         edit.putString("catID", (listDataCat.get(category.getSelectedItemPosition()).getCategoryId()));
-        edit.apply();
+       if(edit.commit())
         startActivity(i);
+
 
 
     }

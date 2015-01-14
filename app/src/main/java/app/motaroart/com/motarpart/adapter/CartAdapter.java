@@ -161,7 +161,7 @@ public class CartAdapter extends BaseAdapter {
                 }
                 String old =product_qty_total.getText().toString().substring(3,product_qty_total.getText().toString().length());
 
-                double value=0.0;
+                double value;
                 if(user!=null) {
 
                     if(user.getAccountType().equals("C")) {

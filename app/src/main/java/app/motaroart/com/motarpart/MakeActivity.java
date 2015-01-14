@@ -54,7 +54,7 @@ public class MakeActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new DownloadData().execute();
+       init();
         mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         key_word=(EditText)findViewById(R.id.key_word);
         key_word.addTextChangedListener(new TextWatcher() {
@@ -84,7 +84,7 @@ public class MakeActivity extends Activity
             @Override
             public void onClick(View view) {
                 EditText keySearch=(EditText)findViewById(R.id.keySearch);
-                if(keySearch.getText().toString().length()>0) {
+                if(keySearch.getText().toString().trim().length()>0) {
                     Intent i = new Intent(MakeActivity.this, ProductActivity.class);
                     SharedPreferences.Editor edit = mPrefs.edit();
                     edit.putString("searchKey",keySearch.getText().toString());
@@ -95,7 +95,15 @@ public class MakeActivity extends Activity
         });
     }
 
+    private void init() {
+        new DownloadData().execute();
+    }
 
+    @Override
+    protected void onRestart() {
+        new DownloadData().execute();
+        super.onRestart();
+    }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {

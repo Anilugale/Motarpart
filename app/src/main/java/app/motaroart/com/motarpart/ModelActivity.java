@@ -1,10 +1,8 @@
 package app.motaroart.com.motarpart;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -23,6 +21,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -77,6 +76,8 @@ public class ModelActivity extends Activity {
             }
         });
     }
+
+
     TextView count;
 
     @Override
@@ -188,17 +189,7 @@ public class ModelActivity extends Activity {
             catch (NullPointerException ex)
             {
                 process.dismiss();
-                new AlertDialog.Builder(ModelActivity.this)
-                        .setTitle(ModelActivity.this.getResources().getString(R.string.app_name))
-                        .setMessage("Sorry No offline Data available!")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                Toast.makeText(ModelActivity.this,"Opps! Connection is lost",Toast.LENGTH_LONG).show();
             }
             super.onPostExecute(jsondata);
         }

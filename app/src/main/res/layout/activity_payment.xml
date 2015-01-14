@@ -5,7 +5,21 @@
     android:orientation="vertical"
     tools:context="app.motaroart.com.motarpart.Payment">
 
+    <TextView
 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:drawableLeft="@drawable/check_list"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Payment"
+        android:background="#1B62A2"
+        />
     <TextView
         android:id="@+id/total"
         android:paddingRight="10dp"
@@ -29,28 +43,131 @@
             android:id="@+id/m_paisa"
             android:layout_width="wrap_content"
             android:text="   "
-            android:drawableRight= "@drawable/mpaesa"
+            android:drawableRight= "@drawable/mpesa"
             android:textStyle="bold"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:checked="false" />
         <RadioButton
             android:layout_marginLeft="10dp"
             android:id="@+id/debit_card"
             android:layout_width="wrap_content"
             android:text="   "
-            android:drawableRight= "@drawable/credit_cards"
+            android:drawableRight= "@drawable/creditcard"
             android:textStyle="bold"
             android:layout_height="wrap_content" />
     </RadioGroup>
-
+    <TextView
+        android:id="@+id/payment_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:drawableLeft="@drawable/check_list"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text=""
+        android:background="#1B62A2"
+        />
     <EditText
         android:id="@+id/mpaisa_edit"
         android:visibility="gone"
         android:layout_margin="10dp"
-        android:padding="5dp"
+        android:padding="10dp"
         android:background="@drawable/edit_text_back"
         android:editable="false"
         android:hint="M-Paisa Number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Button
+        android:visibility="gone"
+        android:id="@+id/btn_mpaesa"
+        android:enabled="false"
+        android:layout_gravity="bottom"
+        android:textColor="#fff"
+        android:layout_margin="10dp"
+        android:onClick="mpaesa"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/btn_back"
+        android:layout_height="wrap_content"
+        android:text="Pay Now"/>
+
+
+    <RelativeLayout
+        android:id="@+id/card_details"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_alignParentTop="true"
+            android:id="@+id/cart_number"
+            android:layout_margin="10dp"
+            android:inputType="number"
+            android:background="@drawable/edit_text_back"
+            android:hint="   Card Number"
+            android:drawableRight="@drawable/cc_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_below="@+id/cart_number"
+            android:inputType="number"
+            android:id="@+id/expiry_mm"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:maxLength="2"
+            android:background="@drawable/edit_text_back"
+            android:hint="MM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/back_shlash"
+            android:layout_below="@+id/cart_number"
+            android:layout_toRightOf="@+id/expiry_mm"
+            android:text="/"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_height="60dp"
+            android:layout_width="wrap_content"/>
+        <EditText
+            android:layout_below="@+id/cart_number"
+            android:inputType="number"
+            android:layout_toRightOf="@+id/back_shlash"
+            android:id="@+id/expiry_yy"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:maxLength="4"
+            android:background="@drawable/edit_text_back"
+            android:hint="YYYY"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <EditText
+            android:layout_below="@+id/cart_number"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:inputType="number"
+            android:id="@+id/card_cvv"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:maxLength="4"
+            android:background="@drawable/edit_text_back"
+            android:hint="CVV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_below="@+id/card_cvv"
+            android:textColor="#fff"
+            android:layout_margin="10dp"
+
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/btn_back"
+            android:layout_height="wrap_content"
+            android:text="Pay Now"/>
+    </RelativeLayout>
 
 </LinearLayout>

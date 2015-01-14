@@ -334,6 +334,35 @@ public class WebServiceCall {
 
     }
 
+    public static String createOrder(String json) {
+        SoapObject request = new SoapObject(NAMESPACE, "GenerateOrder");
+
+        System.out.println(json);
+
+        PropertyInfo AccountId=new PropertyInfo();
+        AccountId.name="jsonOrder";
+        AccountId.type= PropertyInfo.STRING_CLASS;
+        AccountId.setValue(json);
+        request.addProperty(AccountId);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+
+
+        try {
+            androidHttpTransport.call(NAMESPACE+"GenerateOrder", envelope);
+            SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
+
+            return resultsRequestSOAP.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return  null;
+        }
+
+    }
+
 
     public static String getSetting(SharedPreferences con) {
         SoapObject request = new SoapObject(NAMESPACE, "GetSettings");

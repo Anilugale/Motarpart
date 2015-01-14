@@ -15,5 +15,6 @@
     <string name="title_activity_user_acitivity">UserAcitivity</string>
     <string name="title_activity_summry">Summry</string>
     <string name="title_activity_payment">Payment</string>
+    <string name="title_activity_thanks">Thanks</string>
 
 </resources>

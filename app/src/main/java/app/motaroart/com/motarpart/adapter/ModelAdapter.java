@@ -40,6 +40,8 @@ public class ModelAdapter extends BaseAdapter {
         imageLoader = new ImageLoader(activity.getApplicationContext());
     }
 
+
+
     @Override
 
     public int getCount() {
@@ -58,12 +60,29 @@ public class ModelAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
+        ViewHolder holder;
+        if(view==null) {
+            view = inflater.inflate(R.layout.list_view_main, viewGroup,false);
+            holder = new ViewHolder();
 
-        View vi = inflater.inflate(R.layout.list_view_main, null);
-        TextView cat_name=(TextView)vi.findViewById(R.id.model_name);
-        cat_name.setText("  "+listData.get(i).getModelName()); return vi;
+            view.setTag(holder);
+        }
+        else
+        {
+            holder=(ViewHolder)view.getTag();
+        }
+
+        holder.cat_name = (TextView) view.findViewById(R.id.model_name);
+        holder.cat_name.setText("  " + listData.get(i).getModelName());
+
+        return view;
     }
 
+
+    static class ViewHolder {
+        TextView cat_name;
+
+    }
     // Filter Class
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
