@@ -64,6 +64,7 @@ public class ModelAdapter extends BaseAdapter {
         if(view==null) {
             view = inflater.inflate(R.layout.list_view_main, viewGroup,false);
             holder = new ViewHolder();
+            holder.cat_name = (TextView) view.findViewById(R.id.model_name);
             view.setTag(holder);
         }
         else
@@ -71,7 +72,7 @@ public class ModelAdapter extends BaseAdapter {
             holder=(ViewHolder)view.getTag();
         }
 
-        holder.cat_name = (TextView) view.findViewById(R.id.model_name);
+
         holder.cat_name.setText("  " + listData.get(i).getModelName().toUpperCase());
 
         return view;

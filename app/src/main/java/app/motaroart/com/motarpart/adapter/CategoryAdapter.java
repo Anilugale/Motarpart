@@ -1,13 +1,13 @@
 package app.motaroart.com.motarpart.adapter;
 
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,6 +17,7 @@ import java.util.Locale;
 import app.motaroart.com.motarpart.R;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
 import app.motaroart.com.motarpart.pojo.CategoryPojo;
+import app.motaroart.com.motarpart.services.WebServiceCall;
 
 /**
  * Created by Anil Ugale on 11/11/2014.
@@ -60,26 +61,26 @@ public class CategoryAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder holder;
         if(view==null) {
-            view = inflater.inflate(R.layout.list_view_main, viewGroup,false);
+            view = inflater.inflate(R.layout.list_view_cat, viewGroup,false);
             holder = new ViewHolder();
-
+            holder.part_images= (ImageView)view.findViewById(R.id.cat_img);
+            holder.cat_name = (TextView) view.findViewById(R.id.model_name);
             view.setTag(holder);
         }
         else
         {
             holder=(ViewHolder)view.getTag();
         }
-
-        holder.cat_name = (TextView) view.findViewById(R.id.model_name);
         holder.cat_name.setText("  " + listData.get(i).getCategory().toUpperCase());
-
-        return view;
+        holder.cat_name.setText("  " + listData.get(i).getCategory().toUpperCase());
+        imageLoader.DisplayImage(WebServiceCall.BASE_URL+listData.get(i).getImageUrl(), holder.part_images);
+         return view;
     }
     static class ViewHolder {
         TextView cat_name;
+        ImageView part_images;
 
     }
-
     // Filter Class
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
