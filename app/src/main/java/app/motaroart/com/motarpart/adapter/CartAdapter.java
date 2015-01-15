@@ -126,26 +126,26 @@ public class CartAdapter extends BaseAdapter {
            if(user!=null) {
 
                if(user.getAccountType().equals("C")) {
-                   product_mrp.setText("Rs." + product.getProductPrice());
-                   product_qty_total.setText("Rs." + product.getProductPrice());
+                   product_mrp.setText("KES." + product.getProductPrice());
+                   product_qty_total.setText("" + product.getProductPrice());
                }
                else  if(user.getAccountType().equals("W")) {
-                   product_mrp.setText("Rs." + product.getWholesalerPrice());
-                   product_qty_total.setText("Rs." + product.getWholesalerPrice());
+                   product_mrp.setText("" + product.getWholesalerPrice());
+                   product_qty_total.setText("" + product.getWholesalerPrice());
                }else  if(user.getAccountType().equals("R")) {
-                   product_mrp.setText("Rs." + product.getRetailerPrice());
-                   product_qty_total.setText("Rs." + product.getRetailerPrice());
+                   product_mrp.setText("KES." + product.getRetailerPrice());
+                   product_qty_total.setText("" + product.getRetailerPrice());
                }
                else
                {
-                   product_mrp.setText("Rs." + product.getProductPrice());
-                   product_qty_total.setText("Rs." + product.getProductPrice());
+                   product_mrp.setText("KES." + product.getProductPrice());
+                   product_qty_total.setText("" + product.getProductPrice());
                }
            }
         else
            {
-               product_mrp.setText("Rs." + product.getProductPrice());
-               product_qty_total.setText("Rs." + product.getProductPrice());
+               product_mrp.setText("KES." + product.getProductPrice());
+               product_qty_total.setText("" + product.getProductPrice());
            }
 
             product_code.setText(product.getProductNumber() + "");
@@ -184,7 +184,7 @@ public class CartAdapter extends BaseAdapter {
 
 
                 double price = value * (price_count);
-                product_qty_total.setText("Rs." + price);
+                product_qty_total.setText("" + price);
 
 
                 ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),(price),listData.size()+"");
@@ -215,7 +215,7 @@ public class CartAdapter extends BaseAdapter {
                     }
                     String old =product_qty_total.getText().toString().substring(3,product_qty_total.getText().toString().length());
                    double price = Double.valueOf(product.getProductPrice()) * (price_count);
-                    product_qty_total.setText("Rs." + price);
+                    product_qty_total.setText("KES." + price);
                     ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),(price),listData.size()+"");
 
 

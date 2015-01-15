@@ -482,4 +482,34 @@ public class WebServiceCall {
             return  null;
         }
     }
+
+    public static String forGetPassword(String string, String string1) {
+        SoapObject request = new SoapObject(NAMESPACE, "ForgotPassword");
+        PropertyInfo AccountId=new PropertyInfo();
+        AccountId.name="pLoginId";
+        AccountId.type= PropertyInfo.STRING_CLASS;
+        AccountId.setValue(string);
+        request.addProperty(AccountId);
+
+        AccountId.name="pEmailId";
+        AccountId.type= PropertyInfo.STRING_CLASS;
+        AccountId.setValue(string1);
+        request.addProperty(AccountId);
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+
+        try {
+            androidHttpTransport.call(NAMESPACE+"ForgotPassword", envelope);
+            SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
+
+            return resultsRequestSOAP.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return  null;
+        }
+    }
 }

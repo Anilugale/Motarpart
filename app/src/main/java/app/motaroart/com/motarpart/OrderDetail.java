@@ -4,12 +4,17 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Type;
 
+import app.motaroart.com.motarpart.adapter.ProductHistoryAdapter;
 import app.motaroart.com.motarpart.pojo.OrderDetails;
 import app.motaroart.com.motarpart.services.InternetState;
 import app.motaroart.com.motarpart.services.WebServiceCall;
@@ -36,7 +41,6 @@ public class OrderDetail extends Activity {
         protected String doInBackground(String... voids) {
             return WebServiceCall.getOrderDetail(voids[0]);
         }
-
         @Override
         protected void onPreExecute() {
             pd=ProgressDialog.show(OrderDetail.this,getString(R.string.app_name),"Loading..",true,false);
@@ -60,9 +64,27 @@ public class OrderDetail extends Activity {
     }
 
     private void init() {
+        TextView order_number=(TextView)findViewById(R.id.order_number);
+        order_number.setText(orderDetails.getOrder().get(0).getOrderNumber());
+        TextView no_of_item=(TextView)findViewById(R.id.no_of_item);
+        no_of_item.setText(orderDetails.getOrder().get(0).getProductCount())  ;
+
+        TextView subtotal=(TextView)findViewById(R.id.subtotal);
+        subtotal.setText(orderDetails.getOrder().get(0).getOrderAmount());
+
+        TextView vat_price=(TextView)findViewById(R.id.vat_price);
+        vat_price.setText(orderDetails.getOrder().get(0).getVATAmount());
 
 
-        System.out.println(new Gson().toJson(orderDetails));
+        TextView grand_total=(TextView)findViewById(R.id.grand_total);
+        grand_total.setText(orderDetails.getOrder().get(0).getTotalAmount());
+
+        TextView vat_pre=(TextView)findViewById(R.id.vat_per1);
+        vat_pre.setText("VAT ("+orderDetails.getOrder().get(0).getVATPercent()+")");
+
+        ListView orderHistory=(ListView)findViewById(R.id.order_history);
+        ProductHistoryAdapter adapter=new ProductHistoryAdapter(this,orderDetails.getOrderDetails());
+        orderHistory.setAdapter(adapter);
     }
 
 }

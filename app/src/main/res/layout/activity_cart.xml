@@ -39,7 +39,7 @@
             <TextView
                 android:text="Total"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:padding="5dp"
                 android:textColor="#E68502"
                 android:layout_width="0dp"

@@ -1,9 +1,14 @@
 package app.motaroart.com.motarpart;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
 public class ForgetPassword extends Activity {
@@ -12,28 +17,35 @@ public class ForgetPassword extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
+
+
     }
 
+  public void forgetPassword(View v)
+  {
+    TextView user_name=(TextView)findViewById(R.id.user_name);
+    TextView email=(TextView)findViewById(R.id.email);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_forget_password, menu);
-        return true;
-    }
+      if(user_name.getText().length()!=0 && email.getText().length()!=0)
+          new ForgetPassword1().execute(user_name.getText().toString().trim(),email.getText().toString().trim());
+  }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    class ForgetPassword1 extends AsyncTask<String,Void,String>
+    {
+        @Override
+        protected String doInBackground(String... strings) {
+            return WebServiceCall.forGetPassword(strings[0],strings[1]);
         }
 
-        return super.onOptionsItemSelected(item);
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
     }
+
 }

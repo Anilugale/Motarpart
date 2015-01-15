@@ -40,7 +40,6 @@ public class UserActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_acitivity);
-
         pref=getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
         String userStr=pref.getString("user","");
 
@@ -61,10 +60,7 @@ public class UserActivity extends Activity {
     void init()
     {
         orderHistory=(ListView)findViewById(R.id.order_history);
-        TextView user_name=(TextView)findViewById(R.id.user_name);
-        user_name.setText("Hi."+user.getName());
-        TextView user_mobile=(TextView)findViewById(R.id.user_mobile);
-        user_mobile.setText("Mobile."+user.getMobileNo());
+
 
         orderHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -72,14 +68,10 @@ public class UserActivity extends Activity {
 
                 if(InternetState.getState(UserActivity.this))
                 {
-
-
                     Intent intent=new Intent(UserActivity.this,OrderDetail.class);
                     intent.putExtra("orderNumber",orderHistoryList.get(i).getOrderNumber());
                     startActivity(intent);
-
-
-                }
+               }
                 else
                     Toast.makeText(UserActivity.this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
 

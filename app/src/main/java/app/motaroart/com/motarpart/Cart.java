@@ -73,7 +73,7 @@ public class Cart extends Activity {
             double vatPrice=(grand*vatRate);
             this.vatPrice=vatPrice;
             totalPrice=Math.floor(grand);
-            product_grand_price.setText("Rs." +Math.floor(totalPrice+vatPrice));
+            product_grand_price.setText("KES." +Math.floor(totalPrice+vatPrice));
             vat_price.setText(Math.floor(vatPrice)+"");
             cart_cnt.setText("My Cart (" + listData.size() + ")");
             adapter = new CartAdapter(this, listData);

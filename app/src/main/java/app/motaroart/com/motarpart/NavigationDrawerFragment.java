@@ -210,7 +210,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                 Type listModeltObject = new TypeToken<List<Model>>() {
                 }.getType();
                 Model model=new Model();
-                        model.setMakeName("Model");
+                        model.setModelName("Model");
                 model.setModelId("-1");
                 listDataModel = gson.fromJson(strings.get(0), listModeltObject);
                 listDataModel.add(0,model);

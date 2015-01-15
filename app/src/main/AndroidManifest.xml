@@ -87,7 +87,8 @@
         </activity>
         <activity
             android:name=".Payment"
-            android:label="@string/title_activity_payment" >
+            android:screenOrientation="portrait"
+            >
         </activity>
 
         <receiver android:name=".IncomingSms" >
@@ -98,11 +99,11 @@
 
         <activity
             android:name=".Thanks"
-            android:label="@string/title_activity_thanks" >
+            android:screenOrientation="portrait"   >
         </activity>
         <activity
             android:name=".OrderDetail"
-            android:label="@string/title_activity_order_detail" >
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

@@ -25,6 +25,7 @@
             android:text="ORDER NUMBER"/>
 
         <TextView
+            android:paddingRight="10dp"
             android:textColor="#fff"
             android:id="@+id/od_number"
             android:gravity="right"
@@ -116,6 +117,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginRight="10dp"
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

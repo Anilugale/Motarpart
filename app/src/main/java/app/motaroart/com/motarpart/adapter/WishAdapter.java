@@ -101,7 +101,7 @@ public class WishAdapter extends BaseAdapter {
         product_name.setText(product.getProductName());
         product_make.setText(product.getMakeName());
         product_model.setText(product.getModelName());
-        product_mrp.setText("Rs."+product.getRetailerPrice());
+        product_mrp.setText("KES."+product.getRetailerPrice());
         product_code.setText(product.getProductCode()+"");
         product_number.setText("Code."+product.getProductNumber());
         product_oem_no.setText(product.getOME()+"");
