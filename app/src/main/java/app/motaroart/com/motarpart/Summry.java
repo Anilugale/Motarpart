@@ -112,6 +112,10 @@ public class Summry extends Activity {
         {
             Toast.makeText(this,"Enter the Po Box!",Toast.LENGTH_SHORT).show();
             return false;
+        }if(order.getProductList().size()==0)
+        {
+            Toast.makeText(this,"Cart is empty!",Toast.LENGTH_SHORT).show();
+            return false;
         }
         return true;
     }

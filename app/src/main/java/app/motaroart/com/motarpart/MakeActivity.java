@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -85,18 +86,28 @@ public class MakeActivity extends Activity
             public void onClick(View view) {
                 EditText keySearch=(EditText)findViewById(R.id.keySearch);
                 if(keySearch.getText().toString().trim().length()>0) {
-                    Intent i = new Intent(MakeActivity.this, ProductActivity.class);
-                    SharedPreferences.Editor edit = mPrefs.edit();
-                    edit.putString("searchKey",keySearch.getText().toString());
-                    edit.apply();
-                    startActivity(i);
+
+                    if(InternetState.getState(MakeActivity.this)) {
+                        Intent i = new Intent(MakeActivity.this, ProductActivity.class);
+                        SharedPreferences.Editor edit = mPrefs.edit();
+                        edit.putString("searchKey", keySearch.getText().toString());
+                        edit.apply();
+                        startActivity(i);
+                    }
+                    else
+                        Toast.makeText(MakeActivity.this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+
                 }
             }
         });
     }
 
     private void init() {
-        new DownloadData().execute();
+        if(InternetState.getState(this))
+            new DownloadData().execute();
+        else
+            Toast.makeText(this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+
     }
 
     @Override
@@ -226,9 +237,15 @@ public class MakeActivity extends Activity
                 main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Intent intent = new Intent(MakeActivity.this, ModelActivity.class);
-                        mPrefs.edit().putString("makeID", String.valueOf(listData.get(i).getMakeId())).apply();
-                        startActivity(intent);
+
+                        if(InternetState.getState(MakeActivity.this)) {
+                            Intent intent = new Intent(MakeActivity.this, ModelActivity.class);
+                            mPrefs.edit().putString("makeID", String.valueOf(listData.get(i).getMakeId())).apply();
+                            startActivity(intent);
+                        }
+                        else
+                            Toast.makeText(MakeActivity.this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+
                     }
                 });
 

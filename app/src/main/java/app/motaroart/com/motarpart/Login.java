@@ -134,19 +134,19 @@ class Validation extends AsyncTask<Void,Void,String>
                         .setMessage(errorMsg)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                finish();
+
                             }
                         })
 
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
-            }
+            }else
             if(errorCode.equals("1000"))
             {
-                SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);                        mPrefs.edit().putString("user",jsonResult.getJSONArray("UserAccount").get(0).toString()).apply();
-                mPrefs.edit().putString("user",jsonResult.getJSONArray("UserAccount").get(0).toString());
-                Intent intent=new Intent(Login.this,MakeActivity.class);
-                startActivity(intent);
+                SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+                mPrefs.edit().putString("user",jsonResult.getJSONArray("UserAccount").get(0).toString()).apply();
+
+              
                 finish();
             }
 
@@ -157,12 +157,7 @@ class Validation extends AsyncTask<Void,Void,String>
 
 
 
-        if(isCart)
-          finish();
-         else {
-            startActivity(new Intent(Login.this, UserActivity.class));
-            finish();
-        }
+
         pd.dismiss();
         super.onPostExecute(s);
     }

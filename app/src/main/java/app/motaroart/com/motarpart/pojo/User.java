@@ -19,6 +19,27 @@ public class User
     private String LastLoggedIn;
     private String AccountType;
 
+    public User() {
+        CreditLimt = "";
+        LoginId = "";
+        CompanyName = "";
+        CreditUsed = "";
+        IsApproved = "";
+        MobileNo = "";
+        Name = "";
+        AccountId = "";
+        IsActive = "";
+        CreatedOn = "";
+        EmailId = "";
+        LastLoggedIn = "";
+        AccountType = "";
+        ShipmentAddress1 = "";
+        ShipmentAddress2 = "";
+        ShipmentCity = "";
+        ShipmentState = "";
+        ShipmentPoBox = "";
+    }
+
     public String getShipmentAddress1() {
         return ShipmentAddress1;
     }

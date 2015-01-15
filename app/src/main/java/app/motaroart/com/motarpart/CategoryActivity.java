@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -179,9 +180,13 @@ public class CategoryActivity extends Activity {
                 main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Intent intent = new Intent(CategoryActivity.this, ProductActivity.class);
-                        mPrefs.edit().putString("catID",listData.get(i).getCategoryId()).apply();
-                        startActivity(intent);
+
+                        if(InternetState.getState(CategoryActivity.this)) {
+                            Intent intent = new Intent(CategoryActivity.this, ProductActivity.class);
+                            mPrefs.edit().putString("catID", listData.get(i).getCategoryId()).apply();
+                            startActivity(intent);
+                        } else
+                            Toast.makeText(CategoryActivity.this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
                     }
                 });
 

@@ -176,10 +176,15 @@ public class ModelActivity extends Activity {
                 main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Intent intent = new Intent(ModelActivity.this, CategoryActivity.class);
-                        mPrefs.edit().putString("modelID",listData.get(i).getModelId()).apply();
 
-                        startActivity(intent);
+                        if(InternetState.getState(ModelActivity.this)) {
+                            Intent intent = new Intent(ModelActivity.this, CategoryActivity.class);
+                            mPrefs.edit().putString("modelID", listData.get(i).getModelId()).apply();
+                            startActivity(intent);
+                        }
+                            else
+                            Toast.makeText(ModelActivity.this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+
                     }
                 });
 

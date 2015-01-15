@@ -70,7 +70,7 @@ public class MakeAdapter extends BaseAdapter {
         }
 
         holder.cat_name = (TextView) view.findViewById(R.id.model_name);
-        holder.cat_name.setText("  " + listData.get(i).getMakeName());
+        holder.cat_name.setText("  " + listData.get(i).getMakeName().toUpperCase());
 
         return view;
     }

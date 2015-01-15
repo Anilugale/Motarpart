@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -109,9 +110,6 @@ public class Cart extends Activity {
         }
 
 
-
-
-
         totalPrice=(totalPrice - oldPrice) + newPrice;
         double vatPrice=totalPrice*vatRate;
         this.vatPrice=vatPrice;
@@ -150,8 +148,6 @@ public class Cart extends Activity {
             Type type=new TypeToken<User>(){}.getType();
             User user=gson.fromJson(userStr,type);
             /// parameter setting
-
-
             Order order=new Order();
             order.setAccountId(user.getAccountId());
             order.setOrderBy(user.getLoginId());
@@ -175,22 +171,19 @@ public class Cart extends Activity {
                 op.setModelName(pro.getModelName());
                 op.setQuantity(adapter.listMain.get(pro.getProductId()));
                 productList.add(op);
-
             }
-
             order.setProductList(productList);
             order.setOrderAmount(String.valueOf(totalPrice));
             order.setVATAmount(String.valueOf(vatPrice));
             order.setVATPercent(settings.get(5).getKeyValue());
             order.setTotalAmount(String.valueOf(totalPrice+vatPrice));
 
-
-
-            System.out.println(  gson.toJson(order));
-
-            Intent intent=new Intent(this,Summry.class);
-            intent.putExtra("Order",order);
-            startActivity(intent);
+            if(order.getProductList().size()!=0) {
+                Intent intent = new Intent(this, Summry.class);
+                intent.putExtra("Order", order);
+                startActivity(intent);
+            }else
+                Toast.makeText(this,"card is empty.",Toast.LENGTH_SHORT).show();
 
 
         }

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.nfc.cardemulation.CardEmulation;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
@@ -107,6 +106,8 @@ public class Payment extends Activity {
         mm=(EditText)findViewById(R.id.expiry_mm);
         yy=(EditText)findViewById(R.id.expiry_yy);
         cvv=(EditText)findViewById(R.id.card_cvv);
+        order.setTransactionNumber("");
+        order.setRemark("");
 
         if(name.getText().toString().trim().length()==0)
         {
@@ -136,13 +137,22 @@ public class Payment extends Activity {
             card.setCreditCardExpiry(mm.getText().toString().trim()+"/"+yy.getText().toString().trim());
             card.setOrderAmount(order.getOrderAmount());
             card.setOrderBy(order.getOrderBy());
+            card.setCreditCardNumber(cardNo.getText().toString().trim());
 
             Gson gson=new Gson();
 
-            try {
-                String cardinfo=Base64.encodeToString(gson.toJson(card).getBytes("US-ASCII"),Base64.DEFAULT);
-                String orderinfo=Base64.encodeToString(gson.toJson(order).getBytes("US-ASCII"),Base64.DEFAULT);
 
+            try {
+                String josnCard=gson.toJson(card);
+                String josnEncode="{\"Order\":"+gson.toJson(order)+"}";
+
+                System.out.println("out");
+                System.out.println(josnCard);
+                System.out.println(josnEncode);
+
+
+                String cardinfo=Base64.encodeToString(josnCard.getBytes("US-ASCII"),Base64.DEFAULT);
+                String orderinfo=Base64.encodeToString(josnEncode.getBytes("US-ASCII"),Base64.DEFAULT);
 
                 new Cardpaymene().execute(cardinfo,orderinfo);
             } catch (UnsupportedEncodingException e) {
@@ -157,11 +167,6 @@ public class Payment extends Activity {
 
     }
 
-
-        @Override
-    public void onBackPressed() {
-
-    }
 
     String mpaesaSms;
     // M-paesa code
@@ -202,6 +207,7 @@ public class Payment extends Activity {
         protected void onPostExecute(String s) {
             pd.dismiss();
             if(s!=null) {
+                System.out.println(s);
                 Toast.makeText(Payment.this, s, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(Payment.this, Thanks.class).putExtra("order_no", s));
                 SharedPreferences mPref=getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);

@@ -61,7 +61,7 @@ public class CategoryAdapterSpinner extends BaseAdapter {
 
         View vi = inflater.inflate(R.layout.spinner_item, null);
         TextView cat_name=(TextView)vi.findViewById(R.id.model_name);
-        cat_name.setText("  "+listData.get(i).getCategory()); return vi;
+        cat_name.setText("  "+listData.get(i).getCategory().toUpperCase()); return vi;
     }
 
     // Filter Class

@@ -60,7 +60,7 @@ public class MakeAdapterSpinner extends BaseAdapter {
 
         View vi = inflater.inflate(R.layout.spinner_item, null);
         TextView cat_name=(TextView)vi.findViewById(R.id.model_name);
-        cat_name.setText("  "+listData.get(i).getMakeName()); return vi;
+        cat_name.setText("  "+listData.get(i).getMakeName().toUpperCase()); return vi;
     }
 
     // Filter Class

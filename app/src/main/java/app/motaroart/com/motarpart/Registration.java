@@ -133,7 +133,7 @@ public class Registration extends Activity {
     Customer customer;
     public void register(View view) {
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        boolean company, address;
+        boolean flag=true;
         String passw1 = pass.getText().toString().trim();
         String passw2 = pass1.getText().toString().trim();
 
@@ -163,14 +163,56 @@ public class Registration extends Activity {
 
             if (company_detail.isChecked()) {
 
-
-
+                if (validateCompanyDetail()) {
                     customer.setCompanyName(company_name.getText().toString().trim());
                     customer.setTIN(tin_number.getText().toString().trim());
                     customer.setVATNumber(vat_number.getText().toString().trim());
+                    if(rg.getCheckedRadioButtonId()==R.id.retailers)
                     customer.setAccountType("R");
+                    else
+                    customer.setAccountType("W");
+                    flag=true;
+                } else
+                    flag = false;
+            }
 
-                    if (postal_address.isChecked()) {
+            if (postal_address.isChecked()) {
+
+                if (validateAddress()) {
+                    customer.setAddress1(this.addresss1.getText().toString().trim());
+                    customer.setAddress2(this.addresss2.getText().toString().trim());
+                    customer.setCity(this.city_p.getText().toString().trim());
+                    customer.setPoBox(this.po_code.getText().toString().trim());
+                    flag=true;
+                } else {
+                    flag = false;
+                }
+            } else if (shipping_address.isChecked()) {
+                if (validateShippingAddress()) {
+                    customer.setShipmentAddress1(address1.getText().toString().trim());
+                    customer.setShipmentAddress2(address2.getText().toString().trim());
+                    customer.setShipmentState(state.getText().toString().trim());
+                    customer.setShipmentCity(city.getText().toString().trim());
+                    customer.setShipmentPoBox(pobox.getText().toString().trim());
+                    flag=true;
+                } else {
+                    flag = false;
+                }
+
+            }
+
+                if(flag)
+                {
+                    new RegisterBack().execute();
+
+
+                }
+
+
+
+        }
+
+                   /* if (postal_address.isChecked()) {
 
                         address = validateAddress();
                         if (address) {
@@ -240,7 +282,7 @@ public class Registration extends Activity {
                 }
 
             }
-        }
+        }*/
     }
 
     boolean validateAddress()

@@ -39,6 +39,7 @@ import app.motaroart.com.motarpart.adapter.ModelAdapterSpinner;
 import app.motaroart.com.motarpart.pojo.CategoryPojo;
 import app.motaroart.com.motarpart.pojo.Make;
 import app.motaroart.com.motarpart.pojo.Model;
+import app.motaroart.com.motarpart.services.InternetState;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
 /**
@@ -104,18 +105,22 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         category = (Spinner) rootView.findViewById(R.id.s_sub);
         Button b = (Button) rootView.findViewById(R.id.main_seach_drawer);
         b.setOnClickListener(this);
+        if(InternetState.getState(getActivity()))
         new DownloadData().execute();
+        else
+        Toast.makeText(getActivity(),"Opps! Connection has lost",Toast.LENGTH_LONG).show();
 
         sMake.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(listData.get(i).getMakeId()!=-1)
                 {
-                    new DownloadDataCar().execute();
+                    if(InternetState.getState(getActivity())) {
+                        new DownloadDataCar().execute();
+                    }else
+                        Toast.makeText(getActivity(), "Opps! Connection has lost", Toast.LENGTH_LONG).show();
 
-                }else
-                {
-                    Toast.makeText(getActivity(),"Opps! No model found.",Toast.LENGTH_SHORT).show();
+
                 }
 
             }
@@ -135,20 +140,15 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
 
 
-
-
-
-    class DownloadData extends AsyncTask<Void,Void,String[]>
+    class DownloadData extends AsyncTask<Void,Void,String>
     {
 
         ProgressDialog pd;
         @Override
-        protected String[] doInBackground(Void... voids) {
-            String[] data=new String[5];
-            if(!mPrefs.getString("make","").equals(""))
-                data[0]=mPrefs.getString("make","");
+        protected String doInBackground(Void... voids) {
 
-            return data;
+
+            return WebServiceCall.getMakeJson();
         }
 
         @Override
@@ -158,16 +158,16 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         }
 
         @Override
-        protected void onPostExecute(String[] s) {
+        protected void onPostExecute(String s) {
 
-            if(s[0]!=null) {
+            if(s!=null) {
                 Gson gson = new Gson();
                 Type listOfTestObject = new TypeToken<List<Make>>() {
                 }.getType();
                 Make make=new Make();
                 make.setMakeId(-1);
                 make.setMakeName("Make");
-                listData = gson.fromJson(s[0], listOfTestObject);
+                listData = gson.fromJson(s, listOfTestObject);
                 listData.add(0,make);
                 MakeAdapterSpinner makeAdapter = new MakeAdapterSpinner(getActivity(), listData);
                 sMake.setAdapter(makeAdapter);
@@ -213,12 +213,18 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                         model.setMakeName("Model");
                 model.setModelId("-1");
                 listDataModel = gson.fromJson(strings.get(0), listModeltObject);
+                listDataModel.add(0,model);
                 ModelAdapterSpinner ModelAdapter = new ModelAdapterSpinner(getActivity(), listDataModel);
                 sModel.setAdapter(ModelAdapter);
 
                 Type listCatObject = new TypeToken<List<CategoryPojo>>() {
                 }.getType();
+
+                CategoryPojo cat=new CategoryPojo();
+                cat.setCategory("Category");
+                cat.setCategoryId("-1");
                 listDataCat = gson.fromJson(strings.get(1), listCatObject);
+                listDataCat.add(0,cat);
                 CategoryAdapterSpinner catAdapter = new CategoryAdapterSpinner(getActivity(), listDataCat);
                 category.setAdapter(catAdapter);
             }else
@@ -382,12 +388,16 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     @Override
     public void onClick(View view) {
 
-        Intent i = new Intent(getActivity(), ProductActivity.class);
-        SharedPreferences.Editor edit=mPrefs.edit();
-        edit.putString("modelID", (listDataModel.get(sModel.getSelectedItemPosition()).getModelId()));
-        edit.putString("catID", (listDataCat.get(category.getSelectedItemPosition()).getCategoryId()));
-       if(edit.commit())
-        startActivity(i);
+        if(listDataModel!=null && listDataCat!=null) {
+            if (!listDataModel.get(sModel.getSelectedItemPosition()).getModelId().equals("-1") && !listDataCat.get(category.getSelectedItemPosition()).getCategoryId().equals("-1")) {
+                Intent i = new Intent(getActivity(), ProductActivity.class);
+                SharedPreferences.Editor edit = mPrefs.edit();
+                edit.putString("modelID", (listDataModel.get(sModel.getSelectedItemPosition()).getModelId()));
+                edit.putString("catID", (listDataCat.get(category.getSelectedItemPosition()).getCategoryId()));
+                if (edit.commit())
+                    startActivity(i);
+            }
+        }
 
 
 

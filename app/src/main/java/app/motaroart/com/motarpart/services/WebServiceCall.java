@@ -406,10 +406,16 @@ public class WebServiceCall {
         System.out.println(json);
 
         PropertyInfo AccountId=new PropertyInfo();
-        AccountId.name="jsonOrder";
+        AccountId.name="jsonOrderPayment";
         AccountId.type= PropertyInfo.STRING_CLASS;
         AccountId.setValue(json);
         request.addProperty(AccountId);
+
+        PropertyInfo jsonOrderPayment1=new PropertyInfo();
+        jsonOrderPayment1.name="jsonOrder";
+        jsonOrderPayment1.type= PropertyInfo.STRING_CLASS;
+        jsonOrderPayment1.setValue(json1);
+        request.addProperty(jsonOrderPayment1);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.dotNet=true;
         envelope.setOutputSoapObject(request);
