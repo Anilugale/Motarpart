@@ -62,9 +62,12 @@ public class MakeActivity extends Activity
 
             @Override
             public void afterTextChanged(Editable arg0) {
-
-                String text = key_word.getText().toString().toLowerCase(Locale.getDefault());
-                adapter.filter(text);
+                if(adapter!=null) {
+                    String text = key_word.getText().toString().toLowerCase(Locale.getDefault());
+                    adapter.filter(text);
+                }
+                    else
+                    Toast.makeText(MakeActivity.this, "Opps! No data found", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -137,8 +140,11 @@ public class MakeActivity extends Activity
         count.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                startActivity(new Intent(MakeActivity.this, Cart.class));
+                if(InternetState.getState(MakeActivity.this)) {
+                    startActivity(new Intent(MakeActivity.this, Cart.class));
+                }
+                else
+                  Toast.makeText(MakeActivity.this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
             }
         });
         LinearLayout.LayoutParams imgvwDimens =
@@ -201,7 +207,11 @@ public class MakeActivity extends Activity
             return true;
         }
         if(id==R.id.action_wish){
-            startActivity(new Intent(this, WishActivity.class));
+            if(InternetState.getState(MakeActivity.this)) {
+                startActivity(new Intent(this, WishActivity.class));
+            }
+            Toast.makeText(this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+
             return true;
         }
 

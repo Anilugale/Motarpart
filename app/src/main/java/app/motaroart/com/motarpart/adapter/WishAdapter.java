@@ -30,6 +30,7 @@ import app.motaroart.com.motarpart.R;
 import app.motaroart.com.motarpart.WishActivity;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
 import app.motaroart.com.motarpart.pojo.Product;
+import app.motaroart.com.motarpart.pojo.User;
 import app.motaroart.com.motarpart.pojo.Wish;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
@@ -44,8 +45,18 @@ public class WishAdapter extends BaseAdapter {
     WishActivity activity;
     LayoutInflater inflater;
     ImageLoader imageLoader;
+    User user;
     public WishAdapter(WishActivity activity, List<Product> listData) {
 
+        SharedPreferences pref=activity.getSharedPreferences(activity.getString(R.string.app_name),Context.MODE_PRIVATE);
+        String userStr=pref.getString("user","");
+
+        if(!userStr.equals("")) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<User>() {
+            }.getType();
+            user = gson.fromJson(userStr, type);
+        }
         listMain=new ArrayList<Product>();
         this.listMain=listData;
         this.listData=listData;
@@ -142,11 +153,11 @@ public class WishAdapter extends BaseAdapter {
                 {
                     list=new ArrayList<Product>();
                 }
-                if(flag!=true)
+                if(!flag)
                 {
                     list.add(product);
                     String json=gson.toJson(list,listOfTestObject);
-                    mPrefs.edit().putString("cart",json).commit();
+                    mPrefs.edit().putString("cart",json).apply();
                     activity.updateCart(list.size());
                     Toast.makeText(activity,"Product added in cart",Toast.LENGTH_LONG).show();
 
@@ -237,7 +248,7 @@ public class WishAdapter extends BaseAdapter {
 
         @Override
         protected Void doInBackground(String... str) {
-            System.out.println(WebServiceCall.removeWishListItem("1", str[0]) + str[0]);// TODO
+            System.out.println(WebServiceCall.removeWishListItem(user.getAccountId(), str[0]) + str[0]);// TODO
 
             return null;
         }

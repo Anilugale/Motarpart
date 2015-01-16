@@ -137,27 +137,28 @@ public class Cart extends Activity {
     public void continueChekOut(View view) {
 
 
+        if(adapter!=null)
+        {
         String userStr=  mPrefs.getString("user","");
         if(userStr.trim().length()==0)
         {
             startActivity(new Intent(this,Login.class).putExtra("Cart",true));
         }
-        else
-        {
-            Gson gson=new Gson();
-            Type type=new TypeToken<User>(){}.getType();
-            User user=gson.fromJson(userStr,type);
+        else {
+            Gson gson = new Gson();
+            Type type = new TypeToken<User>() {
+            }.getType();
+            User user = gson.fromJson(userStr, type);
             /// parameter setting
-            Order order=new Order();
+            Order order = new Order();
             order.setAccountId(user.getAccountId());
             order.setOrderBy(user.getLoginId());
             order.setProductCount(String.valueOf(adapter.listData.size()));
             order.setOrderSource("MAPP");
-            List<OrderProduct> productList=new ArrayList<>();
+            List<OrderProduct> productList = new ArrayList<>();
 
-            for(Product pro:adapter.listData)
-            {
-                OrderProduct op=new OrderProduct();
+            for (Product pro : adapter.listData) {
+                OrderProduct op = new OrderProduct();
                 op.setCategoryId(pro.getCategoryId());
                 op.setCategoryName(pro.getCategory());
                 op.setMakeId(pro.getMakeId());
@@ -176,16 +177,16 @@ public class Cart extends Activity {
             order.setOrderAmount(String.valueOf(totalPrice));
             order.setVATAmount(String.valueOf(vatPrice));
             order.setVATPercent(settings.get(5).getKeyValue());
-            order.setTotalAmount(String.valueOf(totalPrice+vatPrice));
+            order.setTotalAmount(String.valueOf(totalPrice + vatPrice));
 
-            if(order.getProductList().size()!=0) {
+            if (order.getProductList().size() != 0) {
                 Intent intent = new Intent(this, Summry.class);
                 intent.putExtra("Order", order);
                 startActivity(intent);
-            }else
-                Toast.makeText(this,"card is empty.",Toast.LENGTH_SHORT).show();
+            } else
+                Toast.makeText(this, "card is empty.", Toast.LENGTH_SHORT).show();
 
-
+        }
         }
 
     }

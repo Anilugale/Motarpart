@@ -22,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 
 import app.motaroart.com.motarpart.pojo.CardInfo;
 import app.motaroart.com.motarpart.pojo.Order;
+import app.motaroart.com.motarpart.services.InternetState;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
@@ -146,15 +147,12 @@ public class Payment extends Activity {
                 String josnCard=gson.toJson(card);
                 String josnEncode="{\"Order\":"+gson.toJson(order)+"}";
 
-                System.out.println("out");
-                System.out.println(josnCard);
-                System.out.println(josnEncode);
-
-
                 String cardinfo=Base64.encodeToString(josnCard.getBytes("US-ASCII"),Base64.DEFAULT);
                 String orderinfo=Base64.encodeToString(josnEncode.getBytes("US-ASCII"),Base64.DEFAULT);
-
+                if(InternetState.getState(this)) {
                 new Cardpaymene().execute(cardinfo,orderinfo);
+                }
+                Toast.makeText(this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }

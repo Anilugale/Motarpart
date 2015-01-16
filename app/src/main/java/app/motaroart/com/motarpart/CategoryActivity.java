@@ -55,9 +55,14 @@ public class CategoryActivity extends Activity {
 
             @Override
             public void afterTextChanged(Editable arg0) {
+                if(adapter!=null) {
+                    String text = key_word.getText().toString().toLowerCase(Locale.getDefault());
+                    adapter.filter(text);
+                }
+                else
+                    Toast.makeText(CategoryActivity.this, "Opps! No data found", Toast.LENGTH_LONG).show();
 
-                String text = key_word.getText().toString().toLowerCase(Locale.getDefault());
-                adapter.filter(text);
+
             }
 
             @Override
