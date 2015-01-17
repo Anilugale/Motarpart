@@ -175,11 +175,10 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                 pd.dismiss();
                 super.onPostExecute(s);
             }
-            else
-            {
+
                 pd.dismiss();
-                Toast.makeText(getActivity(),"Opps! Connection is lost.",Toast.LENGTH_LONG).show();
-            }
+
+
         }
     }
 
