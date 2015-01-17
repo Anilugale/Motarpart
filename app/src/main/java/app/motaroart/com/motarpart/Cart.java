@@ -171,6 +171,7 @@ public class Cart extends Activity {
         if(user==null)
         {
             startActivity(new Intent(this,Login.class).putExtra("Cart",true));
+            finish();
         }
         else {
 

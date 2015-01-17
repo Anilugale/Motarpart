@@ -45,7 +45,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ModelActivity"
-            android:noHistory="true"
+
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
@@ -54,7 +54,7 @@
         </activity>
         <activity
             android:name=".CategoryActivity"
-            android:noHistory="true"
+
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
