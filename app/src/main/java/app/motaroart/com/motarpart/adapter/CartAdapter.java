@@ -21,9 +21,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import app.motaroart.com.motarpart.Cart;
 import app.motaroart.com.motarpart.Detail;
@@ -34,20 +34,22 @@ import app.motaroart.com.motarpart.pojo.User;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
 /**
- * Created by Anil Ugale on 11/11/2014.
+ * Created by Anil Ugale on 11/11/2010.
  */
 
 public class CartAdapter extends BaseAdapter {
 
    public List<Product> listData;
     public Map<String,String> listMain;
+    public Map<String,String> listQty;
     Activity activity;
     LayoutInflater inflater;
     ImageLoader imageLoader;
 
     public CartAdapter(Activity activity, List<Product> listData) {
 
-        listMain = new HashMap<String,String>();
+        listMain = new TreeMap<>();
+        listQty = new TreeMap<>();
         this.listData = listData;
         this.activity = activity;
         inflater = (LayoutInflater) activity.
@@ -87,7 +89,7 @@ public class CartAdapter extends BaseAdapter {
             remove_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String old =product_qty_total.getText().toString().substring(3,product_qty_total.getText().toString().length());
+                    String old =product_qty_total.getText().toString().substring(0,product_qty_total.getText().toString().length());
                     listData.remove(i);
                     SharedPreferences mPrefs = activity.getSharedPreferences(activity.getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
                     Gson gson = new Gson();
@@ -117,35 +119,36 @@ public class CartAdapter extends BaseAdapter {
         SharedPreferences pref=activity.getSharedPreferences(activity.getString(R.string.app_name),Activity.MODE_PRIVATE);
         Gson gson=new Gson();
         Type type=new TypeToken<User>(){}.getType();
-        User user=gson.fromJson(pref.getString("user",""),type);
+        final User user=gson.fromJson(pref.getString("user",""),type);
 
 
 
 
-        //TODO
+
            if(user!=null) {
 
                if(user.getAccountType().equals("C")) {
-                   product_mrp.setText("KES." + product.getProductPrice());
+                   product_mrp.setText("KES " + product.getProductPrice());
                    product_qty_total.setText("" + product.getProductPrice());
                }
                else  if(user.getAccountType().equals("W")) {
                    product_mrp.setText("" + product.getWholesalerPrice());
                    product_qty_total.setText("" + product.getWholesalerPrice());
                }else  if(user.getAccountType().equals("R")) {
-                   product_mrp.setText("KES." + product.getRetailerPrice());
+                   product_mrp.setText("KES " + product.getRetailerPrice());
                    product_qty_total.setText("" + product.getRetailerPrice());
                }
                else
                {
-                   product_mrp.setText("KES." + product.getProductPrice());
+                   product_mrp.setText("KES " + product.getProductPrice());
                    product_qty_total.setText("" + product.getProductPrice());
                }
            }
         else
            {
-               product_mrp.setText("KES." + product.getProductPrice());
-               product_qty_total.setText("" + product.getProductPrice());
+               product_mrp.setText("KES " + product.getProductPrice());
+               product_mrp.setText("KES " + product.getProductPrice());
+               product_qty_total.setText( product.getProductPrice());
            }
 
             product_code.setText(product.getProductNumber() + "");
@@ -159,7 +162,7 @@ public class CartAdapter extends BaseAdapter {
 
                     price_count = Integer.valueOf(listMain.get(product.getProductId()));
                 }
-                String old =product_qty_total.getText().toString().substring(3,product_qty_total.getText().toString().length());
+                String old =product_qty_total.getText().toString().substring(0,product_qty_total.getText().toString().length());
 
                 double value;
                 if(user!=null) {
@@ -189,10 +192,12 @@ public class CartAdapter extends BaseAdapter {
 
                 ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),(price),listData.size()+"");
             }
-            else
+            else {
                 product_qty.setText("1");
+                listQty.put(product.getProductId(),"1");
+                listMain.put(product.getProductId(),"1");
+            }
 
-        listMain.put(product.getProductId(),"1");
 
 
             product_qty.addTextChangedListener(new TextWatcher() {
@@ -209,13 +214,47 @@ public class CartAdapter extends BaseAdapter {
 
                 public void afterTextChanged(Editable s) {
                     int price_count = 0;
-                    listMain.put(product.getProductId(),s.toString());
+                    double price=0.0;
                     if (s.length() != 0) {
                         price_count = Integer.valueOf(s.toString());
                     }
-                    String old =product_qty_total.getText().toString().substring(3,product_qty_total.getText().toString().length());
-                   double price = Double.valueOf(product.getProductPrice()) * (price_count);
-                    product_qty_total.setText("KES." + price);
+                    listQty.put(product.getProductId(),product_qty.getText().toString());
+                    if(user!=null) {
+
+                        if(user.getAccountType().equals("C")) {
+                            listMain.put(product.getProductId(),s.toString());
+
+
+
+                            price = Double.valueOf(product.getProductPrice()) * (price_count);
+                        }
+                        else  if(user.getAccountType().equals("W")) {
+                            listMain.put(product.getWholesalerPrice(),s.toString());
+                            price = Double.valueOf(product.getWholesalerPrice()) * (price_count);
+                        }else  if(user.getAccountType().equals("R")) {
+                            listMain.put(product.getRetailerPrice(),s.toString());
+                            price = Double.valueOf(product.getRetailerPrice()) * (price_count);
+                        }
+                        else
+                        {
+                            listMain.put(product.getProductId(),s.toString());
+                            price = Double.valueOf(product.getProductPrice()) * (price_count);
+                        }
+                    }
+                    else
+                    {
+                        listMain.put(product.getProductId(),s.toString());
+                        price = Double.valueOf(product.getProductPrice()) * (price_count);
+                    }
+
+
+
+
+
+
+                    String old =product_qty_total.getText().toString().substring(0,product_qty_total.getText().toString().length());
+
+                    product_qty_total.setText( price+"0");
                     ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),(price),listData.size()+"");
 
 

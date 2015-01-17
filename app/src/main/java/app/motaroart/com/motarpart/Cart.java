@@ -38,9 +38,10 @@ public class Cart extends Activity {
     CartAdapter adapter;
     TextView product_grand_price;
     ListView main_page;
-    TextView cart_cnt,vat_per,vat_price;
+    TextView cart_cnt,vat_per,vat_price,total_item;
     SharedPreferences mPrefs;
     double vatRate;
+    User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,17 +51,22 @@ public class Cart extends Activity {
             new DownLoadSetting().execute();
 
         }
+        mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+        String userStr=  mPrefs.getString("user","");
+        Gson gson = new Gson();
+        Type type = new TypeToken<User>() {
+        }.getType();
+        user = gson.fromJson(userStr, type);
     }
 
     private void init() {
         vat_per=(TextView)findViewById(R.id.vat_per);
+        total_item=(TextView)findViewById(R.id.item_total);
         vat_price=(TextView)findViewById(R.id.vat_price);
-        vat_per.setText(settings.get(5).getKeyValue()+"% VAT");
-        product_grand_price=(TextView)findViewById(R.id.product_grand_price);
+        vat_per.setText("VAT ("+settings.get(6).getKeyValue()+"%)");
+        product_grand_price=(TextView)findViewById(R.id.grand_total);
         Type listOfTestObject = new TypeToken<List<Product>>() {
         }.getType();
-        Context mContext = getApplicationContext();
-        mPrefs = mContext.getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         String JsonStr =mPrefs.getString("cart","");
         Gson gson = new Gson();
         listData = gson.fromJson(JsonStr, listOfTestObject);
@@ -68,13 +74,34 @@ public class Cart extends Activity {
         cart_cnt = (TextView) findViewById(R.id.cart_cnt);
         if(listData!=null) {
             for (Product product : listData) {
-                grand += Double.valueOf(product.getProductPrice().trim());
+                if(user!=null) {
+
+                    if(user.getAccountType().equals("C")) {
+                        grand += Double.valueOf(product.getProductPrice().trim());
+                    }
+                    else  if(user.getAccountType().equals("W")) {
+                        grand += Double.valueOf(product.getWholesalerPrice().trim());
+                    }else  if(user.getAccountType().equals("R")) {
+                        grand += Double.valueOf(product.getRetailerPrice().trim());
+                    }
+                    else
+                    {
+                        grand += Double.valueOf(product.getProductPrice().trim());
+                    }
+                }
+                else
+                {
+                    grand += Double.valueOf(product.getProductPrice().trim());
+                }
+
             }
             double vatPrice=(grand*vatRate);
             this.vatPrice=vatPrice;
+
             totalPrice=Math.floor(grand);
-            product_grand_price.setText("KES." +Math.floor(totalPrice+vatPrice));
-            vat_price.setText(Math.floor(vatPrice)+"");
+            total_item.setText(totalPrice+"0");
+            product_grand_price.setText("KES " +Math.floor(totalPrice+vatPrice)+"0");
+            vat_price.setText(Math.floor(vatPrice)+"0");
             cart_cnt.setText("My Cart (" + listData.size() + ")");
             adapter = new CartAdapter(this, listData);
             main_page = (ListView) findViewById(R.id.mycart_list);
@@ -111,22 +138,23 @@ public class Cart extends Activity {
 
 
         totalPrice=(totalPrice - oldPrice) + newPrice;
+        total_item.setText(totalPrice+"0");
         double vatPrice=totalPrice*vatRate;
         this.vatPrice=vatPrice;
-        product_grand_price.setText("Rs." +Math.floor(totalPrice+vatPrice));
-        vat_price.setText(Math.floor(vatPrice)+"");
+        product_grand_price.setText("KES " +Math.floor(totalPrice+vatPrice)+"0");
+        vat_price.setText(Math.floor(vatPrice)+"0");
     }
     public void updateGrandPriceMinuse(double oldPrice,double productID)
     {
 
 
-        vat_price.setText(Math.floor(vatPrice)+"");
+        vat_price.setText(Math.floor(vatPrice)+"0");
         totalPrice=(totalPrice- oldPrice) ;
-
+        total_item.setText(totalPrice+"0");
         this.vatPrice=totalPrice*vatRate;
         cart_cnt.setText("My Cart (" + productID + ")");
-        product_grand_price.setText("Rs." + Math.floor(totalPrice+vatPrice));
-        vat_price.setText(Math.floor(vatPrice)+"");
+        product_grand_price.setText("KES " + Math.floor(totalPrice+vatPrice)+"0");
+        vat_price.setText(Math.floor(vatPrice)+"0");
     }
 
     double totalPrice;
@@ -139,16 +167,13 @@ public class Cart extends Activity {
 
         if(adapter!=null)
         {
-        String userStr=  mPrefs.getString("user","");
-        if(userStr.trim().length()==0)
+
+        if(user==null)
         {
             startActivity(new Intent(this,Login.class).putExtra("Cart",true));
         }
         else {
-            Gson gson = new Gson();
-            Type type = new TypeToken<User>() {
-            }.getType();
-            User user = gson.fromJson(userStr, type);
+
             /// parameter setting
             Order order = new Order();
             order.setAccountId(user.getAccountId());
@@ -170,22 +195,28 @@ public class Cart extends Activity {
                 op.setProductPrice(pro.getProductPrice());
                 op.setModelId(pro.getModelId());
                 op.setModelName(pro.getModelName());
-                op.setQuantity(adapter.listMain.get(pro.getProductId()));
+                op.setQuantity(adapter.listQty.get(pro.getProductId()));
                 productList.add(op);
             }
             order.setProductList(productList);
             order.setOrderAmount(String.valueOf(totalPrice));
             order.setVATAmount(String.valueOf(vatPrice));
-            order.setVATPercent(settings.get(5).getKeyValue());
+            order.setVATPercent(settings.get(6).getKeyValue());
             order.setTotalAmount(String.valueOf(totalPrice + vatPrice));
 
-            if (order.getProductList().size() != 0) {
-                Intent intent = new Intent(this, Summry.class);
-                intent.putExtra("Order", order);
-                startActivity(intent);
-            } else
-                Toast.makeText(this, "card is empty.", Toast.LENGTH_SHORT).show();
-
+            if(InternetState.getState(this)) {
+                if (order.getProductList().size() != 0 ) {
+                    if( !order.getTotalAmount().equals("0.0")) {
+                        Intent intent = new Intent(this, Summry.class);
+                        intent.putExtra("Order", order);
+                        startActivity(intent);
+                    }
+                    else
+                        Toast.makeText(this, "Quantity is 0.", Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(this, "card is empty.", Toast.LENGTH_SHORT).show();
+            }else
+                Toast.makeText(this, "Opps! Connection has lost.", Toast.LENGTH_SHORT).show();
         }
         }
 
@@ -209,7 +240,7 @@ public class Cart extends Activity {
                 Type type = new TypeToken<List<Setting>>() {
                 }.getType();
                 settings= gson.fromJson(aVoid,type);
-                vatRate=((Double.valueOf(settings.get(5).getKeyValue()) /100.0));
+                vatRate=((Double.valueOf(settings.get(6).getKeyValue()) /100.0));
                 init();
             }
 

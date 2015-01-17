@@ -97,6 +97,7 @@ public class CategoryActivity extends Activity {
             public void onClick(View view) {
 
                 startActivity(new Intent(CategoryActivity.this, Cart.class));
+                finish();
             }
         });
         LinearLayout.LayoutParams imgvwDimens =

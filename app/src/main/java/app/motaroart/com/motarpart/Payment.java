@@ -18,6 +18,10 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 
 import app.motaroart.com.motarpart.pojo.CardInfo;
@@ -150,8 +154,9 @@ public class Payment extends Activity {
                 String cardinfo=Base64.encodeToString(josnCard.getBytes("US-ASCII"),Base64.DEFAULT);
                 String orderinfo=Base64.encodeToString(josnEncode.getBytes("US-ASCII"),Base64.DEFAULT);
                 if(InternetState.getState(this)) {
-                new Cardpaymene().execute(cardinfo,orderinfo);
+                    new Cardpaymene().execute(cardinfo,orderinfo);
                 }
+                else
                 Toast.makeText(this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -160,7 +165,7 @@ public class Payment extends Activity {
 
 
 
-            
+
         }
 
     }
@@ -207,7 +212,7 @@ public class Payment extends Activity {
             if(s!=null) {
                 System.out.println(s);
                 Toast.makeText(Payment.this, s, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Payment.this, Thanks.class).putExtra("order_no", s));
+                startActivity(new Intent(Payment.this, OrderDetail.class).putExtra("orderNumber", s));
                 SharedPreferences mPref=getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
                 mPref.edit().remove("cart").apply();
                 finish();
@@ -234,8 +239,32 @@ public class Payment extends Activity {
         @Override
         protected void onPostExecute(String s) {
 
+
+            if(s!=null) {
+                try {
+                    JSONArray arry = new JSONArray(s);
+                    JSONObject node = arry.getJSONObject(0);
+                    if (node.getString("STATUS").equals("SUCCESS")) {
+                        startActivity(new Intent(Payment.this, OrderDetail.class).putExtra("orderNumber", node.getString("ORDERNUMBER")));
+                        Toast.makeText(Payment.this, node.getString("DESCRIPTION"), Toast.LENGTH_LONG).show();
+                        SharedPreferences mPref=getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
+                        mPref.edit().remove("cart").apply();
+                        finish();
+
+
+
+                    } else {
+                        Toast.makeText(Payment.this, node.getString("DESCRIPTION"), Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(Payment.this, "Opps! Communication error.", Toast.LENGTH_LONG).show();
+                }
+            }
+            else
+            Toast.makeText(Payment.this, "Opps! Communication error.", Toast.LENGTH_LONG).show();
             pd.dismiss();
-            Toast.makeText(Payment.this,s,Toast.LENGTH_SHORT).show();
             super.onPostExecute(s);
         }
 

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
- >
+    android:background="#ffc5c5c5"
+    >
     <TextView
         android:id="@+id/cart_cnt"
         android:layout_width="match_parent"
@@ -16,9 +17,13 @@
         android:text="Products"
         android:drawableLeft="@drawable/check_list"
         android:background="#1B62A2"
-     />
+        />
     <ListView
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
+        android:dividerHeight="5dp"
+        android:scrollbars="none"
+        android:divider="@android:color/transparent"
         android:layout_height="match_parent"
         android:id="@+id/product_list" />
 

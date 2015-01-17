@@ -399,19 +399,19 @@ public class WebServiceCall {
 
     }
 
-    public static String createCardOrder(String json,String json1) {
+    public static String createCardOrder(String jsonOrderPayment,String jsonOrder) {
 
-        SoapObject request = new SoapObject(NAMESPACE, "ChargeCreditCard");
+        SoapObject request = new SoapObject(NAMESPACE,"ChargeCreditCard");
         PropertyInfo AccountId=new PropertyInfo();
-        AccountId.name="jsonOrderPayment";
+        AccountId.name="pOrderPayment";
         AccountId.type= PropertyInfo.STRING_CLASS;
-        AccountId.setValue(json);
+        AccountId.setValue(jsonOrderPayment);
         request.addProperty(AccountId);
 
         PropertyInfo jsonOrderPayment1=new PropertyInfo();
-        jsonOrderPayment1.name="jsonOrder";
+        jsonOrderPayment1.name="pOrder";
         jsonOrderPayment1.type= PropertyInfo.STRING_CLASS;
-        jsonOrderPayment1.setValue(json1);
+        jsonOrderPayment1.setValue(jsonOrder);
         request.addProperty(jsonOrderPayment1);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.dotNet=true;

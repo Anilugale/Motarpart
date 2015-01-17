@@ -37,15 +37,21 @@ public class Summry extends Activity {
         if(order!=null)
         {
 
-            TextView name,cntTotal,total;
+            TextView cntTotal,total,item_total,vat_per,vat_price;
 
-            name=(TextView)findViewById(R.id.user_name);
+
             cntTotal=(TextView)findViewById(R.id.item_cnt);
-            total=(TextView)findViewById(R.id.item_total);
+            total=(TextView)findViewById(R.id.grand_total);
+            item_total=(TextView)findViewById(R.id.item_total);
+            vat_per=(TextView)findViewById(R.id.vat_per);
+            vat_price=(TextView)findViewById(R.id.vat_price);
 
-            name.setText("Hi."+order.getOrderBy());
+
             cntTotal.setText(order.getProductCount()+"");
             total.setText(order.getTotalAmount()+"");
+            item_total.setText(order.getOrderAmount()+"");
+            vat_per.setText("VAT ("+order.getVATPercent()+"%)");
+            vat_price.setText(order.getVATAmount()+"");
 
 
             add1=(EditText)findViewById(R.id.address1);

@@ -1,9 +1,9 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:orientation="vertical"
-    android:padding="5dp"
+
     android:background="#fff"
     android:layout_height="wrap_content">
 
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#979799"
                 android:textSize="15sp"
-                android:layout_marginLeft="15sp"
+                android:layout_marginLeft="5dp"
                 android:padding="5dp"
                 android:gravity="center"
                 android:text="CN200012"
@@ -137,9 +137,10 @@
 
             <TextView
                 android:id="@+id/product_mrp"
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:gravity="center"
                 android:text="KN.120"
                 android:textStyle="bold"

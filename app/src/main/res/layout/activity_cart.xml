@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#ffdddddd"
     tools:context="app.motaroart.com.motarpart.Cart">
 
     <TextView
@@ -17,6 +18,10 @@
         android:drawableLeft="@drawable/white_cart"
         android:background="#1B62A2"/>
     <ListView
+        android:layout_margin="5dp"
+        android:dividerHeight="5dp"
+        android:scrollbars="none"
+        android:divider="@android:color/transparent"
         android:layout_below="@+id/cart_cnt"
         android:layout_width="match_parent"
         android:layout_weight="3"
@@ -28,13 +33,12 @@
         android:layout_width="match_parent"
         android:layout_gravity="bottom"
         android:orientation="vertical"
-        android:layout_weight=".8"
-        android:layout_height="0dp">
 
-    <LinearLayout
+        android:layout_height="wrap_content">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.6"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
                 android:text="Total"
@@ -46,13 +50,31 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content" />
 
+
+            <TextView
+                android:id="@+id/item_total"
+                android:gravity="right"
+                android:text="0.0"
+                android:padding="5dp"
+                android:textSize="15sp"
+                android:textColor="#BA1E1F"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
         <TextView
             android:id="@+id/vat_per"
             android:text="00%"
+            android:padding="5dp"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:padding="5dp"
-            android:textColor="#BA1E1F"
+             android:textColor="#BA1E1F"
             android:layout_width="0dp"
             android:layout_weight=".5"
             android:layout_height="wrap_content" />
@@ -62,34 +84,41 @@
             android:textStyle="bold"
             android:textSize="15sp"
             android:padding="5dp"
+            android:gravity="right"
             android:textColor="#BA1E1F"
             android:layout_width="0dp"
             android:layout_weight=".5"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/product_grand_price"
-            android:gravity="center"
-            android:text="RS.0.0"
-            android:textSize="15sp"
-            android:textColor="#BA1E1F"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+</LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/grand_total"
+                android:text="000"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:padding="5dp"
+                android:gravity="right"
+                android:textColor="#BA1E1F"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
-
-
-        <Button
-            android:text="CHECKOUT AND CONTINUE"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_back"
-            android:layout_width="match_parent"
-            android:textColor="#fff"
-            android:onClick="continueChekOut"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
     </LinearLayout>
-
+    <Button
+        android:text="CHECKOUT AND CONTINUE"
+        android:textStyle="bold"
+        android:background="@drawable/btn_back"
+        android:layout_width="match_parent"
+        android:textColor="#fff"
+        android:onClick="continueChekOut"
+        android:layout_height="wrap_content"
+        />
 </LinearLayout>
