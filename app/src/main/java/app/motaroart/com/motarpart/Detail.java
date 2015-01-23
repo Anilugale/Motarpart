@@ -48,7 +48,7 @@ public class Detail extends Activity {
         TextView product_mrp = (TextView) findViewById(R.id.product_mrp);
         TextView product_code = (TextView) findViewById(R.id.product_code);
         TextView product_number = (TextView) findViewById(R.id.product_number);
-        TextView product_oem_no = (TextView) findViewById(R.id.product_oem_no);
+
         TextView product_desc = (TextView) findViewById(R.id.product_desc);
 
         ImageView partImg= (ImageView) findViewById(R.id.part_images);
@@ -67,8 +67,8 @@ public class Detail extends Activity {
         product_mrp.setText("KES " + product.getRetailerPrice());
         product_code.setText(product.getProductCode() + "");
         product_number.setText("Code." + product.getProductNumber());
-        product_oem_no.setText(product.getOME() + "");
-        product_desc.setText(product.getProductDesc() + "");
+
+        product_desc.setText(product.getProductDesc() + ""+"As a connecting rod is rigid, it may transmit either a push or a pull and so the rod may rotate the crank through both halves of a revolution, i.e. piston pushing and piston pulling. Earlier mechanisms, such as chains, could only pull. In a few two-stroke engines, the connecting rod is only required to push.");
         init();
 
     }

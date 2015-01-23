@@ -9,7 +9,7 @@
     <item
         android:id="@+id/action_wish"
         android:title="User"
-        android:icon="@drawable/wish"
+        android:icon="@drawable/wish2"
         android:showAsAction="always"
         tools:ignore="AppCompatResource" />
     <item

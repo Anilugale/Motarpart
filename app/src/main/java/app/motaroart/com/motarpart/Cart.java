@@ -29,7 +29,6 @@ import app.motaroart.com.motarpart.pojo.Product;
 import app.motaroart.com.motarpart.pojo.Setting;
 import app.motaroart.com.motarpart.pojo.User;
 import app.motaroart.com.motarpart.services.InternetState;
-import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
 public class Cart extends Activity {
@@ -47,16 +46,23 @@ public class Cart extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        if(InternetState.getState(this)) {
-            new DownLoadSetting().execute();
 
-        }
+
         mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
-        String userStr=  mPrefs.getString("user","");
-        Gson gson = new Gson();
-        Type type = new TypeToken<User>() {
-        }.getType();
-        user = gson.fromJson(userStr, type);
+        if(!mPrefs.getString("Setting","").equals("")) {
+
+            new DownLoadSetting().execute();
+            String userStr = mPrefs.getString("user", "");
+            Gson gson = new Gson();
+            Type type = new TypeToken<User>() {
+            }.getType();
+            user = gson.fromJson(userStr, type);
+        }
+        else
+        {
+            Toast.makeText(this,"Opps! Connection has lost",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void init() {
@@ -244,6 +250,10 @@ public class Cart extends Activity {
                 vatRate=((Double.valueOf(settings.get(6).getKeyValue()) /100.0));
                 init();
             }
+            else
+            {
+                Toast.makeText(Cart.this,"Opps! Connection has loast",Toast.LENGTH_SHORT).show();
+            }
 
             pd.dismiss();
             super.onPostExecute(aVoid);
@@ -251,7 +261,7 @@ public class Cart extends Activity {
 
         @Override
         protected String doInBackground(Void... voids) {
-            return WebServiceCall.getSetting(mPrefs);
+          return mPrefs.getString("Setting","");
 
         }
     }

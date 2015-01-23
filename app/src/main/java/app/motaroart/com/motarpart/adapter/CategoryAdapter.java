@@ -71,7 +71,7 @@ public class CategoryAdapter extends BaseAdapter {
         {
             holder=(ViewHolder)view.getTag();
         }
-        holder.cat_name.setText("  " + listData.get(i).getCategory().toUpperCase());
+
         holder.cat_name.setText("  " + listData.get(i).getCategory().toUpperCase());
         imageLoader.DisplayImage(WebServiceCall.BASE_URL+listData.get(i).getImageUrl(), holder.part_images);
          return view;

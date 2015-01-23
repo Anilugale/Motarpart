@@ -228,12 +228,13 @@ public class CategoryActivity extends Activity {
         @Override
         protected String doInBackground(Void... voids) {
             String jsondata=null;
-            String str= mPrefs.getString("category","");
-            if(!str.equals(""))
-                return str;
-            if(InternetState.getState(CategoryActivity.this)) {
+
+             if(InternetState.getState(CategoryActivity.this)) {
                 jsondata = WebServiceCall.getCategoryJson();
-                mPrefs.edit().putString("category",jsondata).apply();
+
+
+
+                mPrefs.edit().putString("Setting", WebServiceCall.getSetting()).apply();
             }
 
 

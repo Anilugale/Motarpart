@@ -3,7 +3,6 @@ package app.motaroart.com.motarpart.services;
  * Created by Anil   Ugale on 20-12-2014.
  */
 
-import android.content.SharedPreferences;
 import android.util.Base64;
 import android.util.Log;
 
@@ -364,7 +363,7 @@ public class WebServiceCall {
     }
 
 
-    public static String getSetting(SharedPreferences con) {
+    public static String getSetting() {
         SoapObject request = new SoapObject(NAMESPACE, "GetSettings");
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.dotNet=true;
