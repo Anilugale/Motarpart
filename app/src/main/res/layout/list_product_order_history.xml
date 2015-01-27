@@ -7,46 +7,45 @@
     android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="horizontal"
-        android:background="#ff6c6d7e"
+        android:background="#fff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:textColor="#fff"
+            android:textColor="#000"
             android:padding="10dp"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="14sp"
+            android:textSize="17sp"
             android:text="PRODUCT NAME"/>
 
         <TextView
             android:paddingRight="10dp"
-            android:textColor="#fff"
+            android:textColor="#000"
             android:id="@+id/p_name"
             android:gravity="right"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="14sp"
+            android:textSize="17sp"
             android:text="0"/>
     </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:padding="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        />
     <LinearLayout
         android:orientation="horizontal"
         android:background="#fff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
 
-            android:paddingLeft="10dp"
-
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:text="PRODUCT NUMBER"/>
 
         <TextView
             android:paddingRight="10dp"

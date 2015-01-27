@@ -10,8 +10,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.w3c.dom.Text;
-
 import java.lang.reflect.Type;
 
 import app.motaroart.com.motarpart.adapter.ProductHistoryAdapter;
@@ -67,7 +65,7 @@ public class OrderDetail extends Activity {
         TextView order_number=(TextView)findViewById(R.id.order_number);
         order_number.setText(orderDetails.getOrder().get(0).getOrderNumber());
         TextView no_of_item=(TextView)findViewById(R.id.no_of_item);
-        no_of_item.setText(orderDetails.getOrder().get(0).getProductCount())  ;
+        no_of_item.setText(orderDetails.getOrder().get(0).getOrderDate())  ;
 
         TextView subtotal=(TextView)findViewById(R.id.subtotal);
         subtotal.setText(orderDetails.getOrder().get(0).getOrderAmount());

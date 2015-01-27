@@ -107,16 +107,7 @@ public class ProductAdapter extends BaseAdapter {
 
 
             imageLoader.DisplayImage(WebServiceCall.BASE_URL+product.getProductImageUrl(),part_images);
-            Button details= (Button) vi.findViewById(R.id.deatail);
 
-            details.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent =new Intent(activity, Detail.class);
-                    intent.putExtra("Product", product)   ;
-                    activity.startActivity(intent);
-                }
-            });
 
             Button add_2cart= (Button) vi.findViewById(R.id.add_2cart);
             add_2cart.setOnClickListener(new View.OnClickListener() {
