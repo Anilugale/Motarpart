@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -262,16 +261,9 @@ public class CartAdapter extends BaseAdapter {
             });
 
 
-            Button details = (Button) vi.findViewById(R.id.deatail);
 
-            details.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(activity, Detail.class);
-                    intent.putExtra("Product", product);
-                    activity.startActivity(intent);
-                }
-            });
+
+
             return vi;
 
     }

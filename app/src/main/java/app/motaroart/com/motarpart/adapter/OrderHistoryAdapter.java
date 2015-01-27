@@ -63,15 +63,8 @@ public class OrderHistoryAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.order_no = (TextView) view.findViewById(R.id.od_number);
             holder.date = (TextView) view.findViewById(R.id.date);
-            holder.count = (TextView) view.findViewById(R.id.count);
-            holder.item_total = (TextView) view.findViewById(R.id.item_total);
-            holder.source = (TextView) view.findViewById(R.id.payment_type);
-            holder.mode = (TextView) view.findViewById(R.id.mode);
-
-            holder.vat_per = (TextView) view.findViewById(R.id.vat_per);
-            holder.vat_amt = (TextView) view.findViewById(R.id.vat_total);
             holder.total = (TextView) view.findViewById(R.id.grand_total);
-            holder.state = (TextView) view.findViewById(R.id.state);
+
 
             view.setTag(holder);
         }
@@ -92,20 +85,9 @@ public class OrderHistoryAdapter extends BaseAdapter {
             e.printStackTrace();
         }
 
-        holder.count.setText("" + listData.get(i).getProductCount());
-        holder.item_total.setText("" + Double.valueOf(listData.get(i).getOrderAmount()));
-        holder.source.setText("" + listData.get(i).getOrderSource());
-        holder.mode.setText("" + listData.get(i).getTransactionMode());
-        holder.vat_per.setText( " VAT ( "+listData.get(i).getVATPercent()+" %)");
-        holder.vat_amt.setText("" +Double.valueOf( listData.get(i).getVATAmount()));
-        holder.total.setText("" + Double.valueOf(listData.get(i).getTotalAmount()));
+       holder.total.setText("" + Double.valueOf(listData.get(i).getTotalAmount()));
 
-        if(listData.get(i).getOrderStatus().equals("O"))
-            holder.state.setText("Pending");
-        else  if(listData.get(i).getOrderStatus().equals("D"))
-            holder.state.setText("Delivered");
-         else  if(listData.get(i).getOrderStatus().equals("I"))
-            holder.state.setText("In Transit");
+
 
 
         return view;

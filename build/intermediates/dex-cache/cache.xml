@@ -8,5 +8,40 @@
         sha1="45fbaab416fb5cff992e662d1f7a83786f084fc3">
         <dex dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\ksoap2-android-assembly-3.4.0-jar-with-dependencies-fed8817c135ad48a4c22414c9b59faa0ab70da59.jar" />
     </item>
+    <item
+        jar="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-5b796961f26a719fd295847d2f785b17277cfa94.jar" />
+    </item>
+    <item
+        jar="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\classes-30ece16164d32681dadac7ad93e8757c5a57a58a.jar" />
+    </item>
+    <item
+        jar="C:\Users\AnilU\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3.1\ecb6e1f8e4b0e84c4b886c2f14a1500caf309757\gson-2.3.1.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\gson-2.3.1-66c19ecc98f10348d64886b3e19e1fe1361b112f.jar" />
+    </item>
+    <item
+        jar="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\classes-feeac1bb910feeac4b56e4254500619dbc25f940.jar" />
+    </item>
+    <item
+        jar="D:\Android\Android\adt-bundle-windows-x86-20140702\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="C:\Users\AnilU\Documents\Motarpart\Motarpart\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-1fe63473a7e5a131cc15d10633b8104df787b885.jar" />
+    </item>
 
 </items>

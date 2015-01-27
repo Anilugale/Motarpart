@@ -8,14 +8,12 @@
         android:id="@+id/cart_cnt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
         android:padding="5dp"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:textSize="20sp"
         android:textStyle="bold"
         android:text="ORDER DETAIL"
-
-        android:background="#1B62A2"/>
+        />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -29,7 +27,7 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:text="ORDER NUMBER"
-            android:background="#D7E5F0"/>
+            />
         <TextView
             android:id="@+id/order_number"
             android:layout_width="0dp"
@@ -41,7 +39,7 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:text="X"
-            android:background="#D7E5F0"/>
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -59,7 +57,7 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:text="NO OF ITEM"
-            android:background="#D7E5F0"/>
+            />
         <TextView
             android:id="@+id/no_of_item"
             android:layout_width="0dp"
@@ -71,19 +69,33 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:text="X"
-            android:background="#D7E5F0"/>
+            />
     </LinearLayout>
-
+    <View
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#000"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
     <ListView
 
         android:id="@+id/order_history"
         android:dividerHeight="5dp"
+        android:scrollbars="none"
+        android:layout_margin="10dp"
         android:divider="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="0dp" android:layout_weight="15"/>
-
-        <LinearLayout
+    <View
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#000"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -98,7 +110,7 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:text="SUB TOTAL"
-            android:background="#D7E5F0"/>
+            />
         <TextView
             android:id="@+id/subtotal"
             android:layout_width="0dp"
@@ -106,11 +118,11 @@
             android:layout_height="wrap_content"
 
             android:padding="5dp"
-            android:gravity="right"
+            android:gravity="left"
             android:textSize="15sp"
             android:textStyle="bold"
             android:text="X"
-            android:background="#D7E5F0"/>
+            />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -127,7 +139,7 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:text="SUB TOTAL"
-            android:background="#D7E5F0"/>
+            />
         <TextView
             android:id="@+id/vat_price"
             android:layout_width="0dp"
@@ -135,11 +147,11 @@
             android:layout_height="wrap_content"
 
             android:padding="5dp"
-            android:gravity="right"
+            android:gravity="left"
             android:textSize="15sp"
             android:textStyle="bold"
             android:text="X"
-            android:background="#D7E5F0"/>
+            />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -156,18 +168,18 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:text="TOTAL"
-            android:background="#D7E5F0"/>
+            />
         r<TextView
-            android:id="@+id/grand_total"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
+        android:id="@+id/grand_total"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
 
-            android:padding="5dp"
-            android:gravity="right"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:text="X"
-            android:background="#D7E5F0"/>
+        android:padding="5dp"
+        android:gravity="left"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="X"
+        />
     </LinearLayout>
 </LinearLayout>

@@ -1,224 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="#ffdfdfdf"
-    android:layout_marginLeft="10dp"
-    android:layout_marginBottom="10dp"
-    android:layout_marginRight="10dp"
+    android:orientation="horizontal"
+    android:background="#000"
+    android:layout_margin="10dp"
+    android:padding="0.5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:background="#ff6c6d7e"
-        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="#fff"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content">
         <TextView
-            android:textColor="#fff"
             android:padding="10dp"
-
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="14sp"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+
             android:text="ORDER NUMBER"/>
+        <TextView
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TOTAL"/>
+
+
 
         <TextView
-            android:paddingRight="10dp"
-            android:textColor="#fff"
-            android:id="@+id/od_number"
-            android:gravity="right"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:padding="10dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:text="Date"/>
+            android:text="ORDER DATE"/>
+
     </LinearLayout>
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:background="#fff"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
         android:layout_height="wrap_content">
 
-        <LinearLayout
 
-            android:orientation="vertical"
-            android:layout_width="0dp"
+        <TextView
+
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:gravity="left"
+            android:id="@+id/od_number"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <TextView
-                android:textStyle="bold"
-                android:paddingLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
 
-                android:text="NUMBER OF ITEM"/>
+            android:textSize="14sp"
+            android:text="3300"/>
 
-            <TextView
+        <TextView
 
-                android:paddingLeft="10dp"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            android:padding="10dp"
 
-                android:text="ORDER AMOUNT"/>
-            <TextView
-                android:id="@+id/vat_per"
-                android:paddingLeft="10dp"
-                android:gravity="left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="16% VAT"/>
-            <View
-                android:background="#000"
-                android:layout_width="match_parent"
-                android:layout_height="0.5sp"/>
-            <TextView
-                android:textStyle="bold"
-                android:paddingLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TOTAL"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"/>
-
-            <TextView
-
-                android:paddingLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="PAYMENT MODE"/>
-            <TextView
-
-                android:paddingLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="REFERENCE #"/>
-            <TextView
-
-                android:paddingLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="ORDER STATUS"/>
-            <TextView
-
-                android:paddingLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="ORDER DATE"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginRight="10dp"
-            android:orientation="vertical"
-            android:layout_width="0dp"
+            android:gravity="left"
+            android:id="@+id/grand_total"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
 
+            android:textSize="14sp"
+            android:text="3300"/>
+        <TextView
+            android:padding="10dp"
+           android:gravity="left"
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-            <TextView
-                android:id="@+id/count"
-                android:paddingLeft="10dp"
-                android:gravity="right"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:text="3"/>
-            <TextView
-                android:id="@+id/item_total"
-                android:paddingLeft="10dp"
-                android:gravity="right"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:text="300"/>
-
-            <TextView
-                android:id="@+id/vat_total"
-                android:paddingLeft="10dp"
-                android:gravity="right"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:text="300"/>
-
-
-            <View
-                android:background="#000"
-                android:layout_width="match_parent"
-                android:layout_height="0.5sp"/>
-
-            <TextView
-
-                android:paddingLeft="10dp"
-                android:gravity="right"
-                android:id="@+id/grand_total"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:text="3300"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"/>
-
-            <TextView
-
-                android:paddingLeft="10dp"
-                android:gravity="right"
-                android:id="@+id/mode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:text="XX"/>
-            <TextView
-
-                android:paddingLeft="10dp"
-                android:gravity="right"
-                android:id="@+id/payment_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:text="XX"/>
-            <TextView
-
-                android:paddingLeft="10dp"
-                android:gravity="right"
-                android:id="@+id/state"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:text="XX"/>
-            <TextView
-
-                android:paddingLeft="10dp"
-                android:gravity="right"
-                android:id="@+id/date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:text="XX"/>
-
-
-
-        </LinearLayout>
+            android:textSize="14sp"
+            android:text="XX"/>
 
     </LinearLayout>
+
+
+
+
 
 
 

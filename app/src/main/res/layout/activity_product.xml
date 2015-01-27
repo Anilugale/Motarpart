@@ -3,22 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ffc5c5c5"
+    android:background="#fff5f5f5"
     >
     <TextView
         android:id="@+id/cart_cnt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
         android:padding="5dp"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:textSize="20sp"
         android:textStyle="bold"
         android:text="Products"
-        android:drawableLeft="@drawable/check_list"
-        android:background="#1B62A2"
+
+        />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:background="#000"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10sp"
         />
     <ListView
+       android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:dividerHeight="5dp"

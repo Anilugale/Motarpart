@@ -95,7 +95,7 @@ public class WishAdapter extends BaseAdapter {
         TextView product_mrp = (TextView) vi.findViewById(R.id.product_mrp);
         TextView product_code = (TextView) vi.findViewById(R.id.product_code);
         TextView product_number = (TextView) vi.findViewById(R.id.product_number);
-        TextView product_oem_no = (TextView) vi.findViewById(R.id.product_oem_no);
+
         ImageView part_images= (ImageView) vi.findViewById(R.id.part_images);
 
         imageLoader.DisplayImage(WebServiceCall.BASE_URL+product.getProductImageUrl(),part_images);
@@ -115,7 +115,7 @@ public class WishAdapter extends BaseAdapter {
         product_mrp.setText("KES."+product.getRetailerPrice());
         product_code.setText(product.getProductCode()+"");
         product_number.setText("Code."+product.getProductNumber());
-        product_oem_no.setText(product.getOME()+"");
+
 
         Button details= (Button) vi.findViewById(R.id.deatail);
 

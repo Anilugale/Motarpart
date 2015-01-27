@@ -1,41 +1,61 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:orientation="vertical"
-
-    android:background="#fff"
+    android:layout_margin="10dp"
+    android:padding="0.5dp"
+    android:background="#000"
     android:layout_height="wrap_content">
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="1dp"
-        android:background="#000"
-        android:layout_gravity="right" />
-
     <LinearLayout
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:gravity="left"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Assembly Connecting Rod" />
+
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:textOff=""
+            android:textOn=""
+            android:src="@drawable/remove"
+            android:id="@+id/remove_btn" />
+
+    </LinearLayout>
+    <View
 
         android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="#000" />
+    <LinearLayout
+        android:background="#fff"
+        android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginBottom="2dp"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:background="#fff"
             android:layout_width="wrap_content"
             android:orientation="vertical"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/product_code"
-                android:layout_width="100dp"
-                android:paddingBottom="3dp"
-                android:gravity="center"
-                android:layout_height="wrap_content"
-                android:text="RE 02210102" />
+
             <ImageView
 
                 android:padding="1dp"
-                android:background="#000"
+                android:background="#7f000000"
                 android:id="@+id/part_images"
                 android:layout_height="60dp"
                 android:layout_width="100dp"
@@ -44,50 +64,22 @@
         </LinearLayout>
 
         <LinearLayout
+            android:background="#fff"
+            android:layout_marginTop="10dp"
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+
+
+            <TextView
+                android:id="@+id/product_code"
+                android:layout_width="100dp"
+                android:paddingBottom="3dp"
+                android:gravity="left"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/product_name"
-                        android:layout_width="0dp"
-                        android:layout_weight="3"
-                        android:layout_height="wrap_content"
-                        android:textColor="#0A5692"
-                        android:gravity="center"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:text="Assembly Connecting Rod" />
-
-                    <ImageButton
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:textOff=""
-                        android:textOn=""
-                        android:src="@drawable/remove"
-                        android:id="@+id/remove_btn" />
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_margin="3dp"
-                android:layout_height="0.3dp"
-                android:background="#000" />
-
+                android:text="RE 02210102" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_gravity="right"
@@ -99,7 +91,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="wrap_content"
-                    android:text="Rs. 14200  X" />
+                    android:text="KAS. 14200  X" />
 
                 <EditText
                     android:layout_width="0dp"
@@ -124,38 +116,17 @@
                 android:padding="10dp"
                 android:layout_gravity="right"
                 android:textSize="18sp"
-                android:textColor="#CF0000"
+                android:textColor="#0A5692"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RS. 42000.01" />
+                android:text="KAS. 42000.01" />
 
         </LinearLayout>
 
     </LinearLayout>
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-
-
-        <Button
-            android:visibility="gone"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_width="150dp"
-            android:layout_alignParentRight="true"
-            android:layout_height="40dp"
-            android:drawableRight="@drawable/right_arrow"
-            android:textColor="#ffffff"
-            android:gravity="center"
-            android:background="@drawable/details_btn_back"
-            android:id="@+id/deatail" />
-
-
-    </RelativeLayout>
 
 
 </LinearLayout>

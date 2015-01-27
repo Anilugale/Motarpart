@@ -84,14 +84,14 @@ public class ProductAdapter extends BaseAdapter {
             TextView product_mrp = (TextView) vi.findViewById(R.id.product_mrp);
             TextView product_code = (TextView) vi.findViewById(R.id.product_code);
             TextView product_number = (TextView) vi.findViewById(R.id.product_number);
-            TextView product_oem_no = (TextView) vi.findViewById(R.id.product_oem_no);
+
             product_name.setText(product.getProductName());
             product_make.setText(product.getMakeName());
             product_model.setText(product.getModelName());
             product_mrp.setText("KES "+product.getRetailerPrice());
             product_code.setText(product.getProductCode()+"");
             product_number.setText("Code."+product.getProductNumber());
-            product_oem_no.setText(product.getOME()+"");
+
             ImageView part_images= (ImageView) vi.findViewById(R.id.part_images);
 
         part_images.setOnClickListener(new View.OnClickListener() {

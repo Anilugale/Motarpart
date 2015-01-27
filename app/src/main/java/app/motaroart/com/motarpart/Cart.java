@@ -69,7 +69,17 @@ public class Cart extends Activity {
         vat_per=(TextView)findViewById(R.id.vat_per);
         total_item=(TextView)findViewById(R.id.item_total);
         vat_price=(TextView)findViewById(R.id.vat_price);
-        vat_per.setText("VAT ("+settings.get(6).getKeyValue()+"%)");
+
+      double temp=0;
+        for(Setting s:settings)
+        {
+            if(s.getKeyName().equals("VAT"))
+            {
+                temp=Double.valueOf(s.getKeyValue());
+                break;
+            }
+        }
+        vat_per.setText("VAT ("+temp+"%)");
         product_grand_price=(TextView)findViewById(R.id.grand_total);
         Type listOfTestObject = new TypeToken<List<Product>>() {
         }.getType();
@@ -247,7 +257,17 @@ public class Cart extends Activity {
                 Type type = new TypeToken<List<Setting>>() {
                 }.getType();
                 settings= gson.fromJson(aVoid,type);
-                vatRate=((Double.valueOf(settings.get(6).getKeyValue()) /100.0));
+                double temp = 0;
+                for(Setting s:settings)
+                {
+                    if(s.getKeyName().equals("VAT"))
+                    {
+                        temp=Double.valueOf(s.getKeyValue());
+                        break;
+                    }
+                }
+
+                vatRate=temp /100.0;
                 init();
             }
             else
