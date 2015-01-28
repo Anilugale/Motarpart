@@ -85,7 +85,7 @@ public class OrderHistoryAdapter extends BaseAdapter {
             e.printStackTrace();
         }
 
-       holder.total.setText("" + Double.valueOf(listData.get(i).getTotalAmount()));
+       holder.total.setText("" + Double.valueOf(listData.get(i).getTotalAmount())+"0");
 
 
 
@@ -99,6 +99,7 @@ public class OrderHistoryAdapter extends BaseAdapter {
     static class ViewHolder
     {
         TextView order_no,date,count,item_total,source,mode,vat_per,vat_amt,total,state;
+
     }
 
 
