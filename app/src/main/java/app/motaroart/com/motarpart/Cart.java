@@ -212,6 +212,7 @@ public class Cart extends Activity {
                 op.setProductPrice(pro.getProductPrice());
                 op.setModelId(pro.getModelId());
                 op.setModelName(pro.getModelName());
+                op.setUrl(pro.getProductImageUrl());
                 op.setQuantity(adapter.listQty.get(pro.getProductId()));
                 productList.add(op);
             }

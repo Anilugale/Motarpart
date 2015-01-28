@@ -3,10 +3,9 @@ package app.motaroart.com.motarpart;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
@@ -28,6 +27,8 @@ public class ForgetPassword extends Activity {
 
       if(user_name.getText().length()!=0 && email.getText().length()!=0)
           new ForgetPassword1().execute(user_name.getText().toString().trim(),email.getText().toString().trim());
+      else
+          Toast.makeText(this,"Enter the username and email id!",Toast.LENGTH_SHORT).show();
   }
 
     class ForgetPassword1 extends AsyncTask<String,Void,String>

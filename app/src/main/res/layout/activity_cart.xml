@@ -13,7 +13,8 @@
         android:gravity="center"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#000"
+        android:textColor="#fff"
+        android:background="#0A5692"
         android:text="My Cart (0)"
         />
     <View

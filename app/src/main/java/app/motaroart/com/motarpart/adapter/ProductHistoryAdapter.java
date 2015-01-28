@@ -6,16 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import app.motaroart.com.motarpart.R;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
-import app.motaroart.com.motarpart.pojo.Make;
 import app.motaroart.com.motarpart.pojo.OrderDProduct;
+import app.motaroart.com.motarpart.services.WebServiceCall;
 
 /**
  * Created by Anil Ugale on 11/11/2014.
@@ -64,6 +64,7 @@ public class ProductHistoryAdapter extends BaseAdapter {
             holder.p_rate = (TextView) view.findViewById(R.id.p_rate);
             holder.p_total = (TextView) view.findViewById(R.id.p_total);
             holder.p_number = (TextView) view.findViewById(R.id.p_number);
+            holder.part_images= (ImageView) view.findViewById(R.id.part_images);
             view.setTag(holder);
         }
         else
@@ -77,7 +78,7 @@ public class ProductHistoryAdapter extends BaseAdapter {
         holder.p_qty.setText("  " + listMain.get(i).getQuantity().toUpperCase());
         holder.p_total.setText("  " + listMain.get(i).getTotalAmount().toUpperCase());
         holder.p_rate.setText("  " + listMain.get(i).getProductPrice().toUpperCase());
-
+        imageLoader.DisplayImage(WebServiceCall.BASE_URL+"img/product/"+listMain.get(i).getProductNumber()+".jpg",holder.part_images);
 
         return view;
     }
@@ -85,7 +86,7 @@ public class ProductHistoryAdapter extends BaseAdapter {
 
     static class ViewHolder {
         TextView p_name,p_qty,p_rate,p_total,p_number;
-
+        ImageView part_images;
     }
 
 }

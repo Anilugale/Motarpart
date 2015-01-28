@@ -20,6 +20,16 @@ public class OrderProduct implements Serializable
     private String ProductPrice;
     private String ProductId;
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    private String url;
+
     public String getMakeName ()
     {
         return MakeName;
