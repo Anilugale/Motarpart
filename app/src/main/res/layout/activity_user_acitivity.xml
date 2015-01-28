@@ -12,6 +12,8 @@
         android:gravity="center"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="#fff"
+        android:background="#0A5692"
         android:text="Order List"
       />
 
