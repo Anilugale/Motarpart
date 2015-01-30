@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -11,22 +10,17 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:gravity="center"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:textColor="#fff"
         android:background="#0A5692"
         android:text="Products"
 
         />
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0.5dp"
-        android:background="#000"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10sp"
-        />
+
     <ListView
-       android:layout_marginLeft="10dp"
+
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_margin="5dp"
         android:layout_width="match_parent"
@@ -35,6 +29,22 @@
         android:divider="@android:color/transparent"
         android:layout_height="match_parent"
         android:id="@+id/product_list" />
+
+    <TextView
+        android:visibility="gone"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:dividerHeight="5dp"
+        android:scrollbars="none"
+        android:gravity="center"
+        android:text="Opps! No Product found."
+        android:drawableBottom="@android:drawable/presence_busy"
+        android:textStyle="bold|italic"
+        android:textSize="17sp"
+        android:layout_height="match_parent"
+        android:id="@+id/error" />
 
 
 </LinearLayout>

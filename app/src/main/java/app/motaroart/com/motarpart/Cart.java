@@ -7,10 +7,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,10 +28,12 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import app.motaroart.com.motarpart.adapter.CartAdapter;
 import app.motaroart.com.motarpart.pojo.Order;
 import app.motaroart.com.motarpart.pojo.OrderProduct;
+import app.motaroart.com.motarpart.pojo.Price;
 import app.motaroart.com.motarpart.pojo.Product;
 import app.motaroart.com.motarpart.pojo.Setting;
 import app.motaroart.com.motarpart.pojo.User;
@@ -46,7 +55,8 @@ public class Cart extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowHomeEnabled(true);
 
         mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         if(!mPrefs.getString("Setting","").equals("")) {
@@ -70,15 +80,7 @@ public class Cart extends Activity {
         total_item=(TextView)findViewById(R.id.item_total);
         vat_price=(TextView)findViewById(R.id.vat_price);
 
-      double temp=0;
-        for(Setting s:settings)
-        {
-            if(s.getKeyName().equals("VAT"))
-            {
-                temp=Double.valueOf(s.getKeyValue());
-                break;
-            }
-        }
+
         vat_per.setText("VAT ("+temp+"%)");
         product_grand_price=(TextView)findViewById(R.id.grand_total);
         Type listOfTestObject = new TypeToken<List<Product>>() {
@@ -153,7 +155,18 @@ public class Cart extends Activity {
         }
 
 
-        totalPrice=(totalPrice - oldPrice) + newPrice;
+        double newPricedata=0.0;
+
+        for (Map.Entry<String, Price> entry : adapter.listQty.entrySet())
+        {
+
+            System.out.println(entry.getValue().qty);
+            newPricedata+=entry.getValue().price*entry.getValue().qty;
+
+
+        }
+        System.out.println(newPricedata);
+        totalPrice=newPricedata;//(totalPrice - oldPrice) + newPrice;
         total_item.setText(totalPrice+"0");
         double vatPrice=totalPrice*vatRate;
         this.vatPrice=vatPrice;
@@ -163,7 +176,8 @@ public class Cart extends Activity {
     public void updateGrandPriceMinuse(double oldPrice,double productID)
     {
 
-
+        if (count != null)
+            count.setText((int)productID + "  ");
         vat_price.setText(Math.floor(vatPrice)+"0");
         totalPrice=(totalPrice- oldPrice) ;
         total_item.setText(totalPrice+"0");
@@ -213,13 +227,13 @@ public class Cart extends Activity {
                 op.setModelId(pro.getModelId());
                 op.setModelName(pro.getModelName());
                 op.setUrl(pro.getProductImageUrl());
-                op.setQuantity(adapter.listQty.get(pro.getProductId()));
+                op.setQuantity(adapter.listQty.get(pro.getProductId()).qty+"");
                 productList.add(op);
             }
             order.setProductList(productList);
             order.setOrderAmount(String.valueOf(totalPrice));
             order.setVATAmount(String.valueOf(vatPrice));
-            order.setVATPercent(settings.get(6).getKeyValue());
+            order.setVATPercent(temp+"");
             order.setTotalAmount(String.valueOf(totalPrice + vatPrice));
 
             if(InternetState.getState(this)) {
@@ -228,6 +242,7 @@ public class Cart extends Activity {
                         Intent intent = new Intent(this, Summry.class);
                         intent.putExtra("Order", order);
                         startActivity(intent);
+                        finish();
                     }
                     else
                         Toast.makeText(this, "Quantity is 0.", Toast.LENGTH_SHORT).show();
@@ -239,7 +254,7 @@ public class Cart extends Activity {
         }
 
     }
-
+    double temp = 0;
     class DownLoadSetting extends AsyncTask<Void,Void,String>
     {
         ProgressDialog pd;
@@ -258,7 +273,7 @@ public class Cart extends Activity {
                 Type type = new TypeToken<List<Setting>>() {
                 }.getType();
                 settings= gson.fromJson(aVoid,type);
-                double temp = 0;
+
                 for(Setting s:settings)
                 {
                     if(s.getKeyName().equals("VAT"))
@@ -285,6 +300,90 @@ public class Cart extends Activity {
           return mPrefs.getString("Setting","");
 
         }
+    }
+
+
+
+    /// Cart menu and data
+    TextView count;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+
+        count = new TextView(this);
+
+        count.setTextColor(Color.BLUE);
+
+
+        LinearLayout.LayoutParams imgvwDimens =
+                new LinearLayout.LayoutParams(100, 100);
+        count.setGravity(Gravity.TOP | Gravity.RIGHT);
+        count.setLayoutParams(imgvwDimens);
+        count.setBackgroundResource(R.drawable.cart);
+        count.setPadding(5, 5, 5, 5);
+        count.setTypeface(null, Typeface.BOLD);
+        SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+        String JsonStr = mPrefs.getString("cart", "");
+        Gson gson = new Gson();
+        Type listOfTestObject = new TypeToken<List<Product>>() {
+        }.getType();
+        List<Product> list = gson.fromJson(JsonStr, listOfTestObject);
+        if (list!=null) {
+            count.setText(list.size() + "  ");
+        } else {
+            count.setText(0 + "  ");
+        }
+
+        count.setTextSize(15);
+        menu.add(0, 0, 1, "count").setActionView(count).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return true;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+        String JsonStr = mPrefs.getString("cart", "");
+        Gson gson = new Gson();
+        Type listOfTestObject = new TypeToken<List<Product>>() {
+        }.getType();
+        List<Product> list = gson.fromJson(JsonStr, listOfTestObject);
+        if (count != null&&list!=null)
+            count.setText(list.size() + "  ");
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id ==android.R.id.home)
+        {
+            Intent homeIntent = new Intent(this, MakeActivity.class);
+            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
+        }
+
+        if (id == R.id.action_user) {
+            startActivity(new Intent(this, Login.class));
+            return true;
+        }
+        if(id==R.id.action_wish){
+            if(InternetState.getState(this)) {
+                startActivity(new Intent(this, WishActivity.class));
+            }
+            Toast.makeText(this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

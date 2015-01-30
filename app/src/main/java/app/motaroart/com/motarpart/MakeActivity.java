@@ -20,8 +20,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -83,7 +83,7 @@ public class MakeActivity extends Activity
             }
         });
 
-        Button searchKey=(Button)findViewById(R.id.searchKey);
+        ImageButton searchKey=(ImageButton)findViewById(R.id.searchKey);
         searchKey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,11 +113,7 @@ public class MakeActivity extends Activity
 
     }
 
-    @Override
-    protected void onRestart() {
-        new DownloadData().execute();
-        super.onRestart();
-    }
+
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -172,7 +168,7 @@ public class MakeActivity extends Activity
     }
 
     @Override
-    protected void onResume() {
+    protected void onRestart() {
         super.onRestart();
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -193,15 +189,14 @@ public class MakeActivity extends Activity
             count.setText(list.size() + "  ");
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
 
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
         if (id == R.id.action_user) {
             startActivity(new Intent(this, Login.class));
             return true;

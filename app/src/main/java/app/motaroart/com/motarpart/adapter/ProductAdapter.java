@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,7 +85,14 @@ public class ProductAdapter extends BaseAdapter {
             TextView product_mrp = (TextView) vi.findViewById(R.id.product_mrp);
             TextView product_code = (TextView) vi.findViewById(R.id.product_code);
             TextView product_number = (TextView) vi.findViewById(R.id.product_number);
+        TextView stock = (TextView) vi.findViewById(R.id.is_available);
 
+        if(product.getIsAvailable().equals("true"))
+            stock.setText("In Stock");
+        else {
+            stock.setTextColor(Color.parseColor("#CC0000"));
+            stock.setText("Out of Stock");
+        }
             product_name.setText(product.getProductName());
             product_make.setText(product.getMakeName());
             product_model.setText(product.getModelName());
@@ -113,50 +121,50 @@ public class ProductAdapter extends BaseAdapter {
             add_2cart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    SharedPreferences mPrefs = activity.getSharedPreferences(activity.getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
-                    String JsonStr =mPrefs.getString("cart","");
-                    Gson gson = new Gson();
-                    Type listOfTestObject = new TypeToken<List<Product>>() {
-                    }.getType();
-                    List<Product>list = gson.fromJson(JsonStr, listOfTestObject);
-                    boolean flag=false;
-                    if (list!=null) {
-                        for (Product pro:list)
-                        {
-                            if(pro.getProductId().equals(product.getProductId()))
-                            {
-                                flag=true;
-                                break;
+                    if (product.getIsAvailable().equals("true")) {
+                        SharedPreferences mPrefs = activity.getSharedPreferences(activity.getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+                        String JsonStr = mPrefs.getString("cart", "");
+                        Gson gson = new Gson();
+                        Type listOfTestObject = new TypeToken<List<Product>>() {
+                        }.getType();
+                        List<Product> list = gson.fromJson(JsonStr, listOfTestObject);
+                        boolean flag = false;
+                        if (list != null) {
+                            for (Product pro : list) {
+                                if (pro.getProductId().equals(product.getProductId())) {
+                                    flag = true;
+                                    break;
+                                }
                             }
+                        } else {
+                            list = new ArrayList<Product>();
                         }
-                    }
-                    else
-                    {
-                        list=new ArrayList<Product>();
-                    }
-                    if(flag!=true)
-                    {
-                        list.add(product);
-                        String json=gson.toJson(list,listOfTestObject);
-                        mPrefs.edit().putString("cart",json).apply();
-                        ((ProductActivity)activity).updateCart(list.size());
-                        Toast.makeText(activity, "Product added in cart", Toast.LENGTH_LONG).show();
-                    }
-                    else
-                    {
-                        new AlertDialog.Builder(activity)
-                                .setTitle(activity.getResources().getString(R.string.app_name))
-                                .setMessage("This Product is already in Cart")
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
+                        if (flag != true) {
+                            list.add(product);
+                            String json = gson.toJson(list, listOfTestObject);
+                            mPrefs.edit().putString("cart", json).apply();
+                            ((ProductActivity) activity).updateCart(list.size());
+                            Toast.makeText(activity, "Product added in cart", Toast.LENGTH_LONG).show();
+                        } else {
+                            new AlertDialog.Builder(activity)
+                                    .setTitle(activity.getResources().getString(R.string.app_name))
+                                    .setMessage("This Product is already in Cart")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
 
-                                    }
-                                })
+                                        }
+                                    })
 
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        }
+                    } else
+                    {
+                        Toast.makeText(activity,"Out of Stock",Toast.LENGTH_SHORT).show();
                     }
+
                 }
+
             });
 
 

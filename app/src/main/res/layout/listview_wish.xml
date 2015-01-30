@@ -25,7 +25,8 @@
             android:text="Assembly Connecting Rod" />
 
         <ImageButton
-            android:padding="10dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:textOff=""
@@ -146,6 +147,17 @@
                 android:background="@drawable/add_cart_btn_back"
                 android:id="@+id/add_2cart" />
         </LinearLayout>
+        <TextView
+            android:layout_below="@+id/product_number"
+            android:id="@+id/is_available"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:textColor="#ff0e921f"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="In Stock" />
 
     </LinearLayout>
 

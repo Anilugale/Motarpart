@@ -156,6 +156,17 @@
                 android:background="@drawable/add_cart_btn_back"
                 android:id="@+id/add_2cart"
                 android:layout_width="120dp" />
+            <TextView
+                android:layout_below="@+id/product_number"
+                android:id="@+id/is_available"
+                android:padding="5dp"
+                android:layout_gravity="center"
+                android:textSize="18sp"
+                android:textColor="#ff0e921f"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="In Stock" />
 
         </RelativeLayout>
         <View
@@ -172,7 +183,6 @@
             android:gravity="center"
             android:textSize="15sp"
             android:textStyle="bold"
-
             android:text="Description"
             />
         <View

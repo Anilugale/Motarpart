@@ -86,33 +86,34 @@
 
 
             <TextView
+                android:textColor="#000"
                 android:layout_gravity="right"
                 android:id="@+id/product_make"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Make: BMW"
-                android:textColor="#979799"
+
                 android:textSize="15sp"/>
             <TextView
                 android:id="@+id/product_model"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Model: Mahindra and Mahindra"
-                android:textColor="#979799"
+                android:textColor="#000"
                 android:textSize="15sp"/>
             <TextView
                 android:id="@+id/product_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="OEM No:0022656"
-                android:textColor="#979799"
+                android:textColor="#000"
                 android:textSize="15sp"/>
             <TextView
                 android:id="@+id/product_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Number: LX00210"
-                android:textColor="#979799"
+                android:textColor="#000"
                 android:textSize="15sp"/>
 
         </LinearLayout>
@@ -149,6 +150,16 @@
                 android:background="@drawable/add_cart_btn_back"
                 android:id="@+id/add_2cart" />
         </LinearLayout>
+        <TextView
+            android:id="@+id/is_available"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:textColor="#ff0e921f"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="In Stock" />
 
     </LinearLayout>
 
