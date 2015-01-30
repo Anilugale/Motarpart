@@ -22,6 +22,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import app.motaroart.com.motarpart.adapter.ProductHistoryAdapter;
@@ -78,9 +81,20 @@ public class OrderDetail extends Activity {
 
     private void init() {
         TextView order_number=(TextView)findViewById(R.id.order_number);
-        order_number.setText(orderDetails.getOrder().get(0).getOrderNumber());
+        order_number.setText(orderDetails.getOrder().get(0).getOrderNumber().replace(".0",""));
+
         TextView no_of_item=(TextView)findViewById(R.id.no_of_item);
-        no_of_item.setText(orderDetails.getOrder().get(0).getOrderDate())  ;
+
+        SimpleDateFormat  format =new SimpleDateFormat("dd/mm/yyyy HH:MM:ss");
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        Date date = null;
+        try {
+             date=format1.parse(orderDetails.getOrder().get(0).getOrderDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        no_of_item.setText(format.format(date))  ;
 
         TextView subtotal=(TextView)findViewById(R.id.subtotal);
         subtotal.setText(orderDetails.getOrder().get(0).getOrderAmount());

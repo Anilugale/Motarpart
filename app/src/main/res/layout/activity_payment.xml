@@ -122,7 +122,7 @@
         android:layout_width="match_parent"
         android:background="@drawable/btn_back"
         android:layout_height="wrap_content"
-        android:text="Pay Now"/>
+        android:text="Place Order"/>
 
     <RelativeLayout
         android:id="@+id/card_details"
