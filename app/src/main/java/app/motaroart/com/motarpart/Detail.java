@@ -66,7 +66,7 @@ public class Detail extends Activity {
         TextView stock = (TextView) findViewById(R.id.is_available);
 
         if(product.getIsAvailable().equals("true"))
-            stock.setText("In Stock");
+            stock.setText("Available");
         else {
             stock.setTextColor(Color.parseColor("#CC0000"));
             stock.setText("Out of Stock");

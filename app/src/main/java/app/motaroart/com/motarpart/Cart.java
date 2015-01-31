@@ -160,12 +160,12 @@ public class Cart extends Activity {
         for (Map.Entry<String, Price> entry : adapter.listQty.entrySet())
         {
 
-            System.out.println(entry.getValue().qty);
+
             newPricedata+=entry.getValue().price*entry.getValue().qty;
 
 
         }
-        System.out.println(newPricedata);
+
         totalPrice=newPricedata;//(totalPrice - oldPrice) + newPrice;
         total_item.setText(totalPrice+"0");
         double vatPrice=totalPrice*vatRate;
@@ -178,8 +178,17 @@ public class Cart extends Activity {
 
         if (count != null)
             count.setText((int)productID + "  ");
+        double newPricedata=0.0;
+        for (Map.Entry<String, Price> entry : adapter.listQty.entrySet())
+        {
+
+
+            newPricedata+=entry.getValue().price*entry.getValue().qty;
+
+
+        }
         vat_price.setText(Math.floor(vatPrice)+"0");
-        totalPrice=(totalPrice- oldPrice) ;
+        totalPrice=newPricedata;//(totalPrice- oldPrice) ;
         total_item.setText(totalPrice+"0");
         this.vatPrice=totalPrice*vatRate;
         cart_cnt.setText("My Cart (" + productID + ")");
@@ -278,7 +287,7 @@ public class Cart extends Activity {
                 {
                     if(s.getKeyName().equals("VAT"))
                     {
-                        temp=Double.valueOf(s.getKeyValue());
+                        temp=Integer.valueOf(s.getKeyValue());
                         break;
                     }
                 }

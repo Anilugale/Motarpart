@@ -169,6 +169,7 @@ public class MakeActivity extends Activity
 
     @Override
     protected void onRestart() {
+
         super.onRestart();
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);

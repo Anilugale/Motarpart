@@ -12,12 +12,11 @@
         android:layout_height="wrap_content"
         android:textColor="#fff"
         android:padding="10dp"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:text="Login"
-        android:drawableLeft="@drawable/check_list"
-        android:background="#1B62A2"
+        android:text="Login / Register"
+          android:background="#1B62A2"
         android:layout_marginBottom="10dp"/>
     <LinearLayout
         android:orientation="vertical"
@@ -31,7 +30,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Enter your user name"
+            android:hint=" Username"
             android:paddingLeft="5dp"
             android:background="@drawable/edit_text_back"
             android:gravity="center_vertical"
@@ -40,7 +39,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Enter your password"
+            android:hint=" Password"
             android:layout_marginTop="10dp"
             android:paddingLeft="5dp"
             android:inputType="textPassword"
@@ -94,7 +93,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".9"
-                android:text="Sign Up"
+                android:text="Register"
                 android:gravity="center"
                 android:textStyle="bold"
                 android:id="@+id/singup" />

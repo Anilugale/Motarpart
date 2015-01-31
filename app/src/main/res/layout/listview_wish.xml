@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:padding="1sp"
-    android:background="#000"
+    android:background="#2e000000"
     android:layout_height="wrap_content">
     <LinearLayout
         android:background="#fff"
@@ -13,6 +13,7 @@
 
         android:orientation="horizontal">
         <TextView
+            android:textColor="#000"
             android:id="@+id/product_name"
             android:layout_width="0dp"
             android:layout_weight="3"
@@ -20,15 +21,15 @@
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:gravity="left"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:text="Assembly Connecting Rod" />
 
         <ImageButton
             android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textOff=""
             android:textOn=""
             android:background="@drawable/remove"
@@ -89,29 +90,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Make: BMW"
-                android:textColor="#979799"
-                android:textSize="15sp"/>
+
+                android:textColor="#000"
+                android:textSize="13sp"/>
             <TextView
                 android:id="@+id/product_model"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Model: Mahindra and Mahindra"
-                android:textColor="#979799"
-                android:textSize="15sp"/>
+                android:textColor="#000"
+                android:textSize="13sp"/>
             <TextView
                 android:id="@+id/product_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="OEM No:0022656"
-                android:textColor="#979799"
-                android:textSize="15sp"/>
+                android:textColor="#000"
+                android:textSize="13sp"/>
             <TextView
                 android:id="@+id/product_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Number: LX00210"
-                android:textColor="#979799"
-                android:textSize="15sp"/>
+                android:textColor="#000"
+                android:textSize="13sp"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -130,7 +132,7 @@
             android:text="KN.120"
             android:textStyle="bold"
             android:textColor="#0A5692"
-            android:textSize="18sp"/>
+            android:textSize="15sp"/>
 
 
         <LinearLayout
@@ -138,7 +140,7 @@
             android:layout_weight="3"
             android:layout_height="wrap_content">
             <Button
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginBottom="10dp"
                 android:layout_width="100dp"
                 android:layout_height="30dp"
@@ -152,7 +154,7 @@
             android:id="@+id/is_available"
             android:padding="5dp"
             android:layout_gravity="center"
-            android:textSize="18sp"
+            android:textSize="12sp"
             android:textColor="#ff0e921f"
             android:textStyle="bold"
             android:layout_width="wrap_content"

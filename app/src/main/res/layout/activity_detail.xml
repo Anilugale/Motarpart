@@ -23,12 +23,7 @@
 
             android:text="Assembly Connecting Rod"
             />
-        <View
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#87000000"/>
+
 
 
         <LinearLayout
@@ -95,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:text="Mahindra and Mahindra"
                     android:textColor="#000"
-                    android:textSize="15sp"/>
+                    android:textSize="13sp"/>
                 <TextView
                     android:id="@+id/product_mrp"
                     android:layout_width="0dp"
@@ -106,7 +101,7 @@
                     android:gravity="right"
                     android:textStyle="bold"
                     android:textColor="#000080"
-                    android:textSize="15sp"/>
+                    android:textSize="13sp"/>
             </LinearLayout>
 
 
@@ -132,7 +127,7 @@
                 android:paddingRight="10dp"
                 android:gravity="left"
                 android:textColor="#000"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:text="CN200012"
                 android:id="@+id/product_code" />
             <TextView
@@ -144,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:text="LX00210"
                 android:textColor="#000"
-                android:textSize="15sp"/>
+                android:textSize="13sp"/>
             <Button
 
                 android:layout_marginRight="10dp"
@@ -157,14 +152,17 @@
                 android:id="@+id/add_2cart"
                 android:layout_width="120dp" />
             <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="right"
                 android:layout_below="@+id/product_number"
                 android:id="@+id/is_available"
                 android:padding="5dp"
                 android:layout_gravity="center"
-                android:textSize="18sp"
+                android:textSize="13sp"
                 android:textColor="#ff0e921f"
                 android:textStyle="bold"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="In Stock" />
 

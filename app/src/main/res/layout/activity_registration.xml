@@ -7,17 +7,17 @@
     tools:context="app.motaroart.com.motarpart.Login">
 
     <TextView
+        android:layout_gravity="center"
         android:id="@+id/cart_cnt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#fff"
+        android:background="#1B62A2"
         android:padding="10dp"
         android:gravity="center_vertical"
-        android:textSize="20sp"
+        android:textSize="15dp"
         android:textStyle="bold"
-        android:text="Registration"
-        android:drawableLeft="@drawable/check_list"
-        android:background="#1B62A2"/>
+        android:text="Create Account"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -32,15 +32,9 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
-                android:text="Sign Up"
-                android:textSize="25sp" />
 
             <EditText
+                android:layout_marginTop="10dp"
                 android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="40dip"
@@ -59,19 +53,6 @@
                 android:gravity="center_vertical"
                 android:hint="Username"
                 android:paddingLeft="5dp" />
-
-            <EditText
-                android:id="@+id/mobile"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/edit_text_back"
-                android:gravity="center_vertical"
-                android:maxLength="10"
-                android:inputType="number"
-                android:hint="Mobile Number"
-                android:paddingLeft="5dp" />
-
             <EditText
                 android:id="@+id/password1"
                 android:inputType="textWebPassword"
@@ -94,6 +75,20 @@
                 android:gravity="center_vertical"
                 android:hint="Confirm Password"
                 android:paddingLeft="5dp" />
+
+            <EditText
+                android:id="@+id/mobile"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edit_text_back"
+                android:gravity="center_vertical"
+                android:maxLength="10"
+                android:inputType="number"
+                android:hint="Mobile Number"
+                android:paddingLeft="5dp" />
+
+
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
@@ -107,13 +102,15 @@
                 android:paddingLeft="5dp" />
 
             <CheckBox
+                android:textColor="#fff"
+                android:background="#1B62A2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:text="Company Detail"
                 android:id="@+id/company_detail"
-                android:textSize="25sp" />
+                android:textSize="15dp" />
             <RadioGroup
                 android:visibility="gone"
                 android:id="@+id/user_type"
@@ -178,13 +175,16 @@
 
 
             <CheckBox
+                android:layout_marginTop="10dp"
+                android:textColor="#fff"
+                android:background="#1B62A2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:text="Postal Address"
                 android:id="@+id/postal_address"
-                android:textSize="25sp" />
+                android:textSize="15sp" />
 
             <EditText
                 android:visibility="gone"
@@ -243,17 +243,20 @@
 
 
             <CheckBox
+                android:textColor="#fff"
+                android:background="#1B62A2"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:text="Shipping Address"
                 android:id="@+id/shipping_address"
-                android:textSize="25sp" />
+                android:textSize="15sp" />
 
             <EditText
+
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:visibility="gone"

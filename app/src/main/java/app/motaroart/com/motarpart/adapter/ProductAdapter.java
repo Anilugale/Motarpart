@@ -88,7 +88,7 @@ public class ProductAdapter extends BaseAdapter {
         TextView stock = (TextView) vi.findViewById(R.id.is_available);
 
         if(product.getIsAvailable().equals("true"))
-            stock.setText("In Stock");
+            stock.setText("Available");
         else {
             stock.setTextColor(Color.parseColor("#CC0000"));
             stock.setText("Out of Stock");
