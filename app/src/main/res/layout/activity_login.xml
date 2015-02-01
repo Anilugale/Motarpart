@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D7E5F0"
+    android:background="#fff4f4f4"
     tools:context="app.motaroart.com.motarpart.Login"
     android:orientation="vertical"
     android:weightSum="1">
@@ -66,7 +66,40 @@
             android:textColor="#ffffff"
             android:background="@drawable/btn_back"
             android:id="@+id/button" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="0dip"
+                android:layout_height="0.01dp"
+                android:layout_weight=".9"
+                android:layout_gravity="center"
+                android:background="#ffbababa"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="New Customer ? "/>
+            <View
+                android:layout_width="0dip"
+                android:layout_height="0.01dp"
+                android:layout_weight=".9"
+                android:layout_gravity="center"
+                android:background="#ffbababa"/>
+        </LinearLayout>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Forget Password"
+            android:onClick="register"
+            android:textColor="#ffffff"
+            android:background="@drawable/btn_back"
+          />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,50 +111,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".9"
                 android:textStyle="bold"
+                android:textColor="#ff00139f"
                 android:textIsSelectable="true"
                 android:gravity="center"
                 android:text="Forget Password?"
                 android:id="@+id/forget_password" />
-            <View
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:background="#000000"
 
-                android:layout_weight=".01"/>
+        </LinearLayout>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".9"
-                android:text="Register"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:id="@+id/singup" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="20dp"
-            android:layout_height="wrap_content">
-            <View
-                android:layout_width="0dip"
-                android:layout_height="0.01dp"
-                android:layout_weight=".9"
-                android:layout_gravity="center"
-                android:background="#000000"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="***"/>
-            <View
-                android:layout_width="0dip"
-                android:layout_height="0.01dp"
-                android:layout_weight=".9"
-                android:layout_gravity="center"
-                android:background="#000000"/>
-        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

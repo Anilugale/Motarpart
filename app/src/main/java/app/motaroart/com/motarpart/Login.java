@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.InputType;
 import android.view.View;
 import android.widget.CheckBox;
@@ -24,7 +25,7 @@ import org.json.JSONObject;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
-public class Login extends Activity {
+public class Login extends ActionBarActivity {
 
     EditText name, pass;
     SharedPreferences pref;
@@ -60,16 +61,7 @@ public class Login extends Activity {
         });
 
 
-        final TextView temp = (TextView) findViewById(R.id.singup);
-        temp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Login.this, Registration.class);
-                startActivity(intent);
-                finish();
 
-            }
-        });
         final TextView forget_password = (TextView) findViewById(R.id.forget_password);
         forget_password.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +73,12 @@ public class Login extends Activity {
         });
 
     }
+    public void register(View view) {
+        Intent intent = new Intent(Login.this, Registration.class);
+        startActivity(intent);
+        finish();
 
+    }
     public void loginData(View view) {
 
         if (validateData()) {

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -26,7 +27,7 @@ import app.motaroart.com.motarpart.pojo.Customer;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
-public class Registration extends Activity {
+public class Registration extends ActionBarActivity {
 
 
     EditText company_name,tin_number,vat_number,addresss1,addresss2, city_p,po_code,username,pass,pass1,email,mobile,name,address1,address2,state,city,pobox;
@@ -155,6 +156,7 @@ public class Registration extends Activity {
             Toast.makeText(this, "invalid the email id!", Toast.LENGTH_SHORT).show();
         } else {
             customer = new Customer();
+            customer.setAccountType("C");
             customer.setName(name.getText().toString().trim());
             customer.setLoginId(username.getText().toString().trim());
             customer.setLoginPwd(passw1.trim());

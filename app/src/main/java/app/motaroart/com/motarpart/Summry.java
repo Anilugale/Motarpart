@@ -7,12 +7,15 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,11 +29,13 @@ import java.util.List;
 import app.motaroart.com.motarpart.pojo.Order;
 import app.motaroart.com.motarpart.pojo.Product;
 import app.motaroart.com.motarpart.pojo.User;
+import app.motaroart.com.motarpart.services.InternetState;
 
 
-public class Summry extends Activity {
+public class Summry extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-
+    private NavigationDrawerFragment mNavigationDrawerFragment;
+    private CharSequence mTitle;
     SharedPreferences mPrefs;
     Order order;
     EditText add1,add2,state,city,pobox;
@@ -39,6 +44,38 @@ public class Summry extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summry);
+
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mTitle = getTitle();
+
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+        ImageButton searchKey=(ImageButton)findViewById(R.id.searchKey);
+        searchKey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText keySearch=(EditText)findViewById(R.id.keySearch);
+                if(keySearch.getText().toString().trim().length()>0) {
+
+                    if(InternetState.getState(Summry.this)) {
+                        Intent i = new Intent(Summry.this, ProductActivity.class);
+                        SharedPreferences.Editor edit = mPrefs.edit();
+                        edit.putString("searchKey", keySearch.getText().toString());
+                        edit.apply();
+                        startActivity(i);
+                    }
+                    else
+                        Toast.makeText(Summry.this, "Connection has lost", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+
+
         order= (Order) getIntent().getSerializableExtra("Order");
         mPrefs=getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
         String userStr=  mPrefs.getString("user","");
@@ -155,10 +192,10 @@ public class Summry extends Activity {
         });
         LinearLayout.LayoutParams imgvwDimens =
                 new LinearLayout.LayoutParams(100, 100);
-        count.setGravity(Gravity.TOP | Gravity.RIGHT);
+        count.setGravity(Gravity.TOP | Gravity.CENTER);
         count.setLayoutParams(imgvwDimens);
         count.setBackgroundResource(R.drawable.cart);
-        count.setPadding(5, 5, 5, 5);
+        count.setPadding(5, 8, 5, 5);
         count.setTypeface(null, Typeface.BOLD);
         SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         String JsonStr = mPrefs.getString("cart", "");
@@ -209,5 +246,10 @@ public class Summry extends Activity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
+
     }
 }

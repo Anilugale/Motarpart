@@ -3,6 +3,7 @@ package app.motaroart.com.motarpart;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,7 +11,7 @@ import android.widget.Toast;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
-public class ForgetPassword extends Activity {
+public class ForgetPassword extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

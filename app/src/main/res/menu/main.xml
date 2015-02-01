@@ -1,6 +1,7 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto"
+>
 
 
 
@@ -10,12 +11,12 @@
         android:id="@+id/action_wish"
         android:title="User"
         android:icon="@drawable/wish2"
-        android:showAsAction="always"
-        tools:ignore="AppCompatResource" />
+        yourapp:showAsAction="always"
+      />
     <item
         android:id="@+id/action_user"
         android:title="User"
         android:icon="@drawable/user"
-        android:showAsAction="always"
-        tools:ignore="AppCompatResource" />
+        yourapp:showAsAction="always"
+       />
 </menu>

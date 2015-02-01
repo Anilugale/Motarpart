@@ -11,15 +11,20 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -34,23 +39,58 @@ import app.motaroart.com.motarpart.adapter.WishAdapter;
 import app.motaroart.com.motarpart.pojo.Product;
 import app.motaroart.com.motarpart.pojo.User;
 import app.motaroart.com.motarpart.pojo.Wish;
+import app.motaroart.com.motarpart.services.InternetState;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
-public class WishActivity extends Activity {
+public class WishActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
     SharedPreferences mPrefs;
-
+    private NavigationDrawerFragment mNavigationDrawerFragment;
+    private CharSequence mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wish);
 
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mTitle = getTitle();
+
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+        ImageButton searchKey=(ImageButton)findViewById(R.id.searchKey);
+        searchKey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText keySearch=(EditText)findViewById(R.id.keySearch);
+                if(keySearch.getText().toString().trim().length()>0) {
+
+                    if(InternetState.getState(WishActivity.this)) {
+                        Intent i = new Intent(WishActivity.this, ProductActivity.class);
+                        SharedPreferences.Editor edit = mPrefs.edit();
+                        edit.putString("searchKey", keySearch.getText().toString());
+                        edit.apply();
+                        startActivity(i);
+                    }
+                    else
+                        Toast.makeText(WishActivity.this, "Connection has lost", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+
         mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         new GetWish().execute();
     }
 
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
 
+    }
 
 
     class GetWish extends AsyncTask<Void,Void,String>
@@ -173,10 +213,10 @@ public class WishActivity extends Activity {
         });
         LinearLayout.LayoutParams imgvwDimens =
                 new LinearLayout.LayoutParams(100, 100);
-        count.setGravity(Gravity.TOP | Gravity.RIGHT);
+        count.setGravity(Gravity.TOP | Gravity.CENTER);
         count.setLayoutParams(imgvwDimens);
         count.setBackgroundResource(R.drawable.cart);
-        count.setPadding(5, 5, 5, 5);
+        count.setPadding(5, 8, 5, 5);
         count.setTypeface(null, Typeface.BOLD);
         SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         String JsonStr = mPrefs.getString("cart", "");
@@ -213,12 +253,7 @@ public class WishActivity extends Activity {
 
         int id = item.getItemId();
 
-        if(id ==android.R.id.home)
-        {
-            Intent homeIntent = new Intent(this, MakeActivity.class);
-            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(homeIntent);
-        }
+
 
         if (id == R.id.action_user) {
             startActivity(new Intent(this, Login.class));

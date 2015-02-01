@@ -1,154 +1,179 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#fff"
-    tools:context="app.motaroart.com.motarpart.Cart">
+ <!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools" android:id="@+id/drawer_layout"
+android:layout_width="match_parent" android:layout_height="match_parent"
+tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/cart_cnt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:gravity="center"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:textColor="#fff"
-        android:background="#0A5692"
-        android:text="My Cart (0)"
-        />
+<FrameLayout android:id="@+id/container" android:layout_width="match_parent"
+    android:background="#0C5A9A"
+    android:layout_height="match_parent" >
 
-    <ListView
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_margin="5dp"
-        android:scrollbars="none"
-        android:dividerHeight="5dp"
-        android:divider="@android:color/transparent"
-        android:layout_below="@+id/cart_cnt"
-        android:layout_width="match_parent"
-        android:layout_weight="3"
-        android:layout_height="0dp"
-        android:id="@+id/mycart_list" />
 
-    <LinearLayout
 
-        android:layout_width="match_parent"
-        android:layout_gravity="bottom"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="#fff"
+        tools:context="app.motaroart.com.motarpart.Cart">
 
-        android:layout_height="wrap_content">
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/cart_cnt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:textColor="#000"
-                android:text="Total"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:padding="5dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content" />
+            android:padding="10dp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:background="#0A5692"
+            android:text="My Cart (0)"
+            />
 
-
-            <TextView
-                android:id="@+id/item_total"
-                android:gravity="right"
-                android:text="0.0"
-                android:padding="5dp"
-                android:textSize="15sp"
-                android:textColor="#000"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/vat_per"
-                android:text="00%"
-                android:padding="5dp"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="#000"
-                android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/vat_price"
-                android:text="000"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:padding="5dp"
-                android:gravity="right"
-                android:textColor="#000"
-                android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <View
-
-            android:layout_width="match_parent"
+        <ListView
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_height="0.3dp"
-            android:background="#87000000" />
+            android:layout_margin="5dp"
+            android:scrollbars="none"
+            android:dividerHeight="5dp"
+            android:divider="@android:color/transparent"
+            android:layout_below="@+id/cart_cnt"
+            android:layout_width="match_parent"
+            android:layout_weight="3"
+            android:layout_height="0dp"
+            android:id="@+id/mycart_list" />
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:textColor="#000"
+                    android:text="Total"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+
+
+                <TextView
+                    android:id="@+id/item_total"
+                    android:gravity="right"
+                    android:text="0.0"
+                    android:padding="5dp"
+                    android:textSize="15sp"
+                    android:textColor="#000"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/vat_per"
+                    android:text="00%"
+                    android:padding="5dp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#000"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/vat_price"
+                    android:text="000"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:padding="5dp"
+                    android:gravity="right"
+                    android:textColor="#000"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="0.3dp"
+                android:background="#87000000" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/grand_total"
+                    android:text="000"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:padding="5dp"
+                    android:gravity="right"
+                    android:textColor="#0A5692"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/grand_total"
-                android:text="000"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_margin="1dp"
+                android:text="Shopping more"
                 android:textStyle="bold"
-                android:textSize="18sp"
-                android:padding="5dp"
-                android:gravity="right"
-                android:textColor="#0A5692"
+                android:background="@drawable/btn_back"
                 android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_height="wrap_content" />
+                android:layout_weight="1"
+                android:textColor="#fff"
+                android:onClick="shopMore"
+                android:layout_height="wrap_content"
+                />
+            <Button
+                android:layout_margin="1dp"
+                android:text="CHECKOUT AND CONTINUE"
+                android:textStyle="bold"
+                android:background="@drawable/btn_back"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="#fff"
+                android:onClick="continueChekOut"
+                android:layout_height="wrap_content"
+                />
 
         </LinearLayout>
+
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_height="wrap_content">
-        <Button
-            android:layout_margin="1dp"
-            android:text="Shopping more"
-            android:textStyle="bold"
-            android:background="@drawable/btn_back"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:textColor="#fff"
-            android:onClick="shopMore"
-            android:layout_height="wrap_content"
-            />
-        <Button
-            android:layout_margin="1dp"
-            android:text="CHECKOUT AND CONTINUE"
-            android:textStyle="bold"
-            android:background="@drawable/btn_back"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:textColor="#fff"
-            android:onClick="continueChekOut"
-            android:layout_height="wrap_content"
-            />
 
-        </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>
+
+
+<fragment android:id="@+id/navigation_drawer"
+    android:layout_width="@dimen/navigation_drawer_width" android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:name="app.motaroart.com.motarpart.NavigationDrawerFragment"
+    tools:layout="@layout/fragment_navigation_drawer" />
+
+</android.support.v4.widget.DrawerLayout>
+

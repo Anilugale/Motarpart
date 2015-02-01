@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -36,7 +37,7 @@ import app.motaroart.com.motarpart.pojo.Product;
 import app.motaroart.com.motarpart.services.InternetState;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
-public class ModelActivity extends Activity {
+public class ModelActivity extends ActionBarActivity {
     List<Model> listData;
     EditText key_word;
     ModelAdapter adapter;
@@ -105,10 +106,10 @@ public class ModelActivity extends Activity {
         });
         LinearLayout.LayoutParams imgvwDimens =
                 new LinearLayout.LayoutParams(100, 100);
-        count.setGravity(Gravity.TOP | Gravity.RIGHT);
+        count.setGravity(Gravity.TOP | Gravity.CENTER);
         count.setLayoutParams(imgvwDimens);
         count.setBackgroundResource(R.drawable.cart);
-        count.setPadding(5, 5, 5, 5);
+        count.setPadding(5, 8, 5, 5);
         count.setTypeface(null, Typeface.BOLD);
         SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         String JsonStr = mPrefs.getString("cart", "");
