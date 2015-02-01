@@ -23,7 +23,7 @@ import app.motaroart.com.motarpart.services.WebServiceCall;
 
 public class ProductHistoryAdapter extends BaseAdapter {
 
-
+    String currency="KES ";
     ArrayList<OrderDProduct> listMain;
     Activity activity;
     LayoutInflater inflater;
@@ -76,8 +76,8 @@ public class ProductHistoryAdapter extends BaseAdapter {
         holder.p_name.setText("  " + listMain.get(i).getProductName().toUpperCase());
         holder.p_number.setText("  " + listMain.get(i).getProductNumber().toUpperCase());
         holder.p_qty.setText("  " + listMain.get(i).getQuantity().toUpperCase());
-        holder.p_total.setText("  " + listMain.get(i).getTotalAmount().toUpperCase());
-        holder.p_rate.setText("  " + listMain.get(i).getProductPrice().toUpperCase());
+        holder.p_total.setText("  " + currency+ listMain.get(i).getTotalAmount().toUpperCase());
+        holder.p_rate.setText("  " +currency+  listMain.get(i).getProductPrice().toUpperCase());
         imageLoader.DisplayImage(WebServiceCall.BASE_URL+"img/product/"+listMain.get(i).getProductNumber()+".jpg",holder.part_images);
 
         return view;

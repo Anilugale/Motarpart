@@ -98,6 +98,7 @@ public class CartAdapter extends BaseAdapter {
             public void onClick(View view) {
                 String old =product_qty_total.getText().toString().substring(4,product_qty_total.getText().toString().length());
                 listData.remove(i);
+             listQty.remove(product.getProductId());
                 SharedPreferences mPrefs = activity.getSharedPreferences(activity.getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
                 Gson gson = new Gson();
                 Type listOfTestObject = new TypeToken<List<Product>>() {

@@ -60,7 +60,7 @@ public class CategoryActivity extends Activity {
                     adapter.filter(text);
                 }
                 else
-                    Toast.makeText(CategoryActivity.this, "Opps! No data found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CategoryActivity.this, "Data not found", Toast.LENGTH_LONG).show();
 
 
             }
@@ -190,7 +190,7 @@ public class CategoryActivity extends Activity {
                             mPrefs.edit().putString("catID", listData.get(i).getCategoryId()).apply();
                             startActivity(intent);
                         } else
-                            Toast.makeText(CategoryActivity.this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+                            Toast.makeText(CategoryActivity.this, "Connection has lost", Toast.LENGTH_LONG).show();
                     }
                 });
 

@@ -108,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
+                android:textStyle="bold"
                 android:text="Company Details"
                 android:id="@+id/company_detail"
                 android:textSize="15dp" />
@@ -182,6 +183,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
+                android:textStyle="bold"
                 android:text="Postal Address"
                 android:id="@+id/postal_address"
                 android:textSize="15sp" />
@@ -212,7 +214,7 @@
                 android:gravity="center_vertical"
                 android:inputType="number"
                 android:maxLength="6"
-                android:hint="ZIP Code"
+                android:hint="Address 2"
                 android:paddingLeft="5dp" />
             <EditText
                 android:visibility="gone"
@@ -243,6 +245,7 @@
 
 
             <CheckBox
+                android:textStyle="bold"
                 android:textColor="#fff"
                 android:background="#1B62A2"
                 android:layout_marginBottom="10dp"

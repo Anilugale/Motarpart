@@ -121,13 +121,34 @@
 
         </LinearLayout>
     </LinearLayout>
-    <Button
-        android:text="CHECKOUT AND CONTINUE"
-        android:textStyle="bold"
-        android:background="@drawable/btn_back"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:textColor="#fff"
-        android:onClick="continueChekOut"
-        android:layout_height="wrap_content"
-        />
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_margin="1dp"
+            android:text="Shopping more"
+            android:textStyle="bold"
+            android:background="@drawable/btn_back"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="#fff"
+            android:onClick="shopMore"
+            android:layout_height="wrap_content"
+            />
+        <Button
+            android:layout_margin="1dp"
+            android:text="CHECKOUT AND CONTINUE"
+            android:textStyle="bold"
+            android:background="@drawable/btn_back"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="#fff"
+            android:onClick="continueChekOut"
+            android:layout_height="wrap_content"
+            />
+
+        </LinearLayout>
+
 </LinearLayout>

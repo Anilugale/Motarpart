@@ -68,8 +68,8 @@ public class Registration extends Activity {
                     city_p.setVisibility(View.VISIBLE);
                     po_code.setVisibility(View.VISIBLE);
                 }else {
-                    addresss1.setVisibility(View.VISIBLE);
-                    addresss2.setVisibility(View.VISIBLE);
+                    addresss1.setVisibility(View.GONE);
+                    addresss2.setVisibility(View.GONE);
                     city_p.setVisibility(View.GONE);
                     po_code.setVisibility(View.GONE);
                 }

@@ -1,50 +1,71 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#fff5f5f5"
-    >
-    <TextView
-        android:id="@+id/cart_cnt"
+<!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools" android:id="@+id/drawer_layout"
+android:layout_width="match_parent" android:layout_height="match_parent"
+tools:context=".MainActivity">
+
+<FrameLayout android:id="@+id/container" android:layout_width="match_parent"
+    android:background="#0C5A9A"
+    android:layout_height="match_parent" >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:gravity="center"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:textColor="#fff"
-        android:background="#0A5692"
-        android:text="Products"
-
-        />
-
-    <ListView
-
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_margin="5dp"
-        android:layout_width="match_parent"
-        android:dividerHeight="5dp"
-        android:scrollbars="none"
-        android:divider="@android:color/transparent"
         android:layout_height="match_parent"
-        android:id="@+id/product_list" />
+        android:orientation="vertical"
+        android:background="#fff5f5f5"
+        >
+        <TextView
+            android:id="@+id/cart_cnt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:background="#0A5692"
+            android:text="Products"
 
-    <TextView
-        android:visibility="gone"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_margin="5dp"
-        android:layout_width="match_parent"
-        android:dividerHeight="5dp"
-        android:scrollbars="none"
-        android:gravity="center"
-        android:text="Opps! No Product found."
-        android:drawableBottom="@android:drawable/presence_busy"
-        android:textStyle="bold|italic"
-        android:textSize="17sp"
-        android:layout_height="match_parent"
-        android:id="@+id/error" />
+            />
+
+        <ListView
+
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:dividerHeight="5dp"
+            android:scrollbars="none"
+            android:divider="@android:color/transparent"
+            android:layout_height="match_parent"
+            android:id="@+id/product_list" />
+
+        <TextView
+            android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:dividerHeight="5dp"
+            android:scrollbars="none"
+            android:gravity="center"
+            android:text="Product not found."
+            android:drawableBottom="@android:drawable/presence_busy"
+            android:textStyle="bold|italic"
+            android:textSize="17sp"
+            android:layout_height="match_parent"
+            android:id="@+id/error" />
 
 
-</LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>
+
+
+<fragment android:id="@+id/navigation_drawer"
+    android:layout_width="@dimen/navigation_drawer_width" android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:name="app.motaroart.com.motarpart.NavigationDrawerFragment"
+    tools:layout="@layout/fragment_navigation_drawer" />
+
+</android.support.v4.widget.DrawerLayout>

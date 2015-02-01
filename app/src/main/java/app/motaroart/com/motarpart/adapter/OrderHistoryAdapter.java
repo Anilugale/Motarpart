@@ -29,6 +29,7 @@ public class OrderHistoryAdapter extends BaseAdapter {
     Activity activity;
     LayoutInflater inflater;
     ImageLoader imageLoader;
+    String currency="KES ";
 
     public OrderHistoryAdapter(Activity activity, List<OrderHistory> listData) {
         this.listData = listData;
@@ -85,7 +86,7 @@ public class OrderHistoryAdapter extends BaseAdapter {
             e.printStackTrace();
         }
 
-       holder.total.setText("" + Double.valueOf(listData.get(i).getTotalAmount())+"0");
+       holder.total.setText(currency + Double.valueOf(listData.get(i).getTotalAmount())+"0");
 
 
 

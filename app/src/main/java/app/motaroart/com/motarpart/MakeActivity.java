@@ -48,7 +48,7 @@ public class MakeActivity extends Activity
     MakeAdapter adapter;
     private CharSequence mTitle;
     List<Make> listData;
-    EditText key_word;
+
     SharedPreferences mPrefs ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +57,19 @@ public class MakeActivity extends Activity
 
        init();
         mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+        final EditText key_word;
         key_word=(EditText)findViewById(R.id.key_word);
-        key_word.addTextChangedListener(new TextWatcher() {
+            key_word.addTextChangedListener(new TextWatcher() {
 
-            @Override
-            public void afterTextChanged(Editable arg0) {
-                if(adapter!=null) {
-                    String text = key_word.getText().toString().toLowerCase(Locale.getDefault());
-                    adapter.filter(text);
-                }
+                @Override
+                public void afterTextChanged(Editable arg0) {
+                    if(adapter!=null) {
+                        String text = key_word.getText().toString().toLowerCase(Locale.getDefault());
+                        adapter.filter(text);
+                    }
                     else
-                    Toast.makeText(MakeActivity.this, "Opps! No data found", Toast.LENGTH_LONG).show();
-            }
+                        Toast.makeText(MakeActivity.this, "Data not found", Toast.LENGTH_LONG).show();
+                }
 
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1,
@@ -98,7 +99,7 @@ public class MakeActivity extends Activity
                         startActivity(i);
                     }
                     else
-                        Toast.makeText(MakeActivity.this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MakeActivity.this, "Connection has lost", Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -106,10 +107,17 @@ public class MakeActivity extends Activity
     }
 
     private void init() {
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mTitle = getTitle();
+
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
         if(InternetState.getState(this))
             new DownloadData().execute();
         else
-            Toast.makeText(this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Connection has lost", Toast.LENGTH_LONG).show();
 
     }
 
@@ -140,7 +148,7 @@ public class MakeActivity extends Activity
                     startActivity(new Intent(MakeActivity.this, Cart.class));
                 }
                 else
-                  Toast.makeText(MakeActivity.this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+                  Toast.makeText(MakeActivity.this, "Connection has lost", Toast.LENGTH_LONG).show();
             }
         });
         LinearLayout.LayoutParams imgvwDimens =
@@ -206,7 +214,7 @@ public class MakeActivity extends Activity
             if(InternetState.getState(MakeActivity.this)) {
                 startActivity(new Intent(this, WishActivity.class));
             }
-            Toast.makeText(this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Connection has lost", Toast.LENGTH_LONG).show();
 
             return true;
         }
@@ -250,7 +258,7 @@ public class MakeActivity extends Activity
                             startActivity(intent);
                         }
                         else
-                            Toast.makeText(MakeActivity.this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MakeActivity.this, "Connection has lost", Toast.LENGTH_LONG).show();
 
                     }
                 });

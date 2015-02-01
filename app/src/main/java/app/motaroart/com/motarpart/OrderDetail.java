@@ -37,13 +37,14 @@ import app.motaroart.com.motarpart.services.WebServiceCall;
 public class OrderDetail extends Activity {
 
     OrderDetails orderDetails;
+    String currency="KES ";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail);
         String  orderNumber=getIntent().getStringExtra("orderNumber");
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(true);
+       /* getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowHomeEnabled(true);*/
         if(InternetState.getState(this))
         {
             new DataDownload().execute(orderNumber);
@@ -97,14 +98,14 @@ public class OrderDetail extends Activity {
         no_of_item.setText(format.format(date))  ;
 
         TextView subtotal=(TextView)findViewById(R.id.subtotal);
-        subtotal.setText(orderDetails.getOrder().get(0).getOrderAmount());
+        subtotal.setText(currency+orderDetails.getOrder().get(0).getOrderAmount());
 
         TextView vat_price=(TextView)findViewById(R.id.vat_price);
-        vat_price.setText(orderDetails.getOrder().get(0).getVATAmount());
+        vat_price.setText(currency+orderDetails.getOrder().get(0).getVATAmount());
 
 
         TextView grand_total=(TextView)findViewById(R.id.grand_total);
-        grand_total.setText(orderDetails.getOrder().get(0).getTotalAmount());
+        grand_total.setText(currency+ orderDetails.getOrder().get(0).getTotalAmount());
 
         TextView vat_pre=(TextView)findViewById(R.id.vat_per1);
         vat_pre.setText("VAT ("+orderDetails.getOrder().get(0).getVATPercent()+")");

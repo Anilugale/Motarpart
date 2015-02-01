@@ -34,6 +34,7 @@ public class Summry extends Activity {
     SharedPreferences mPrefs;
     Order order;
     EditText add1,add2,state,city,pobox;
+    String currency="KES ";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,10 +59,10 @@ public class Summry extends Activity {
 
 
             cntTotal.setText(order.getProductCount()+"");
-            total.setText("KES."+order.getTotalAmount()+"");
-            item_total.setText("KES."+order.getOrderAmount()+"");
+            total.setText(currency+order.getTotalAmount()+"");
+            item_total.setText(currency+order.getOrderAmount()+"");
             vat_per.setText("VAT ("+order.getVATPercent()+"%)");
-            vat_price.setText("KES."+order.getVATAmount()+"");
+            vat_price.setText(currency+order.getVATAmount()+"");
 
 
             add1=(EditText)findViewById(R.id.address1);

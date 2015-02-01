@@ -9,15 +9,19 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,21 +31,52 @@ import java.util.List;
 
 import app.motaroart.com.motarpart.adapter.ProductAdapter;
 import app.motaroart.com.motarpart.pojo.Product;
+import app.motaroart.com.motarpart.services.InternetState;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
 
-public class ProductActivity extends Activity {
-
+public class ProductActivity extends Activity  implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+    private NavigationDrawerFragment mNavigationDrawerFragment;
     SharedPreferences mPrefs;
     List listData;
+    private CharSequence mTitle;
     Gson gson = new Gson();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(true);
+   /*     getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowHomeEnabled(true);*/
+
+
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mTitle = getTitle();
+
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
         mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+        ImageButton searchKey=(ImageButton)findViewById(R.id.searchKey);
+        searchKey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText keySearch=(EditText)findViewById(R.id.keySearch);
+                if(keySearch.getText().toString().trim().length()>0) {
+
+                    if(InternetState.getState(ProductActivity.this)) {
+                        Intent i = new Intent(ProductActivity.this, ProductActivity.class);
+                        SharedPreferences.Editor edit = mPrefs.edit();
+                        edit.putString("searchKey", keySearch.getText().toString());
+                        edit.apply();
+                        startActivity(i);
+                    }
+                    else
+                        Toast.makeText(ProductActivity.this, "Connection has lost", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
         new GetProduct().execute();
     }
 
@@ -133,6 +168,11 @@ public class ProductActivity extends Activity {
     {
         if (count != null)
             count.setText(cnt + "  ");
+    }
+
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
+
     }
 
     class GetProduct extends AsyncTask<Void,Void,String>

@@ -48,8 +48,7 @@ public class UserActivity extends Activity {
         setContentView(R.layout.activity_user_acitivity);
         pref=getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
         String userStr=pref.getString("user","");
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(true);
+
         if(!userStr.equals(""))
         {
             Gson gson=new Gson();
@@ -61,7 +60,7 @@ public class UserActivity extends Activity {
         if(InternetState.getState(this))
             new DownloadData().execute();
         else
-        Toast.makeText(this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, " Connection has lost", Toast.LENGTH_LONG).show();
     }
 
     void init()
@@ -80,7 +79,7 @@ public class UserActivity extends Activity {
                     startActivity(intent);
                }
                 else
-                    Toast.makeText(UserActivity.this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+                    Toast.makeText(UserActivity.this, " Connection has lost", Toast.LENGTH_LONG).show();
 
             }
         });

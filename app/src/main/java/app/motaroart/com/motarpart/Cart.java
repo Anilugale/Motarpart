@@ -50,13 +50,14 @@ public class Cart extends Activity {
     SharedPreferences mPrefs;
     double vatRate;
     User user;
+    String curruncy="KES ";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(true);
+      /*  getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowHomeEnabled(true);*/
 
         mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         if(!mPrefs.getString("Setting","").equals("")) {
@@ -70,7 +71,7 @@ public class Cart extends Activity {
         }
         else
         {
-            Toast.makeText(this,"Opps! Connection has lost",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Connection has lost",Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -81,7 +82,7 @@ public class Cart extends Activity {
         vat_price=(TextView)findViewById(R.id.vat_price);
 
 
-        vat_per.setText("VAT ("+temp+"%)");
+        vat_per.setText("VAT ("+Integer.toString((int)temp)+"%)");
         product_grand_price=(TextView)findViewById(R.id.grand_total);
         Type listOfTestObject = new TypeToken<List<Product>>() {
         }.getType();
@@ -117,9 +118,9 @@ public class Cart extends Activity {
             this.vatPrice=vatPrice;
 
             totalPrice=Math.floor(grand);
-            total_item.setText(totalPrice+"0");
-            product_grand_price.setText("KES " +Math.floor(totalPrice+vatPrice)+"0");
-            vat_price.setText(Math.floor(vatPrice)+"0");
+            total_item.setText(curruncy+totalPrice+"0");
+            product_grand_price.setText(curruncy+Math.floor(totalPrice+vatPrice)+"0");
+            vat_price.setText(curruncy+Math.floor(vatPrice)+"0");
             cart_cnt.setText("My Cart (" + listData.size() + ")");
             adapter = new CartAdapter(this, listData);
             main_page = (ListView) findViewById(R.id.mycart_list);
@@ -167,17 +168,18 @@ public class Cart extends Activity {
         }
 
         totalPrice=newPricedata;//(totalPrice - oldPrice) + newPrice;
-        total_item.setText(totalPrice+"0");
+        total_item.setText(curruncy+totalPrice+"0");
         double vatPrice=totalPrice*vatRate;
         this.vatPrice=vatPrice;
-        product_grand_price.setText("KES " +Math.floor(totalPrice+vatPrice)+"0");
-        vat_price.setText(Math.floor(vatPrice)+"0");
+        product_grand_price.setText(curruncy+Math.floor(totalPrice+vatPrice)+"0");
+        vat_price.setText(curruncy+Math.floor(vatPrice)+"0");
     }
-    public void updateGrandPriceMinuse(double oldPrice,double productID)
+    public void updateGrandPriceMinuse(double oldPrice,int productID)
     {
 
-        if (count != null)
-            count.setText((int)productID + "  ");
+        int cartcnt=(int)productID;
+        if (count!=null)
+            count.setText(cartcnt + "  ");
         double newPricedata=0.0;
         for (Map.Entry<String, Price> entry : adapter.listQty.entrySet())
         {
@@ -187,13 +189,13 @@ public class Cart extends Activity {
 
 
         }
-        vat_price.setText(Math.floor(vatPrice)+"0");
+
         totalPrice=newPricedata;//(totalPrice- oldPrice) ;
-        total_item.setText(totalPrice+"0");
+        total_item.setText(curruncy+totalPrice+"0");
         this.vatPrice=totalPrice*vatRate;
-        cart_cnt.setText("My Cart (" + productID + ")");
-        product_grand_price.setText("KES " + Math.floor(totalPrice+vatPrice)+"0");
-        vat_price.setText(Math.floor(vatPrice)+"0");
+        cart_cnt.setText("My Cart (" + cartcnt + ")");
+        product_grand_price.setText(curruncy+ Math.floor(totalPrice+vatPrice)+"0");
+        vat_price.setText(curruncy+Math.floor(vatPrice)+"0");
     }
 
     double totalPrice;
@@ -207,63 +209,71 @@ public class Cart extends Activity {
         if(adapter!=null)
         {
 
-        if(user==null)
-        {
-            startActivity(new Intent(this,Login.class).putExtra("Cart",true));
-            finish();
-        }
-        else {
-
-            /// parameter setting
-            Order order = new Order();
-            order.setAccountId(user.getAccountId());
-            order.setOrderBy(user.getLoginId());
-            order.setProductCount(String.valueOf(adapter.listData.size()));
-            order.setOrderSource("MAPP");
-            List<OrderProduct> productList = new ArrayList<>();
-
-            for (Product pro : adapter.listData) {
-                OrderProduct op = new OrderProduct();
-                op.setCategoryId(pro.getCategoryId());
-                op.setCategoryName(pro.getCategory());
-                op.setMakeId(pro.getMakeId());
-                op.setMakeName(pro.getMakeName());
-                op.setProductId(pro.getProductId());
-                op.setProductCode(pro.getProductCode());
-                op.setProductName(pro.getProductName());
-                op.setProductNumber(pro.getProductNumber());
-                op.setProductPrice(pro.getProductPrice());
-                op.setModelId(pro.getModelId());
-                op.setModelName(pro.getModelName());
-                op.setUrl(pro.getProductImageUrl());
-                op.setQuantity(adapter.listQty.get(pro.getProductId()).qty+"");
-                productList.add(op);
+            if(user==null)
+            {
+                startActivity(new Intent(this,Login.class).putExtra("Cart",true));
+                finish();
             }
-            order.setProductList(productList);
-            order.setOrderAmount(String.valueOf(totalPrice));
-            order.setVATAmount(String.valueOf(vatPrice));
-            order.setVATPercent(temp+"");
-            order.setTotalAmount(String.valueOf(totalPrice + vatPrice));
+            else {
 
-            if(InternetState.getState(this)) {
-                if (order.getProductList().size() != 0 ) {
-                    if( !order.getTotalAmount().equals("0.0")) {
-                        Intent intent = new Intent(this, Summry.class);
-                        intent.putExtra("Order", order);
-                        startActivity(intent);
-                        finish();
-                    }
-                    else
-                        Toast.makeText(this, "Quantity is 0.", Toast.LENGTH_SHORT).show();
-                } else
-                    Toast.makeText(this, "card is empty.", Toast.LENGTH_SHORT).show();
-            }else
-                Toast.makeText(this, "Opps! Connection has lost.", Toast.LENGTH_SHORT).show();
-        }
+                /// parameter setting
+                Order order = new Order();
+                order.setAccountId(user.getAccountId());
+                order.setOrderBy(user.getLoginId());
+                order.setProductCount(String.valueOf(adapter.listData.size()));
+                order.setOrderSource("MAPP");
+                List<OrderProduct> productList = new ArrayList<>();
+
+                for (Product pro : adapter.listData) {
+                    OrderProduct op = new OrderProduct();
+                    op.setCategoryId(pro.getCategoryId());
+                    op.setCategoryName(pro.getCategory());
+                    op.setMakeId(pro.getMakeId());
+                    op.setMakeName(pro.getMakeName());
+                    op.setProductId(pro.getProductId());
+                    op.setProductCode(pro.getProductCode());
+                    op.setProductName(pro.getProductName());
+                    op.setProductNumber(pro.getProductNumber());
+                    op.setProductPrice(pro.getProductPrice());
+                    op.setModelId(pro.getModelId());
+                    op.setModelName(pro.getModelName());
+                    op.setUrl(pro.getProductImageUrl());
+                    op.setQuantity(adapter.listQty.get(pro.getProductId()).qty+"");
+                    productList.add(op);
+                }
+                order.setProductList(productList);
+                order.setOrderAmount(String.valueOf(totalPrice));
+                order.setVATAmount(String.valueOf(vatPrice));
+                order.setVATPercent(Integer.toString((int)temp)+"");
+                order.setTotalAmount(String.valueOf(totalPrice + vatPrice));
+
+                if(InternetState.getState(this)) {
+                    if (order.getProductList().size() != 0 ) {
+                        if( !order.getTotalAmount().equals("0.0")) {
+                            Intent intent = new Intent(this, Summry.class);
+                            intent.putExtra("Order", order);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else
+                            Toast.makeText(this, "Quantity is 0.", Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(this, "card is empty.", Toast.LENGTH_SHORT).show();
+                }else
+                    Toast.makeText(this, "Connection has lost.", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
     double temp = 0;
+
+    public void shopMore(View view) {
+
+        Intent homeIntent = new Intent(this, MakeActivity.class);
+        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homeIntent);
+    }
+
     class DownLoadSetting extends AsyncTask<Void,Void,String>
     {
         ProgressDialog pd;
@@ -297,7 +307,7 @@ public class Cart extends Activity {
             }
             else
             {
-                Toast.makeText(Cart.this,"Opps! Connection has loast",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Cart.this,"Connection has loast",Toast.LENGTH_SHORT).show();
             }
 
             pd.dismiss();
@@ -306,7 +316,7 @@ public class Cart extends Activity {
 
         @Override
         protected String doInBackground(Void... voids) {
-          return mPrefs.getString("Setting","");
+            return mPrefs.getString("Setting","");
 
         }
     }
@@ -387,7 +397,7 @@ public class Cart extends Activity {
             if(InternetState.getState(this)) {
                 startActivity(new Intent(this, WishActivity.class));
             }
-            Toast.makeText(this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Connection has lost", Toast.LENGTH_LONG).show();
 
             return true;
         }

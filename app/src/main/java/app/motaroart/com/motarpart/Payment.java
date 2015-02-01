@@ -60,8 +60,8 @@ public class Payment extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
         order= (Order) getIntent().getSerializableExtra("order");
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(true);
+    /*    getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowHomeEnabled(true)*/;
         ins=this;
         init();
     }
@@ -105,6 +105,7 @@ public class Payment extends Activity {
                         Toast.makeText(Payment.this,"Bank",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.cash_on_delivery:
+                        payment_type.setText("Cash on delivery");
                         order.setTransactionMode("COD");
                         cod_btn.setVisibility(View.VISIBLE);
                         mpaisa_edit.setVisibility(View.GONE);
@@ -233,7 +234,7 @@ public class Payment extends Activity {
                 new Cardpaymene().execute(cardinfo,orderinfo);
             }
             else
-                Toast.makeText(this, "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Connection has lost", Toast.LENGTH_LONG).show();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -352,11 +353,11 @@ public class Payment extends Activity {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(Payment.this, "Opps! Communication error.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Payment.this, "Communication error.", Toast.LENGTH_LONG).show();
                 }
             }
             else
-                Toast.makeText(Payment.this, "Opps! Communication error.", Toast.LENGTH_LONG).show();
+                Toast.makeText(Payment.this, " Communication error.", Toast.LENGTH_LONG).show();
             pd.dismiss();
             super.onPostExecute(s);
         }

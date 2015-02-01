@@ -105,7 +105,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         if(InternetState.getState(getActivity()))
         new DownloadData().execute();
         else
-        Toast.makeText(getActivity(),"Opps! Connection has lost",Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"Connection has lost",Toast.LENGTH_LONG).show();
 
         sMake.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -115,7 +115,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                     if(InternetState.getState(getActivity())) {
                         new DownloadDataCar().execute();
                     }else
-                        Toast.makeText(getActivity(), "Opps! Connection has lost", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Connection has lost", Toast.LENGTH_LONG).show();
 
 
                 }
@@ -225,7 +225,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                 category.setAdapter(catAdapter);
             }else
             {
-                Toast.makeText(getActivity(),"Opps! Connection Problem.",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Connection Problem.",Toast.LENGTH_LONG).show();
             }
 
            pd.dismiss();
