@@ -66,6 +66,7 @@ public class Login extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(Login.this, Registration.class);
                 startActivity(intent);
+                finish();
 
             }
         });
@@ -75,7 +76,7 @@ public class Login extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(Login.this, ForgetPassword.class);
                 startActivity(intent);
-
+                finish();
             }
         });
 

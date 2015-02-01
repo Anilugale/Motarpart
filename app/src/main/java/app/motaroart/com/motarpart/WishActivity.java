@@ -45,6 +45,8 @@ public class WishActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wish);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowHomeEnabled(true);
         mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         new GetWish().execute();
     }
@@ -161,7 +163,7 @@ public class WishActivity extends Activity {
         super.onCreateOptionsMenu(menu);
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_wish, menu);
+        inflater.inflate(R.menu.main, menu);
         count = new TextView(this);
         count.setTextColor(Color.BLUE);
         count.setOnClickListener(new View.OnClickListener() {
@@ -212,7 +214,12 @@ public class WishActivity extends Activity {
 
         int id = item.getItemId();
 
-
+        if(id ==android.R.id.home)
+        {
+            Intent homeIntent = new Intent(this, MakeActivity.class);
+            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
+        }
 
         if (id == R.id.action_user) {
             startActivity(new Intent(this, Login.class));

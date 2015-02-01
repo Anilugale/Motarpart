@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:background="#000"
+    android:background="#7a000000"
     android:layout_margin="10dp"
     android:padding="0.5dp"
     android:layout_width="match_parent"
@@ -18,11 +18,19 @@
             android:textStyle="bold"
             android:textSize="14sp"
             android:layout_width="match_parent"
-
+            android:textColor="#000"
             android:layout_height="wrap_content"
 
             android:text="ORDER NUMBER"/>
+        <View
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#82000000"
+            android:layout_marginLeft="10dp"
+         />
         <TextView
+            android:textColor="#000"
             android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,6 +39,7 @@
 
 
         <TextView
+            android:textColor="#000"
             android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,7 +55,7 @@
 
 
         <TextView
-
+            android:textColor="#000"
             android:padding="10dp"
             android:textStyle="bold"
             android:gravity="left"
@@ -56,11 +65,18 @@
 
             android:textSize="14sp"
             android:text="3300"/>
+        <View
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#82000000"
+            android:layout_marginRight="10dp"
+            />
 
         <TextView
 
             android:padding="10dp"
-
+            android:textColor="#000"
             android:gravity="left"
             android:id="@+id/grand_total"
             android:layout_width="match_parent"
@@ -70,11 +86,11 @@
             android:text="3300"/>
         <TextView
             android:padding="10dp"
-           android:gravity="left"
+            android:gravity="left"
             android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:textColor="#000"
             android:textSize="14sp"
             android:text="XX"/>
 

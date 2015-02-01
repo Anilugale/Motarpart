@@ -28,6 +28,7 @@ import app.motaroart.com.motarpart.Cart;
 import app.motaroart.com.motarpart.Detail;
 import app.motaroart.com.motarpart.R;
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
+import app.motaroart.com.motarpart.pojo.Price;
 import app.motaroart.com.motarpart.pojo.Product;
 import app.motaroart.com.motarpart.pojo.User;
 import app.motaroart.com.motarpart.services.WebServiceCall;
@@ -38,9 +39,9 @@ import app.motaroart.com.motarpart.services.WebServiceCall;
 
 public class CartAdapter extends BaseAdapter {
 
-   public List<Product> listData;
+    public List<Product> listData;
     public Map<String,String> listMain;
-    public Map<String,String> listQty;
+    public Map<String,Price> listQty;
     Activity activity;
     LayoutInflater inflater;
     ImageLoader imageLoader;
@@ -77,30 +78,38 @@ public class CartAdapter extends BaseAdapter {
 
 
 
-            final Product product = listData.get(i);
-            View vi = inflater.inflate(R.layout.list_cart, null);
-            TextView product_name = (TextView) vi.findViewById(R.id.product_name);
-            final EditText product_qty = (EditText) vi.findViewById(R.id.product_qty);
-            TextView product_mrp = (TextView) vi.findViewById(R.id.product_mrp);
-            final TextView product_qty_total = (TextView) vi.findViewById(R.id.product_qty_total);
-            TextView product_code = (TextView) vi.findViewById(R.id.product_code);
-            ImageButton remove_btn=(ImageButton)vi.findViewById(R.id.remove_btn);
-            remove_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String old =product_qty_total.getText().toString().substring(0,product_qty_total.getText().toString().length());
-                    listData.remove(i);
-                    SharedPreferences mPrefs = activity.getSharedPreferences(activity.getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
-                    Gson gson = new Gson();
-                    Type listOfTestObject = new TypeToken<List<Product>>() {
-                    }.getType();
-                    String json=gson.toJson(listData,listOfTestObject);
-                    mPrefs.edit().putString("cart",json).apply();
-                    ((Cart)activity).updateGrandPriceMinuse(Double.valueOf(old.trim()),listData.size());
-                    CartAdapter.this.notifyDataSetChanged();
+        final Product product = listData.get(i);
+        View vi = inflater.inflate(R.layout.list_cart, null);
+        TextView product_name = (TextView) vi.findViewById(R.id.product_name);
+        final EditText product_qty = (EditText) vi.findViewById(R.id.product_qty);
+        TextView product_mrp = (TextView) vi.findViewById(R.id.product_mrp);
+        TextView product_code1 = (TextView) vi.findViewById(R.id.product_code1);
+        product_code1.setText(product.getProductCode());
+        final TextView product_qty_total = (TextView) vi.findViewById(R.id.product_qty_total);
+        TextView product_code = (TextView) vi.findViewById(R.id.product_code);
+        ImageButton remove_btn=(ImageButton)vi.findViewById(R.id.remove_btn);
 
-                }
-            });
+
+
+
+
+        remove_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String old =product_qty_total.getText().toString().substring(4,product_qty_total.getText().toString().length());
+                listData.remove(i);
+                SharedPreferences mPrefs = activity.getSharedPreferences(activity.getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+                Gson gson = new Gson();
+                Type listOfTestObject = new TypeToken<List<Product>>() {
+                }.getType();
+                String json=gson.toJson(listData,listOfTestObject);
+                mPrefs.edit().putString("cart",json).apply();
+                ((Cart)activity).updateGrandPriceMinuse(Double.valueOf(old.trim()),listData.size());
+
+                CartAdapter.this.notifyDataSetChanged();
+
+            }
+        });
 
         ImageView part_images= (ImageView) vi.findViewById(R.id.part_images);
         imageLoader.DisplayImage(WebServiceCall.BASE_URL+product.getProductImageUrl(),part_images);
@@ -124,147 +133,146 @@ public class CartAdapter extends BaseAdapter {
 
 
 
-           if(user!=null) {
+        if(user!=null) {
 
-               if(user.getAccountType().equals("C")) {
-                   product_mrp.setText("KES " + product.getProductPrice());
-                   product_qty_total.setText("" + product.getProductPrice());
-               }
-               else  if(user.getAccountType().equals("W")) {
-                   product_mrp.setText("" + product.getWholesalerPrice());
-                   product_qty_total.setText("" + product.getWholesalerPrice());
-               }else  if(user.getAccountType().equals("R")) {
-                   product_mrp.setText("KES " + product.getRetailerPrice());
-                   product_qty_total.setText("" + product.getRetailerPrice());
-               }
-               else
-               {
-                   product_mrp.setText("KES " + product.getProductPrice());
-                   product_qty_total.setText("" + product.getProductPrice());
-               }
-           }
+            if(user.getAccountType().equals("C")) {
+                product_mrp.setText("KES " + product.getProductPrice());
+                product_qty_total.setText("KES " + product.getProductPrice());
+            }
+            else  if(user.getAccountType().equals("W")) {
+                product_mrp.setText("" + product.getWholesalerPrice());
+                product_qty_total.setText("" + product.getWholesalerPrice());
+            }else  if(user.getAccountType().equals("R")) {
+                product_mrp.setText("KES " + product.getRetailerPrice());
+                product_qty_total.setText("KES " + product.getRetailerPrice());
+            }
+            else
+            {
+                product_mrp.setText("KES " + product.getProductPrice());
+                product_qty_total.setText("KES " + product.getProductPrice());
+            }
+        }
         else
-           {
-               product_mrp.setText("KES " + product.getProductPrice());
-               product_mrp.setText("KES " + product.getProductPrice());
-               product_qty_total.setText( product.getProductPrice());
-           }
+        {
+            product_mrp.setText("KES " + product.getProductPrice());
+            product_mrp.setText("KES " + product.getProductPrice());
+            product_qty_total.setText("KES " + product.getProductPrice());
+        }
 
-            product_code.setText(product.getProductNumber() + "");
-            if(listMain.get(product.getProductId())!=null) {
-                product_qty.setText(listMain.get(product.getProductId()));
-                int price_count = 0;
+        product_code.setText(product.getProductNumber() + "");
+        if(listMain.get(product.getProductId())!=null) {
+            product_qty.setText(listMain.get(product.getProductId()));
+            int price_count = 0;
 
-                listMain.put(product.getProductId(),listMain.get(product.getProductId()));
+            listMain.put(product.getProductId(),listMain.get(product.getProductId()));
 
-                if (listMain.get(product.getProductId()).length() != 0) {
+            if (listMain.get(product.getProductId()).length() != 0) {
 
-                    price_count = Integer.valueOf(listMain.get(product.getProductId()));
+                price_count = Integer.valueOf(listMain.get(product.getProductId()));
+            }
+            String old =product_qty_total.getText().toString().substring(4,product_qty_total.getText().toString().length());
+
+            double value;
+            if(user!=null) {
+
+                if(user.getAccountType().equals("C")) {
+                    value=   Double.valueOf(product.getProductPrice());
                 }
-                String old =product_qty_total.getText().toString().substring(0,product_qty_total.getText().toString().length());
-
-                double value;
-                if(user!=null) {
-
-                    if(user.getAccountType().equals("C")) {
-                        value=   Double.valueOf(product.getProductPrice());
-                    }
-                    else  if(user.getAccountType().equals("W")) {
-                        value=   Double.valueOf(product.getWholesalerPrice());
-                    }else  if(user.getAccountType().equals("R")) {
-                        value=   Double.valueOf(product.getRetailerPrice());
-                    }
-                    else
-                    {
-                        value=   Double.valueOf(product.getProductPrice());
-                    }
+                else  if(user.getAccountType().equals("W")) {
+                    value=   Double.valueOf(product.getWholesalerPrice());
+                }else  if(user.getAccountType().equals("R")) {
+                    value=   Double.valueOf(product.getRetailerPrice());
                 }
                 else
                 {
                     value=   Double.valueOf(product.getProductPrice());
                 }
-
-
-                double price = value * (price_count);
-                product_qty_total.setText("" + price);
-
-
-                ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),(price),listData.size()+"");
             }
-            else {
-                product_qty.setText("1");
-                listQty.put(product.getProductId(),"1");
-                listMain.put(product.getProductId(),"1");
+            else
+            {
+                value=   Double.valueOf(product.getProductPrice());
             }
 
 
+            double price = value * (price_count);
+            product_qty_total.setText("KES " + price);
 
-            product_qty.addTextChangedListener(new TextWatcher() {
+            if(listQty.get(product.getProductId())!=null)
+                listQty.put(product.getProductId(), new Price(Double.valueOf(product.getProductPrice()),listQty.get(product.getProductId()).qty));
+            else
+                listQty.put(product.getProductId(), new Price(Double.valueOf(product.getProductPrice()),1));
 
-                public void onTextChanged(CharSequence s, int start, int before,
-                                          int count) {
+            ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),(price),listData.size()+"");
+        }
+        else {
+            product_qty.setText("1");
+            listQty.put(product.getProductId(), new Price(Double.valueOf(product.getProductPrice()),1));
+            listMain.put(product.getProductId(),"1");
+        }
 
-                }
 
-                public void beforeTextChanged(CharSequence s, int start, int count,
-                                              int after) {
 
-                }
+        product_qty.addTextChangedListener(new TextWatcher() {
 
-                public void afterTextChanged(Editable s) {
-                    int price_count = 0;
-                    double price=0.0;
-                    if (s.length() != 0) {
-                        price_count = Integer.valueOf(s.toString());
-                    }
-                    listQty.put(product.getProductId(),product_qty.getText().toString());
-                    if(user!=null) {
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
 
-                        if(user.getAccountType().equals("C")) {
-                            listMain.put(product.getProductId(),s.toString());
+            }
 
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            public void afterTextChanged(Editable s) {
+                int price_count = 0;
+                double price=0.0;
+                if (s.length() != 0) {
+                    price_count = Integer.valueOf(s.toString());
+
+
+
+
+
+                    listQty.put(product.getProductId(), new Price(Double.valueOf(product.getProductPrice()),Integer.valueOf(s.toString())));
+                    if (user != null) {
+
+                        if (user.getAccountType().equals("C")) {
+                            listMain.put(product.getProductId(), s.toString());
 
 
                             price = Double.valueOf(product.getProductPrice()) * (price_count);
-                        }
-                        else  if(user.getAccountType().equals("W")) {
-                            listMain.put(product.getWholesalerPrice(),s.toString());
+                        } else if (user.getAccountType().equals("W")) {
+                            listMain.put(product.getWholesalerPrice(), s.toString());
                             price = Double.valueOf(product.getWholesalerPrice()) * (price_count);
-                        }else  if(user.getAccountType().equals("R")) {
-                            listMain.put(product.getRetailerPrice(),s.toString());
+                        } else if (user.getAccountType().equals("R")) {
+                            listMain.put(product.getRetailerPrice(), s.toString());
                             price = Double.valueOf(product.getRetailerPrice()) * (price_count);
-                        }
-                        else
-                        {
-                            listMain.put(product.getProductId(),s.toString());
+                        } else {
+                            listMain.put(product.getProductId(), s.toString());
                             price = Double.valueOf(product.getProductPrice()) * (price_count);
                         }
-                    }
-                    else
-                    {
-                        listMain.put(product.getProductId(),s.toString());
+                    } else {
+                        listMain.put(product.getProductId(), s.toString());
                         price = Double.valueOf(product.getProductPrice()) * (price_count);
                     }
 
 
+                    String old = product_qty_total.getText().toString().substring(4, product_qty_total.getText().toString().length());
 
+                    product_qty_total.setText("KES " + price + "0");
 
-
-
-                    String old =product_qty_total.getText().toString().substring(0,product_qty_total.getText().toString().length());
-
-                    product_qty_total.setText( price+"0");
-                    ((Cart)activity).updateGrandPrice(Double.valueOf(old.trim()),(price),listData.size()+"");
-
-
+                    ((Cart) activity).updateGrandPrice(Double.valueOf(old.trim()), (price), listData.size() + "");
                 }
-            });
+            }
+
+        });
 
 
 
 
 
-            return vi;
+        return vi;
 
     }
 

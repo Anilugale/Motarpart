@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,6 +30,8 @@ import java.util.List;
 
 import app.motaroart.com.motarpart.lazyloader.ImageLoader;
 import app.motaroart.com.motarpart.pojo.Product;
+import app.motaroart.com.motarpart.pojo.User;
+import app.motaroart.com.motarpart.pojo.Wish;
 import app.motaroart.com.motarpart.services.ImageViewer;
 import app.motaroart.com.motarpart.services.WebServiceCall;
 
@@ -36,6 +39,7 @@ import app.motaroart.com.motarpart.services.WebServiceCall;
 public class Detail extends Activity {
     Product product;
     ImageLoader imageLoader ;
+    List<Wish> listWish;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +63,15 @@ public class Detail extends Activity {
             }
         });
 
+        TextView stock = (TextView) findViewById(R.id.is_available);
+
+        if(product.getIsAvailable().equals("true"))
+            stock.setText("Available");
+        else {
+            stock.setTextColor(Color.parseColor("#CC0000"));
+            stock.setText("Out of Stock");
+        }
+
         imageLoader = new ImageLoader(getApplicationContext());
         imageLoader.DisplayImage( WebServiceCall.BASE_URL + product.getProductImageUrl(),partImg);
         product_name.setText(product.getProductName());
@@ -67,8 +80,7 @@ public class Detail extends Activity {
         product_mrp.setText("KES " + product.getRetailerPrice());
         product_code.setText(product.getProductCode() + "");
         product_number.setText("Code." + product.getProductNumber());
-
-        product_desc.setText(product.getProductDesc() + ""+"As a connecting rod is rigid, it may transmit either a push or a pull and so the rod may rotate the crank through both halves of a revolution, i.e. piston pushing and piston pulling. Earlier mechanisms, such as chains, could only pull. In a few two-stroke engines, the connecting rod is only required to push.");
+        product_desc.setText(product.getProductDesc() );
         init();
 
     }
@@ -80,48 +92,126 @@ void init()
         @Override
         public void onClick(View view) {
 
-            SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
-            String JsonStr =mPrefs.getString("cart","");
-            Gson gson = new Gson();
-            Type listOfTestObject = new TypeToken<List<Product>>() {
-            }.getType();
-            List<Product> list = gson.fromJson(JsonStr, listOfTestObject);
-            boolean flag=false;
-            if (list!=null) {
-                for (Product pro:list)
-                {
-                    if(pro.getProductId().equals(product.getProductId()))
-                    {
-                        flag=true;
-                        break;
+            if(product.getIsAvailable().equals("true")) {
+                SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+                String JsonStr = mPrefs.getString("cart", "");
+                Gson gson = new Gson();
+                Type listOfTestObject = new TypeToken<List<Product>>() {
+                }.getType();
+                List<Product> list = gson.fromJson(JsonStr, listOfTestObject);
+                boolean flag = false;
+                if (list != null) {
+                    for (Product pro : list) {
+                        if (pro.getProductId().equals(product.getProductId())) {
+                            flag = true;
+                            break;
+                        }
                     }
+                } else {
+                    list = new ArrayList<Product>();
+                }
+                if (flag != true) {
+                    list.add(product);
+                    String json = gson.toJson(list, listOfTestObject);
+                    mPrefs.edit().putString("cart", json).apply();
+                    updateCart(list.size());
+                    Toast.makeText(Detail.this, "Product added in cart", Toast.LENGTH_LONG).show();
+                } else {
+                    new AlertDialog.Builder(Detail.this)
+                            .setTitle(Detail.this.getResources().getString(R.string.app_name))
+                            .setMessage("This Product is already in Cart")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            }else
+                Toast.makeText(Detail.this,"Out of Stock try after some time",Toast.LENGTH_SHORT).show();
+        }
+    });
+
+
+    // wish btn
+
+
+    final ToggleButton wish_btn=(ToggleButton)findViewById(R.id.wish_btn);
+    final SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+    String wishJson=mPrefs.getString("wish","");
+
+
+    final Type listOfTestObject = new TypeToken<List<Wish>>() {
+    }.getType();
+    final Gson gson = new Gson();
+
+
+    listWish=gson.fromJson(wishJson, listOfTestObject);
+
+
+    if(listWish!=null)
+    {
+        {
+            for (Wish wish : listWish) {
+                if (wish.getProductId().equals(product.getProductId())) {
+                    wish_btn.setChecked(true);
+                    break;
+                }
+            }
+        }
+    }
+    else
+        listWish =new ArrayList<>();
+
+
+    wish_btn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if(wish_btn.isChecked())
+            {
+                mPrefs.edit().remove("wish").apply();
+                String userStr=mPrefs.getString("user","");
+                if(!userStr.equals("")) {
+
+                    Type type = new TypeToken<User>() {
+                    }.getType();
+                    User user = gson.fromJson(userStr, type);
+                    Wish wish = new Wish();
+                    wish.setAccountId(user.getAccountId());
+                    wish.setProductId(product.getProductId());
+                    listWish.add(wish);
+                    Gson g = new Gson();
+                    System.out.println(g.toJson(wish).toString());
+                    mPrefs.edit().putString("wish", gson.toJson(listWish, listOfTestObject)).apply();
+                }else
+                {
+                    new AlertDialog.Builder(Detail.this)
+                            .setTitle(getString(R.string.app_name))
+                            .setMessage("login for see wish list")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+
                 }
             }
             else
             {
-                list=new ArrayList<Product>();
-            }
-            if(flag!=true)
-            {
-                list.add(product);
-                String json=gson.toJson(list,listOfTestObject);
-                mPrefs.edit().putString("cart",json).apply();
-               updateCart(list.size());
-                Toast.makeText(Detail.this, "Product added in cart", Toast.LENGTH_LONG).show();
-            }
-            else
-            {
-                new AlertDialog.Builder(Detail.this)
-                        .setTitle(Detail.this.getResources().getString(R.string.app_name))
-                        .setMessage("This Product is already in Cart")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
+                for (int i=0;i<listWish.size();i++)
+                {
+                    if(listWish.get(i).getProductId().equals(product.getProductId()))
+                    {
+                        listWish.remove(i);
+                        mPrefs.edit().putString("wish",gson.toJson(listWish,listOfTestObject)).apply();
 
-                            }
-                        })
-
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                    }
+                }
             }
         }
     });
@@ -193,9 +283,6 @@ void init()
         int id = item.getItemId();
 
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
         if (id == R.id.action_user) {
             startActivity(new Intent(this, Login.class));
             return true;

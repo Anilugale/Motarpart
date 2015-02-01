@@ -39,6 +39,8 @@ public class ProductActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowHomeEnabled(true);
         mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         new GetProduct().execute();
     }
@@ -62,6 +64,7 @@ public class ProductActivity extends Activity {
             public void onClick(View view) {
 
                 startActivity(new Intent(ProductActivity.this, Cart.class));
+                finish();
             }
         });
         LinearLayout.LayoutParams imgvwDimens =
@@ -89,8 +92,8 @@ public class ProductActivity extends Activity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onRestart() {
+        super.onRestart();
         SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         String JsonStr = mPrefs.getString("cart", "");
         Gson gson = new Gson();
@@ -106,10 +109,13 @@ public class ProductActivity extends Activity {
 
         int id = item.getItemId();
 
-
-        if (id == R.id.action_settings) {
-            return true;
+        if(id ==android.R.id.home)
+        {
+            Intent homeIntent = new Intent(this, MakeActivity.class);
+            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
         }
+
         if (id == R.id.action_user) {
             startActivity(new Intent(this, Login.class));
             return true;
@@ -156,23 +162,39 @@ public class ProductActivity extends Activity {
         @Override
         protected void onPostExecute(String s) {
             if (s!=null) {
-                Type listOfTestObject = new TypeToken<List<Product>>() {
-                }.getType();
-                listData = gson.fromJson(s, listOfTestObject);
-                ProductAdapter adapter=new ProductAdapter(ProductActivity.this,listData);
+                if(s.equals("[]"))
+                {
+                    ListView main_page=(ListView)findViewById(R.id.product_list);
+                    TextView error=(TextView)findViewById(R.id.error);
+                    error.setVisibility(View.VISIBLE);
+                    main_page.setVisibility(View.GONE);
+                }
+                else {
+                    Type listOfTestObject = new TypeToken<List<Product>>() {
+                    }.getType();
+                    listData = gson.fromJson(s, listOfTestObject);
+                    ProductAdapter adapter = new ProductAdapter(ProductActivity.this, listData);
+                    ListView main_page = (ListView) findViewById(R.id.product_list);
+                    main_page.setAdapter(adapter);
+                    main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                            Intent intent = new Intent(ProductActivity.this, Login.class);
+
+                            startActivity(intent);
+
+                        }
+                    });
+                }
+            }
+            else
+            {
                 ListView main_page=(ListView)findViewById(R.id.product_list);
-                main_page.setAdapter(adapter);
-                main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-
-                        Intent intent =new Intent(ProductActivity.this,Login.class);
-
-                        startActivity(intent);
-
-                    }
-                });
+                TextView error=(TextView)findViewById(R.id.error);
+                error.setVisibility(View.VISIBLE);
+                main_page.setVisibility(View.GONE);
             }
 
            pd.dismiss();
