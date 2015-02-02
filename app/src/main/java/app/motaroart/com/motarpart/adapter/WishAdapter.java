@@ -1,10 +1,8 @@
 package app.motaroart.com.motarpart.adapter;
 
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -156,17 +154,8 @@ public class WishAdapter extends BaseAdapter {
                         Toast.makeText(activity, "Product added in cart", Toast.LENGTH_LONG).show();
 
                     } else {
-                        new AlertDialog.Builder(activity)
-                                .setTitle(activity.getResources().getString(R.string.app_name))
-                                .setMessage("This Product is already in Cart")
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(activity,"This Product is already in Cart",Toast.LENGTH_SHORT).show();
 
-                                    }
-                                })
-
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
                     }
                 }else
                     Toast.makeText(activity,"Out of Stock try after some time.",Toast.LENGTH_SHORT).show();

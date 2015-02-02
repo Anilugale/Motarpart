@@ -146,17 +146,7 @@ public class ProductAdapter extends BaseAdapter {
                             ((ProductActivity) activity).updateCart(list.size());
                             Toast.makeText(activity, "Product added in cart", Toast.LENGTH_LONG).show();
                         } else {
-                            new AlertDialog.Builder(activity)
-                                    .setTitle(activity.getResources().getString(R.string.app_name))
-                                    .setMessage("This Product is already in Cart")
-                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-
-                                        }
-                                    })
-
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
-                                    .show();
+                            Toast.makeText(activity,"This Product is already in Cart",Toast.LENGTH_SHORT).show();
                         }
                     } else
                     {
@@ -223,7 +213,7 @@ public class ProductAdapter extends BaseAdapter {
                     {
                         new AlertDialog.Builder(activity)
                                 .setTitle(activity.getString(R.string.app_name))
-                                .setMessage("login for see wish list")
+                                .setMessage("You need to login to see your wish list.")
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
 
