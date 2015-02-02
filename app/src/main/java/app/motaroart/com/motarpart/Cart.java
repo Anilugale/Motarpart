@@ -173,6 +173,8 @@ public class Cart extends ActionBarActivity implements NavigationDrawerFragment.
                 error.setVisibility(View.VISIBLE);
                 Button con = (Button) findViewById(R.id.continueChekOut);
                 con.setEnabled(false);
+                LinearLayout layout=(LinearLayout) findViewById(R.id.totalprice);
+                layout.setVisibility(View.GONE);
             }
         }
         else {
@@ -237,6 +239,18 @@ public class Cart extends ActionBarActivity implements NavigationDrawerFragment.
             newPricedata+=entry.getValue().price*entry.getValue().qty;
 
 
+        }
+
+        if(cartcnt==0)
+        {
+
+            main_page.setVisibility(View.GONE);
+            TextView error=(TextView)findViewById(R.id.error);
+            error.setVisibility(View.VISIBLE);
+            Button con=(Button) findViewById(R.id.continueChekOut);
+            con.setEnabled(false);
+            LinearLayout layout=(LinearLayout) findViewById(R.id.totalprice);
+            layout.setVisibility(View.GONE);
         }
 
         totalPrice=newPricedata;//(totalPrice- oldPrice) ;

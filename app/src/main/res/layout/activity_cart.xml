@@ -62,7 +62,7 @@ Browse the store - find your favourite product.."
             android:id="@+id/mycart_list" />
 
         <LinearLayout
-
+android:id="@+id/totalprice"
             android:layout_width="match_parent"
             android:layout_gravity="bottom"
             android:orientation="vertical"

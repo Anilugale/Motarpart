@@ -120,8 +120,17 @@ public class UserActivity extends ActionBarActivity {
                    Gson gson=new Gson();
                    Type type=new TypeToken<List<OrderHistory>>(){}.getType();
                    orderHistoryList=gson.fromJson(json.getString("Order"),type);
-                   OrderHistoryAdapter adapter=new OrderHistoryAdapter(UserActivity.this,orderHistoryList);
-                   orderHistory.setAdapter(adapter);
+                   if(orderHistoryList.size()==0) {
+                       OrderHistoryAdapter adapter = new OrderHistoryAdapter(UserActivity.this, orderHistoryList);
+                       orderHistory.setAdapter(adapter);
+                   }
+                   else
+                   {
+
+                       orderHistory.setVisibility(View.GONE);
+                       TextView error=(TextView)findViewById(R.id.error);
+                       error.setVisibility(View.VISIBLE);
+                   }
 
                } catch (JSONException e) {
                    e.printStackTrace();
