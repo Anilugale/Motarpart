@@ -1,6 +1,5 @@
 package app.motaroart.com.motarpart;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -19,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -61,9 +61,9 @@ public class Cart extends ActionBarActivity implements NavigationDrawerFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
-      /*  getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(true);*/
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.iconl);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -127,49 +127,63 @@ public class Cart extends ActionBarActivity implements NavigationDrawerFragment.
         double grand=0.0;
         cart_cnt = (TextView) findViewById(R.id.cart_cnt);
         if(listData!=null) {
-            for (Product product : listData) {
-                if(user!=null) {
+            if (listData.size() != 0) {
+                for (Product product : listData) {
+                    if (user != null) {
 
-                    if(user.getAccountType().equals("C")) {
+                        if (user.getAccountType().equals("C")) {
+                            grand += Double.valueOf(product.getProductPrice().trim());
+                        } else if (user.getAccountType().equals("W")) {
+                            grand += Double.valueOf(product.getWholesalerPrice().trim());
+                        } else if (user.getAccountType().equals("R")) {
+                            grand += Double.valueOf(product.getRetailerPrice().trim());
+                        } else {
+                            grand += Double.valueOf(product.getProductPrice().trim());
+                        }
+                    } else {
                         grand += Double.valueOf(product.getProductPrice().trim());
                     }
-                    else  if(user.getAccountType().equals("W")) {
-                        grand += Double.valueOf(product.getWholesalerPrice().trim());
-                    }else  if(user.getAccountType().equals("R")) {
-                        grand += Double.valueOf(product.getRetailerPrice().trim());
-                    }
-                    else
-                    {
-                        grand += Double.valueOf(product.getProductPrice().trim());
-                    }
-                }
-                else
-                {
-                    grand += Double.valueOf(product.getProductPrice().trim());
+
+
                 }
 
+                double vatPrice = (grand * vatRate);
+                this.vatPrice = vatPrice;
+
+                totalPrice = Math.floor(grand);
+                total_item.setText(curruncy + totalPrice + "0");
+                product_grand_price.setText(curruncy + Math.floor(totalPrice + vatPrice) + "0");
+                vat_price.setText(curruncy + Math.floor(vatPrice) + "0");
+                cart_cnt.setText("My Cart (" + listData.size() + ")");
+                adapter = new CartAdapter(this, listData);
+                main_page = (ListView) findViewById(R.id.mycart_list);
+                main_page.setAdapter(adapter);
+                main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Intent intent = new Intent(Cart.this, Login.class);
+                        startActivity(intent);
+                    }
+                });
+            } else {
+                cart_cnt.setText("My Cart (" + 0 + ")");
+                main_page = (ListView) findViewById(R.id.mycart_list);
+                main_page.setVisibility(View.GONE);
+                TextView error = (TextView) findViewById(R.id.error);
+                error.setVisibility(View.VISIBLE);
+                Button con = (Button) findViewById(R.id.continueChekOut);
+                con.setEnabled(false);
             }
-            double vatPrice=(grand*vatRate);
-            this.vatPrice=vatPrice;
-
-            totalPrice=Math.floor(grand);
-            total_item.setText(curruncy+totalPrice+"0");
-            product_grand_price.setText(curruncy+Math.floor(totalPrice+vatPrice)+"0");
-            vat_price.setText(curruncy+Math.floor(vatPrice)+"0");
-            cart_cnt.setText("My Cart (" + listData.size() + ")");
-            adapter = new CartAdapter(this, listData);
-            main_page = (ListView) findViewById(R.id.mycart_list);
-            main_page.setAdapter(adapter);
-            main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent intent = new Intent(Cart.this, Login.class);
-                    startActivity(intent);
-                }
-            });
         }
-        else
-            cart_cnt.setText("My Cart (" +0 + ")");
+        else {
+            cart_cnt.setText("My Cart (" + 0 + ")");
+            main_page = (ListView) findViewById(R.id.mycart_list);
+            main_page.setVisibility(View.GONE);
+            TextView error=(TextView)findViewById(R.id.error);
+            error.setVisibility(View.VISIBLE);
+            Button con=(Button) findViewById(R.id.continueChekOut);
+            con.setEnabled(false);
+        }
     }
 
     public void updateGrandPrice(double oldPrice,double newPrice,String productID)
@@ -421,6 +435,10 @@ public class Cart extends ActionBarActivity implements NavigationDrawerFragment.
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
+
+        if (mNavigationDrawerFragment.mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
 
         if(id ==android.R.id.home)
         {

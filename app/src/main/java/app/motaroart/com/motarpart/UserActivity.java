@@ -1,6 +1,5 @@
 package app.motaroart.com.motarpart;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -47,6 +46,9 @@ public class UserActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_acitivity);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.iconl);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         pref=getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
         String userStr=pref.getString("user","");
 

@@ -1,6 +1,5 @@
 package app.motaroart.com.motarpart;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -17,7 +16,9 @@ public class ForgetPassword extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
-
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.iconl);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
     }
 

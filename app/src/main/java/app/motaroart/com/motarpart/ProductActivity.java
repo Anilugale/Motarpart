@@ -1,6 +1,5 @@
 package app.motaroart.com.motarpart;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -47,9 +46,10 @@ public class ProductActivity extends ActionBarActivity implements NavigationDraw
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
-   /*     getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(true);*/
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.iconl);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -147,6 +147,10 @@ public class ProductActivity extends ActionBarActivity implements NavigationDraw
 
         int id = item.getItemId();
 
+
+        if (mNavigationDrawerFragment.mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
         if(id ==android.R.id.home)
         {
             Intent homeIntent = new Intent(this, MakeActivity.class);

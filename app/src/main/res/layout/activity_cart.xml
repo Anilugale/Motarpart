@@ -30,7 +30,23 @@ tools:context=".MainActivity">
             android:text="My Cart (0)"
             />
 
+        <TextView
+
+            android:id="@+id/error"
+            android:visibility="gone"
+            android:layout_weight="3"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:text="There are no items in this cart."
+            android:textStyle="bold|italic"
+            android:textSize="17sp"
+            android:textColor="#000"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            />
+
         <ListView
+
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_margin="5dp"
@@ -140,7 +156,7 @@ tools:context=".MainActivity">
             android:layout_height="wrap_content">
             <Button
                 android:layout_margin="1dp"
-                android:text="Shopping more"
+                android:text="SHOP MORE"
                 android:textStyle="bold"
                 android:background="@drawable/btn_back"
                 android:layout_width="0dp"
@@ -150,8 +166,9 @@ tools:context=".MainActivity">
                 android:layout_height="wrap_content"
                 />
             <Button
+                android:id="@+id/continueChekOut"
                 android:layout_margin="1dp"
-                android:text="CHECKOUT AND CONTINUE"
+                android:text="CHECKOUT"
                 android:textStyle="bold"
                 android:background="@drawable/btn_back"
                 android:layout_width="0dp"

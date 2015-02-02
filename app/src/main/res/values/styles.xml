@@ -8,14 +8,14 @@
     </style>
     <style name="MyActionBar" parent="@style/Theme.AppCompat.Light">
         <item name="android:icon">@drawable/iconl</item>
-        <item name="android:windowNoTitle">true</item>
+
         <item name="android:homeAsUpIndicator">@drawable/home</item>
         <item name="android:titleTextStyle">@style/NoTitleText</item>
         <item name="android:subtitleTextStyle">@style/NoTitleText</item>
     </style>
 
 
-    <style name="NoTitleText">
+    <style name="NoTitleText" parent="@style/Theme.AppCompat.Light">
         <item name="android:textSize">0sp</item>
         <item name="android:textColor">#00000000</item>
     </style>

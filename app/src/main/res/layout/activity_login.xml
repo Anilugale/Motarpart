@@ -95,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Forget Password"
+            android:text="New User"
             android:onClick="register"
             android:textColor="#ffffff"
             android:background="@drawable/btn_back"

@@ -25,17 +25,36 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         />
-    <TextView
-        android:id="@+id/total"
-        android:paddingRight="10dp"
+    <LinearLayout
+        android:weightSum="2"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:textColor="#ff8d0e0c"
-        android:gravity="right"
-        android:layout_margin="3dp"
-        android:text="KES. 20020.0"/>
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:paddingRight="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="#ff070101"
+            android:gravity="left"
+            android:layout_margin="3dp"
+            android:text="Total"/>
+        <TextView
+            android:id="@+id/total"
+            android:paddingRight="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="#ff8d0e0c"
+            android:gravity="right"
+            android:layout_margin="3dp"
+            android:text="KES. 20020.0"/>
+    </LinearLayout>
 
     <RadioGroup
         android:orientation="vertical"
@@ -79,7 +98,7 @@
         android:gravity="center"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:text="M-Paisa"
+        android:text=""
 
         />
     <View

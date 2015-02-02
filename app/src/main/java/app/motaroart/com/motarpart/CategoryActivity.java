@@ -1,6 +1,5 @@
 package app.motaroart.com.motarpart;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -49,6 +48,9 @@ public class CategoryActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category2);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.iconl);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         new DownloadData().execute();
         // search
         key_word=(EditText)findViewById(R.id.key_word);
@@ -233,7 +235,7 @@ public class CategoryActivity extends ActionBarActivity {
 
 
 
-                mPrefs.edit().putString("Setting", WebServiceCall.getSetting()).apply();
+
             }
 
 

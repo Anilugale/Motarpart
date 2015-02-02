@@ -14,7 +14,7 @@
         android:textColor="#fff"
         android:background="#1B62A2"
         android:padding="10dp"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:textSize="15dp"
         android:textStyle="bold"
         android:text="Create Account"/>
@@ -29,22 +29,25 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin">
+          >
 
 
             <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="40dip"
                 android:background="@drawable/edit_text_back"
                 android:gravity="center_vertical"
-                android:hint="Name"
-                android:paddingLeft="5dp" />
+                android:hint="  Name"
+            />
 
 
             <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/username"
                 android:layout_width="match_parent"
@@ -54,6 +57,8 @@
                 android:hint="Username"
                 android:paddingLeft="5dp" />
             <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:id="@+id/password1"
                 android:inputType="textWebPassword"
                 android:layout_width="match_parent"
@@ -65,6 +70,8 @@
                 android:paddingLeft="5dp" />
 
             <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:id="@+id/password2"
                 android:inputType="textWebPassword"
                 android:layout_width="match_parent"
@@ -77,6 +84,8 @@
                 android:paddingLeft="5dp" />
 
             <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:id="@+id/mobile"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -90,6 +99,8 @@
 
 
             <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -106,6 +117,7 @@
                 android:background="#1B62A2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="25dp"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:textStyle="bold"
@@ -113,6 +125,8 @@
                 android:id="@+id/company_detail"
                 android:textSize="15dp" />
             <RadioGroup
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:visibility="gone"
                 android:id="@+id/user_type"
                 android:layout_width="match_parent"
@@ -137,6 +151,8 @@
 
 
             <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:visibility="gone"
                 android:id="@+id/company_name"
                 android:layout_width="match_parent"
@@ -150,6 +166,8 @@
                 android:paddingLeft="5dp" />
 
             <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:visibility="gone"
                 android:id="@+id/tin_number"
                 android:layout_width="match_parent"
@@ -162,6 +180,8 @@
                 android:hint="TIN Number"
                 android:paddingLeft="5dp" />
             <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:visibility="gone"
                 android:id="@+id/vat_number"
                 android:layout_width="match_parent"
@@ -176,6 +196,7 @@
 
 
             <CheckBox
+                android:paddingLeft="25dp"
                 android:layout_marginTop="10dp"
                 android:textColor="#fff"
                 android:background="#1B62A2"
@@ -189,6 +210,8 @@
                 android:textSize="15sp" />
 
             <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:visibility="gone"
                 android:id="@+id/address"
                 android:layout_width="match_parent"
@@ -204,6 +227,8 @@
                 android:paddingLeft="5dp" />
 
             <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:visibility="gone"
                 android:id="@+id/addresss2"
                 android:layout_width="match_parent"
@@ -217,6 +242,8 @@
                 android:hint="Address 2"
                 android:paddingLeft="5dp" />
             <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:visibility="gone"
                 android:id="@+id/city_p"
                 android:layout_width="match_parent"
@@ -234,17 +261,19 @@
                 android:id="@+id/po_code"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edit_text_back"
                 android:gravity="center_vertical"
                 android:inputType="text"
                 android:hint="POST BOX NO"
-                android:paddingLeft="5dp" />
+               />
 
 
             <CheckBox
+                android:paddingLeft="25dp"
                 android:textStyle="bold"
                 android:textColor="#fff"
                 android:background="#1B62A2"
@@ -259,7 +288,8 @@
                 android:textSize="15sp" />
 
             <EditText
-
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:visibility="gone"
@@ -274,6 +304,8 @@
                 android:textStyle="bold"
                 />
             <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edit_text_back"
@@ -288,6 +320,8 @@
                 android:textStyle="bold"
                 />
             <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:visibility="gone"
@@ -302,6 +336,8 @@
                 android:textStyle="bold"
                 />
             <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:visibility="gone"
@@ -316,6 +352,8 @@
                 android:textStyle="bold"
                 />
             <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:visibility="gone"
@@ -332,6 +370,8 @@
 
 
             <Button
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

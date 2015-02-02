@@ -1,6 +1,5 @@
 package app.motaroart.com.motarpart;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,7 +11,6 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -46,7 +44,7 @@ import app.motaroart.com.motarpart.services.WebServiceCall;
 public class MakeActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
     private NavigationDrawerFragment mNavigationDrawerFragment;
-    DrawerLayout mDrawerLayout;
+
     MakeAdapter adapter;
     private CharSequence mTitle;
     List<Make> listData;
@@ -57,6 +55,9 @@ public class MakeActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.iconl);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
        init();
         mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         final EditText key_word;
@@ -207,7 +208,9 @@ public class MakeActivity extends ActionBarActivity
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-
+        if (mNavigationDrawerFragment.mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
 
         if (id == R.id.action_user) {
             startActivity(new Intent(this, Login.class));
@@ -217,8 +220,9 @@ public class MakeActivity extends ActionBarActivity
             if(InternetState.getState(MakeActivity.this)) {
                 startActivity(new Intent(this, WishActivity.class));
             }
-            Toast.makeText(this, "Connection has lost", Toast.LENGTH_LONG).show();
-
+            else {
+                Toast.makeText(this, "Connection has lost", Toast.LENGTH_LONG).show();
+            }
             return true;
         }
 

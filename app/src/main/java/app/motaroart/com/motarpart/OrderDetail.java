@@ -1,6 +1,5 @@
 package app.motaroart.com.motarpart;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -44,8 +43,9 @@ public class OrderDetail extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail);
         String  orderNumber=getIntent().getStringExtra("orderNumber");
-       /* getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(true);*/
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.iconl);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         if(InternetState.getState(this))
         {
             new DataDownload().execute(orderNumber);
@@ -99,17 +99,20 @@ public class OrderDetail extends ActionBarActivity {
         no_of_item.setText(format.format(date))  ;
 
         TextView subtotal=(TextView)findViewById(R.id.subtotal);
-        subtotal.setText(currency+orderDetails.getOrder().get(0).getOrderAmount());
+        subtotal.setText(currency+orderDetails.getOrder().get(0).getOrderAmount()+"0");
 
         TextView vat_price=(TextView)findViewById(R.id.vat_price);
-        vat_price.setText(currency+orderDetails.getOrder().get(0).getVATAmount());
+        vat_price.setText(currency+orderDetails.getOrder().get(0).getVATAmount()+"0");
 
 
         TextView grand_total=(TextView)findViewById(R.id.grand_total);
-        grand_total.setText(currency+ orderDetails.getOrder().get(0).getTotalAmount());
+        grand_total.setText(currency+ orderDetails.getOrder().get(0).getTotalAmount()+"0");
 
         TextView vat_pre=(TextView)findViewById(R.id.vat_per1);
         vat_pre.setText("VAT ("+orderDetails.getOrder().get(0).getVATPercent()+")");
+
+        TextView order_by=(TextView)findViewById(R.id.order_by);
+        order_by.setText(orderDetails.getOrder().get(0).getOrderBy());
 
         ListView orderHistory=(ListView)findViewById(R.id.order_history);
         ProductHistoryAdapter adapter=new ProductHistoryAdapter(this,orderDetails.getOrderDetails());

@@ -56,7 +56,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     private NavigationDrawerCallbacks mCallbacks;
 
 
-    private ActionBarDrawerToggle mDrawerToggle;
+    public ActionBarDrawerToggle mDrawerToggle;
 
     private DrawerLayout mDrawerLayout;
     View mFragmentContainerView;
@@ -146,7 +146,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         ProgressDialog pd;
         @Override
         protected String doInBackground(Void... voids) {
-
+            mPrefs.edit().putString("Setting", WebServiceCall.getSetting()).apply();
 
             return WebServiceCall.getMakeJson();
         }
@@ -172,6 +172,24 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                 MakeAdapterSpinner makeAdapter = new MakeAdapterSpinner(getActivity(), listData);
                 sMake.setAdapter(makeAdapter);
 
+                Model model=new Model();
+                model.setModelName("Model");
+                model.setModelId("-1");
+                listDataModel = new ArrayList<>();
+                listDataModel.add(0,model);
+                ModelAdapterSpinner ModelAdapter = new ModelAdapterSpinner(getActivity(), listDataModel);
+                sModel.setAdapter(ModelAdapter);
+                ModelAdapter.notifyDataSetChanged();
+
+                CategoryPojo cat=new CategoryPojo();
+                cat.setCategory("Category");
+                cat.setCategoryId("-1");
+                listDataCat =new ArrayList<>();
+                listDataCat.add(0,cat);
+                CategoryAdapterSpinner catAdapter = new CategoryAdapterSpinner(getActivity(), listDataCat);
+
+                category.setAdapter(catAdapter);
+                catAdapter.notifyDataSetChanged();
                 pd.dismiss();
                 super.onPostExecute(s);
             }

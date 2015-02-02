@@ -64,6 +64,7 @@ public class ProductHistoryAdapter extends BaseAdapter {
             holder.p_rate = (TextView) view.findViewById(R.id.p_rate);
             holder.p_total = (TextView) view.findViewById(R.id.p_total);
             holder.p_number = (TextView) view.findViewById(R.id.p_number);
+            holder.code = (TextView) view.findViewById(R.id.code);
             holder.part_images= (ImageView) view.findViewById(R.id.part_images);
             view.setTag(holder);
         }
@@ -74,6 +75,7 @@ public class ProductHistoryAdapter extends BaseAdapter {
 
 
         holder.p_name.setText("  " + listMain.get(i).getProductName().toUpperCase());
+        holder.code.setText("  " + listMain.get(i).getProductCode().toUpperCase());
         holder.p_number.setText("  " + listMain.get(i).getProductNumber().toUpperCase());
         holder.p_qty.setText("  " + listMain.get(i).getQuantity().toUpperCase());
         holder.p_total.setText("  " + currency+ listMain.get(i).getTotalAmount().toUpperCase());
@@ -85,7 +87,7 @@ public class ProductHistoryAdapter extends BaseAdapter {
 
 
     static class ViewHolder {
-        TextView p_name,p_qty,p_rate,p_total,p_number;
+        TextView p_name,p_qty,p_rate,p_total,p_number,code;
         ImageView part_images;
     }
 

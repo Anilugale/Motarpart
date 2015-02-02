@@ -1,6 +1,5 @@
 package app.motaroart.com.motarpart;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -52,7 +51,9 @@ public class WishActivity extends ActionBarActivity implements NavigationDrawerF
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wish);
-
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.iconl);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -123,22 +124,33 @@ public class WishActivity extends ActionBarActivity implements NavigationDrawerF
                         }.getType();
                         Gson gson = new Gson();
                         List<Product> listData = gson.fromJson(s, listOfTestObject);
-                        WishAdapter adapter = new WishAdapter(WishActivity.this, listData);
-
                         ListView main_page = (ListView) findViewById(R.id.product_list);
-                        main_page.setAdapter(adapter);
-
-                        main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        if(listData.size()!=0) {
 
 
-                                Intent intent = new Intent(WishActivity.this, Login.class);
+                            WishAdapter adapter = new WishAdapter(WishActivity.this, listData);
 
-                                startActivity(intent);
 
-                            }
-                        });
+                            main_page.setAdapter(adapter);
+
+                            main_page.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                                    Intent intent = new Intent(WishActivity.this, Login.class);
+
+                                    startActivity(intent);
+
+                                }
+                            });
+                        }
+                        else
+                        {
+                            main_page.setVisibility(View.GONE);
+                            TextView error=(TextView) findViewById(R.id.error);
+                            error.setVisibility(View.VISIBLE);
+                        }
                     }
 
                 }
@@ -254,6 +266,9 @@ public class WishActivity extends ActionBarActivity implements NavigationDrawerF
         int id = item.getItemId();
 
 
+        if (mNavigationDrawerFragment.mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
 
         if (id == R.id.action_user) {
             startActivity(new Intent(this, Login.class));

@@ -1,6 +1,5 @@
 package app.motaroart.com.motarpart;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -61,8 +60,9 @@ public class Payment extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
         order= (Order) getIntent().getSerializableExtra("order");
-    /*    getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(true)*/;
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.iconl);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         ins=this;
         init();
     }
@@ -106,7 +106,7 @@ public class Payment extends ActionBarActivity {
                         Toast.makeText(Payment.this,"Bank",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.cash_on_delivery:
-                        payment_type.setText("Cash on delivery");
+                        payment_type.setText("Cash on delivery".toUpperCase());
                         order.setTransactionMode("COD");
                         cod_btn.setVisibility(View.VISIBLE);
                         mpaisa_edit.setVisibility(View.GONE);

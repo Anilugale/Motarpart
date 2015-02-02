@@ -1,6 +1,5 @@
 package app.motaroart.com.motarpart;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -38,7 +37,9 @@ public class Registration extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         init();
-
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.iconl);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         company_detail = (CheckBox) findViewById(R.id.company_detail);
         postal_address = (CheckBox) findViewById(R.id.postal_address);
         shipping_address = (CheckBox) findViewById(R.id.shipping_address);
