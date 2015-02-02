@@ -40,10 +40,16 @@ public class Login extends ActionBarActivity {
         isCart=getIntent().getBooleanExtra("Cart",false);
         pref=getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
         String userStr=pref.getString("user","");
+
         if(!userStr.equals(""))
         {
-          startActivity(new Intent(this,UserActivity.class));
-            finish();
+            if(isCart) {
+               finish();
+            }
+            else {
+                startActivity(new Intent(this, UserActivity.class));
+                finish();
+            }
         }
 
 
@@ -75,6 +81,9 @@ public class Login extends ActionBarActivity {
         });
 
     }
+
+
+
     public void register(View view) {
         Intent intent = new Intent(Login.this, Registration.class);
         startActivity(intent);
@@ -144,7 +153,13 @@ class Validation extends AsyncTask<Void,Void,String>
             if(errorCode.equals("1000"))
             {
                 SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+
                 mPrefs.edit().putString("user",jsonResult.getJSONArray("UserAccount").get(0).toString()).apply();
+                Bundle conData = new Bundle();
+                conData.putString("param_result", "Thanks Thanks");
+                Intent intent = new Intent();
+                intent.putExtras(conData);
+                setResult(444, intent);
 
               
                 finish();

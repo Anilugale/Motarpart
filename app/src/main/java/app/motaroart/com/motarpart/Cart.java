@@ -250,7 +250,19 @@ public class Cart extends ActionBarActivity implements NavigationDrawerFragment.
     double totalPrice;
     double vatPrice;
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if(resultCode==444) {
+            String userStr = mPrefs.getString("user", "");
+            Gson gson = new Gson();
+            Type type = new TypeToken<User>() {
+            }.getType();
+            user = gson.fromJson(userStr, type);
+        }
+
+    }
 
     public void continueChekOut(View view) {
 
@@ -260,8 +272,8 @@ public class Cart extends ActionBarActivity implements NavigationDrawerFragment.
 
             if(user==null)
             {
-                startActivity(new Intent(this,Login.class).putExtra("Cart",true));
-                finish();
+                this.startActivityForResult(new Intent(this, Login.class).putExtra("Cart", true),555);
+
             }
             else {
 
