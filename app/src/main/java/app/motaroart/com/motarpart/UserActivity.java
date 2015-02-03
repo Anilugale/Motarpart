@@ -42,6 +42,7 @@ public class UserActivity extends ActionBarActivity {
     User user;
     ListView orderHistory;
     List<OrderHistory> orderHistoryList;
+    DownloadData task;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,10 +61,18 @@ public class UserActivity extends ActionBarActivity {
             init();
             Toast.makeText(this,user.getEmailId(),Toast.LENGTH_SHORT).show();
         }
-        if(InternetState.getState(this))
-            new DownloadData().execute();
+        if(InternetState.getState(this)) {
+            task = new DownloadData();
+            task.execute();
+        }
         else
         Toast.makeText(this, " Connection has lost", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        task.cancel(true);
     }
 
     void init()
@@ -113,36 +122,40 @@ public class UserActivity extends ActionBarActivity {
        @Override
        protected void onPostExecute(String s) {
 
-           if(s!=null)
-           {
-               try {
-                   JSONObject json=new JSONObject(s);
-                   Gson gson=new Gson();
-                   Type type=new TypeToken<List<OrderHistory>>(){}.getType();
-                   orderHistoryList=gson.fromJson(json.getString("Order"),type);
-                   if(orderHistoryList.size()==0) {
-                       OrderHistoryAdapter adapter = new OrderHistoryAdapter(UserActivity.this, orderHistoryList);
-                       orderHistory.setAdapter(adapter);
-                   }
-                   else
-                   {
 
-                       orderHistory.setVisibility(View.GONE);
-                       TextView error=(TextView)findViewById(R.id.error);
-                       error.setVisibility(View.VISIBLE);
+           if (!isCancelled()) {
+               if(s!=null)
+               {
+                   try {
+
+                       JSONObject json=new JSONObject(s);
+                       Gson gson=new Gson();
+                       Type type=new TypeToken<List<OrderHistory>>(){}.getType();
+                       orderHistoryList=gson.fromJson(json.getString("Order"),type);
+                       if(orderHistoryList.size()!=0) {
+                           OrderHistoryAdapter adapter = new OrderHistoryAdapter(UserActivity.this, orderHistoryList);
+                           orderHistory.setAdapter(adapter);
+                       }
+                       else
+                       {
+
+                           orderHistory.setVisibility(View.GONE);
+                           TextView error=(TextView)findViewById(R.id.error);
+                           error.setVisibility(View.VISIBLE);
+                       }
+
+                   } catch (JSONException e) {
+                       e.printStackTrace();
                    }
 
-               } catch (JSONException e) {
-                   e.printStackTrace();
+
                }
-
-
+               else
+               {
+                   Toast.makeText(UserActivity.this,"Opps!,Connection has lost.",Toast.LENGTH_LONG).show();
+               }
+               pd.dismiss();
            }
-           else
-           {
-               Toast.makeText(UserActivity.this,"Opps!,Connection has lost.",Toast.LENGTH_LONG).show();
-           }
-           pd.dismiss();
            super.onPostExecute(s);
        }
    }
@@ -220,15 +233,15 @@ public class UserActivity extends ActionBarActivity {
             startActivity(homeIntent);
         }
         if (id == R.id.logout) {
+            Intent homeIntent = new Intent(this, MakeActivity.class);
+            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
             pref.edit().remove("user").apply();
             finish();
             return true;
         }
 
-        if (id == R.id.action_user) {
-            startActivity(new Intent(this, Login.class));
-            return true;
-        }
+
         if(id==R.id.action_wish){
             startActivity(new Intent(this, WishActivity.class));
             return true;

@@ -39,6 +39,7 @@ tools:context=".MainActivity">
             android:layout_width="match_parent"
             android:text="Your cart is empty !
 
+
 Browse the store - find your favourite product.."
             android:textStyle="bold|italic"
             android:textSize="17sp"

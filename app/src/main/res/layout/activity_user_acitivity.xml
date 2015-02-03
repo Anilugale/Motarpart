@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:gravity="center"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:textColor="#fff"
         android:background="#0A5692"
@@ -24,9 +24,7 @@
         android:layout_weight="3"
         android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:text="Your cart is empty !
-
-Browse the store - find your favourite product.."
+        android:text="No Order in your account."
         android:textStyle="bold|italic"
         android:textSize="17sp"
         android:textColor="#000"

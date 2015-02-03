@@ -107,7 +107,7 @@ public class WishActivity extends ActionBarActivity implements NavigationDrawerF
                     if (s.equals("NotLogin")) {
                         new AlertDialog.Builder(WishActivity.this)
                                 .setTitle(WishActivity.this.getString(R.string.app_name))
-                                .setMessage("login for see wish list")
+                                .setMessage("Login to see your wish List!")
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         finish();
@@ -115,6 +115,7 @@ public class WishActivity extends ActionBarActivity implements NavigationDrawerF
                                 })
 
                                 .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setCancelable(false)
                                 .show();
 
                     }

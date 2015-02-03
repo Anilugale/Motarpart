@@ -99,14 +99,14 @@ public class OrderDetail extends ActionBarActivity {
         no_of_item.setText(format.format(date))  ;
 
         TextView subtotal=(TextView)findViewById(R.id.subtotal);
-        subtotal.setText(currency+orderDetails.getOrder().get(0).getOrderAmount()+"0");
+        subtotal.setText(currency+orderDetails.getOrder().get(0).getOrderAmount()+"");
 
         TextView vat_price=(TextView)findViewById(R.id.vat_price);
-        vat_price.setText(currency+orderDetails.getOrder().get(0).getVATAmount()+"0");
+        vat_price.setText(currency+orderDetails.getOrder().get(0).getVATAmount()+"");
 
 
         TextView grand_total=(TextView)findViewById(R.id.grand_total);
-        grand_total.setText(currency+ orderDetails.getOrder().get(0).getTotalAmount()+"0");
+        grand_total.setText(currency+ orderDetails.getOrder().get(0).getTotalAmount()+"");
 
         TextView vat_pre=(TextView)findViewById(R.id.vat_per1);
         vat_pre.setText("VAT ("+orderDetails.getOrder().get(0).getVATPercent()+")");

@@ -55,6 +55,13 @@ public class CartAdapter extends BaseAdapter {
         inflater = (LayoutInflater) activity.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         imageLoader = new ImageLoader(activity.getApplicationContext());
+
+        for(Product pro:listData)
+        {
+            listQty.put(pro.getProductId(), new Price(Double.valueOf(pro.getProductPrice()),1));
+        }
+
+
     }
 
     @Override

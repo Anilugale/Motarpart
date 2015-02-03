@@ -185,6 +185,8 @@ public class Cart extends ActionBarActivity implements NavigationDrawerFragment.
             error.setVisibility(View.VISIBLE);
             Button con=(Button) findViewById(R.id.continueChekOut);
             con.setEnabled(false);
+            LinearLayout layout=(LinearLayout) findViewById(R.id.totalprice);
+            layout.setVisibility(View.GONE);
         }
     }
 

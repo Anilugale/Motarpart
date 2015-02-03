@@ -163,7 +163,7 @@ tools:context=".MainActivity">
                 android:gravity="center"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:text="Address"
+                android:text=" Shipping Address"
                 android:background="#1B62A2"
                 />
 

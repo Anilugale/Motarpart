@@ -147,29 +147,35 @@ public class Summry extends ActionBarActivity implements NavigationDrawerFragmen
         if(add1.getText().toString().trim().length()==0)
         {
             Toast.makeText(this,"Enter the Address1!",Toast.LENGTH_SHORT).show();
+            add1.requestFocus();
             return false;
         }
         else
         if(add2.getText().toString().trim().length()==0)
         {
             Toast.makeText(this,"Enter the Address2!",Toast.LENGTH_SHORT).show();
+            add2.requestFocus();
             return false;
         }
         else if(state.getText().toString().trim().length()==0)
         {
             Toast.makeText(this,"Enter the State!",Toast.LENGTH_SHORT).show();
+            state.requestFocus();
             return false;
         } else if(city.getText().toString().trim().length()==0)
         {
             Toast.makeText(this,"Enter the City!",Toast.LENGTH_SHORT).show();
+            city.requestFocus();
             return false;
         }else if(pobox.getText().toString().trim().length()==0)
         {
             Toast.makeText(this,"Enter the Po Box!",Toast.LENGTH_SHORT).show();
+            pobox.requestFocus();
             return false;
         }if(order.getProductList().size()==0)
         {
             Toast.makeText(this,"Cart is empty!",Toast.LENGTH_SHORT).show();
+
             return false;
         }
         return true;
@@ -248,7 +254,10 @@ public class Summry extends ActionBarActivity implements NavigationDrawerFragmen
             startActivity(new Intent(this, Login.class));
             return true;
         }
-
+        if(id==R.id.action_wish){
+            startActivity(new Intent(this, WishActivity.class));
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
