@@ -97,10 +97,10 @@ public class Summry extends ActionBarActivity implements NavigationDrawerFragmen
 
 
             cntTotal.setText(order.getProductCount()+"");
-            total.setText(currency+order.getTotalAmount()+"");
-            item_total.setText(currency+order.getOrderAmount()+"");
+            total.setText(currency+order.getTotalAmount()+"0");
+            item_total.setText(currency+order.getOrderAmount()+"0");
             vat_per.setText("VAT ("+order.getVATPercent()+"%)");
-            vat_price.setText(currency+order.getVATAmount()+"");
+            vat_price.setText(currency+order.getVATAmount()+"0");
 
 
             add1=(EditText)findViewById(R.id.address1);

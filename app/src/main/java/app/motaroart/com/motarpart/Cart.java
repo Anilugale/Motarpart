@@ -447,9 +447,14 @@ public class Cart extends ActionBarActivity implements NavigationDrawerFragment.
     @Override
     protected void onRestart() {
         super.onRestart();
+        String userStr = mPrefs.getString("user", "");
+        Gson gson = new Gson();
+        Type type = new TypeToken<User>() {
+        }.getType();
+        user = gson.fromJson(userStr, type);
         SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
         String JsonStr = mPrefs.getString("cart", "");
-        Gson gson = new Gson();
+
         Type listOfTestObject = new TypeToken<List<Product>>() {
         }.getType();
         List<Product> list = gson.fromJson(JsonStr, listOfTestObject);

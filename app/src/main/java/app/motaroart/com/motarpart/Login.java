@@ -95,8 +95,6 @@ public class Login extends ActionBarActivity {
         if (validateData()) {
             new Validation().execute();
         }
-
-
     }
 
     private boolean validateData() {

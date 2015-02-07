@@ -211,81 +211,8 @@ public class Registration extends ActionBarActivity {
 
                 }
 
-
-
         }
 
-                   /* if (postal_address.isChecked()) {
-
-                        address = validateAddress();
-                        if (address) {
-                            customer.setAddress1(this.addresss1.getText().toString().trim());
-                            customer.setAddress2(this.addresss2.getText().toString().trim());
-                            customer.setCity(this.city_p.getText().toString().trim());
-                            customer.setPoBox(this.po_code.getText().toString().trim());
-                        }
-                        if (validateShippingAddress()) {
-                            customer.setShipmentAddress1(address1.getText().toString().trim());
-                            customer.setShipmentAddress2(address2.getText().toString().trim());
-                            customer.setShipmentState(state.getText().toString().trim());
-                            customer.setShipmentCity(city.getText().toString().trim());
-                            customer.setShipmentPoBox(pobox.getText().toString().trim());
-                            new RegisterBack().execute();
-                        } else {
-
-
-                            new RegisterBack().execute();
-                        }
-
-
-
-
-                } else if (shipping_address.isChecked()) {
-                    if (validateShippingAddress()) {
-                        customer.setShipmentAddress1(address1.getText().toString().trim());
-                        customer.setShipmentAddress2(address2.getText().toString().trim());
-                        customer.setShipmentState(state.getText().toString().trim());
-                        customer.setShipmentCity(city.getText().toString().trim());
-                        customer.setShipmentPoBox(pobox.getText().toString().trim());
-                        new RegisterBack().execute();
-                    } else {
-                        new RegisterBack().execute();
-                    }
-
-                }
-
-            } else {
-
-                if (postal_address.isChecked()) {
-
-                    address = validateAddress();
-                    if (address) {
-                        customer.setAddress1(this.addresss1.getText().toString().trim());
-                        customer.setAddress2(this.addresss2.getText().toString().trim());
-                        customer.setCity(this.city_p.getText().toString().trim());
-                        customer.setPoBox(this.po_code.getText().toString().trim());
-                        new RegisterBack().execute();
-                    }
-                }
-               else  if (shipping_address.isChecked()) {
-                    if (validateShippingAddress()) {
-                        customer.setShipmentAddress1(address1.getText().toString().trim());
-                        customer.setShipmentAddress2(address2.getText().toString().trim());
-                        customer.setShipmentState(state.getText().toString().trim());
-                        customer.setShipmentCity(city.getText().toString().trim());
-                        customer.setShipmentPoBox(pobox.getText().toString().trim());
-                        new RegisterBack().execute();
-                    } else {
-                        new RegisterBack().execute();
-                    }
-
-
-                } else {
-                    new RegisterBack().execute();
-                }
-
-            }
-        }*/
     }
 
     boolean validateAddress()
@@ -418,8 +345,11 @@ public class Registration extends ActionBarActivity {
                     {
                         SharedPreferences mPrefs = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);                        mPrefs.edit().putString("user",jsonResult.getJSONArray("UserAccount").get(0).toString()).apply();
                         mPrefs.edit().putString("user",jsonResult.getJSONArray("UserAccount").get(0).toString());
-                        Intent intent=new Intent(Registration.this,MakeActivity.class);
-                        startActivity(intent);
+                        Intent intent = new Intent();
+                        Bundle conData = new Bundle();
+                        conData.putString("param_result", "Thanks Thanks");
+                        intent.putExtras(conData);
+                        setResult(444, intent);
                         finish();
                     }
 
